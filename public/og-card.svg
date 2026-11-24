@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="og-title og-desc">
+  <title id="og-title">Christian Muhirwa — IkiLang &amp; KinyaVoice Engineering Portfolio</title>
+  <desc id="og-desc">Real-time low-resource speech translation infrastructure: captions-first, evaluation-gated, and privacy-minimal.</desc>
+
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7f8f5" />
+      <stop offset="100%" stop-color="#eef1eb" />
+    </linearGradient>
+    <linearGradient id="emerald-panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#192b23" />
+      <stop offset="100%" stop-color="#245c43" />
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+  <rect x="32" y="32" width="1136" height="566" rx="20" fill="#ffffff" stroke="#dce2db" stroke-width="2" />
+
+  <!-- Top accent bar -->
+  <rect x="32" y="32" width="1136" height="10" rx="5" fill="#245c43" />
+
+  <!-- Brand Emblem -->
+  <g transform="translate(88, 92)">
+    <rect width="52" height="52" rx="14" fill="#245c43" />
+    <rect x="13" y="22" width="3.8" height="8" rx="1.9" fill="#f7f8f5" />
+    <rect x="20" y="15" width="3.8" height="22" rx="1.9" fill="#f7f8f5" />
+    <rect x="27" y="11" width="3.8" height="30" rx="1.9" fill="#f7f8f5" />
+    <rect x="34" y="18" width="3.8" height="16" rx="1.9" fill="#f7f8f5" />
+    <text x="70" y="23" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" fill="#192b23" letter-spacing="-0.4">Christian Muhirwa</text>
+    <text x="70" y="45" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#59665e">University of Saskatchewan · Applied Speech AI &amp; Systems</text>
+  </g>
+
+  <!-- Main Headline -->
+  <text x="88" y="230" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#245c43" letter-spacing="2.2">FLAGSHIP BLUEPRINT · ACTIVE VALIDATION</text>
+  <text x="88" y="294" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" fill="#192b23" letter-spacing="-1.6">IkiLang / KinyaVoice</text>
+  <text x="88" y="344" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#35473e">Real-time low-resource speech translation infrastructure —</text>
+  <text x="88" y="374" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="500" fill="#35473e">captions-first, evaluation-gated, and privacy-minimal.</text>
+
+  <!-- Right-side Architectural Pipeline Preview Card -->
+  <g transform="translate(760, 108)">
+    <rect width="352" height="414" rx="16" fill="url(#emerald-panel)" />
+    <text x="28" y="44" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" font-weight="700" fill="#bfd6b0" letter-spacing="1.2">SIGNAL PIPELINE BLUEPRINT</text>
+
+    <!-- Node 1 -->
+    <rect x="28" y="68" width="296" height="62" rx="12" fill="#ffffff" fill-opacity="0.09" stroke="#bfd6b0" stroke-opacity="0.28" />
+    <text x="46" y="95" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f0f4ee">1. Clean Audio Ingest</text>
+    <text x="46" y="116" font-family="ui-monospace, monospace" font-size="12" fill="#bfd6b0">16 kHz Mono PCM · Soundboard Line-Out</text>
+
+    <!-- Connector -->
+    <line x1="176" y1="130" x2="176" y2="154" stroke="#bfd6b0" stroke-width="2" stroke-opacity="0.6" />
+
+    <!-- Node 2 -->
+    <rect x="28" y="154" width="296" height="62" rx="12" fill="#ffffff" fill-opacity="0.09" stroke="#bfd6b0" stroke-opacity="0.28" />
+    <text x="46" y="181" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f0f4ee">2. Pluggable Speech Interface</text>
+    <text x="46" y="202" font-family="ui-monospace, monospace" font-size="12" fill="#bfd6b0">&lt; 1.5s Target Cadence · Private Internals</text>
+
+    <!-- Connector -->
+    <line x1="176" y1="216" x2="176" y2="240" stroke="#bfd6b0" stroke-width="2" stroke-opacity="0.6" />
+
+    <!-- Node 3 -->
+    <rect x="28" y="240" width="296" height="62" rx="12" fill="#ffffff" fill-opacity="0.09" stroke="#bfd6b0" stroke-opacity="0.28" />
+    <text x="46" y="267" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f0f4ee">3. Evaluation &amp; Zero-PII Gate</text>
+    <text x="46" y="288" font-family="ui-monospace, monospace" font-size="12" fill="#bfd6b0">Anonymous Sessions · Graceful Fallback</text>
+
+    <!-- Connector -->
+    <line x1="176" y1="302" x2="176" y2="326" stroke="#bfd6b0" stroke-width="2" stroke-opacity="0.6" />
+
+    <!-- Node 4 -->
+    <rect x="28" y="326" width="296" height="62" rx="12" fill="#ebf2e8" />
+    <text x="46" y="353" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#192b23">4. QR Mobile &amp; Projector UI</text>
+    <text x="46" y="374" font-family="ui-monospace, monospace" font-size="12" fill="#245c43">Captions-First · No App Download</text>
+  </g>
+
+  <!-- Proof Chips -->
+  <g transform="translate(88, 434)">
+    <rect x="0" y="0" width="212" height="44" rx="12" fill="#eef1eb" stroke="#dce2db" />
+    <circle cx="20" cy="22" r="4.5" fill="#26764b" />
+    <text x="35" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">420+ Automated Tests</text>
+
+    <rect x="226" y="0" width="216" height="44" rx="12" fill="#eef1eb" stroke="#dce2db" />
+    <circle cx="246" cy="22" r="4.5" fill="#245c43" />
+    <text x="261" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">&lt; 1.5s Latency Budget</text>
+
+    <rect x="456" y="0" width="184" height="44" rx="12" fill="#fef3c7" stroke="#d97706" stroke-opacity="0.5" />
+    <circle cx="476" cy="22" r="4.5" fill="#b45309" />
+    <text x="491" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#7c3605">Zero-PII Telemetry</text>
+  </g>
+
+  <!-- Footer URL -->
+  <text x="88" y="544" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" font-weight="600" fill="#59665e">https://chrisberg2.github.io/</text>
+</svg>

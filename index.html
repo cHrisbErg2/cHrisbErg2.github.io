@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio-theme");
+          var meta = document.querySelector('meta[name="color-scheme"]');
+          if (stored === "light" || stored === "dark") {
+            if (meta) meta.setAttribute("content", stored);
+            document.documentElement.dataset.theme = stored;
+          } else {
+            if (meta) meta.setAttribute("content", "light dark");
+            var prefersDark =
+              typeof window.matchMedia === "function" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+          }
+        } catch (_err) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+
+    <title>Christian Muhirwa — Real-Time Speech AI &amp; IkiLang Portfolio</title>
+    <meta
+      name="description"
+      content="Engineering portfolio of Christian Muhirwa (University of Saskatchewan), creator of IkiLang and KinyaVoice: captions-first, evaluation-gated real-time speech translation infrastructure for low-resource languages."
+    />
+    <meta name="author" content="Christian Muhirwa" />
+    <meta name="theme-color" content="#f7f8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101713" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://chrisberg2.github.io/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph (LinkedIn, Facebook, messaging previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Christian Muhirwa" />
+    <meta property="og:url" content="https://chrisberg2.github.io/" />
+    <meta
+      property="og:title"
+      content="Christian Muhirwa — Builder &amp; Systems Engineer | IkiLang"
+    />
+    <meta
+      property="og:description"
+      content="Interactive architecture blueprint for IkiLang / KinyaVoice: low-latency, privacy-minimal live speech translation infrastructure designed for real-world community and field settings."
+    />
+    <meta property="og:image" content="https://chrisberg2.github.io/og-card.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Christian Muhirwa — IkiLang and KinyaVoice real-time low-resource speech translation architecture preview card"
+    />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Christian Muhirwa — Builder &amp; Systems Engineer | IkiLang"
+    />
+    <meta
+      name="twitter:description"
+      content="Captions-first, evaluation-gated real-time speech translation infrastructure for low-resource languages, starting with Kinyarwanda."
+    />
+    <meta name="twitter:image" content="https://chrisberg2.github.io/og-card.svg" />
+    <meta
+      name="twitter:image:alt"
+      content="Christian Muhirwa — IkiLang and KinyaVoice real-time low-resource speech translation architecture preview card"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
