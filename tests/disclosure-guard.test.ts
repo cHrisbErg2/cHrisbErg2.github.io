@@ -52,7 +52,8 @@ const FORBIDDEN_PATTERNS: { category: string; label: string; pattern: RegExp }[]
   { category: "unit-economics", label: "0.0315", pattern: /0\.0315/ },
   { category: "unit-economics", label: "85.6%", pattern: /85\.6%/ },
 
-  // Forbidden biographical / origin claims
+  // Forbidden biographical / origin claims & non-preferred generic contact alias
+  { category: "private-contact", label: "kos536@usask.ca", pattern: /kos536@usask\.ca/i },
   { category: "biographical", label: "from Rwanda", pattern: /from Rwanda/i },
   { category: "biographical", label: "born in Rwanda", pattern: /born in Rwanda/i },
   { category: "biographical", label: "grew up in Rwanda", pattern: /grew up in Rwanda/i },
@@ -187,7 +188,7 @@ describe("Public Portfolio Secret-Sauce & Biographical Disclosure Guard", () => 
     expect(PROFILE.name).toBe("Christian Muhirwa");
     expect(PROFILE.affiliation).toBe("University of Saskatchewan");
     expect(PROFILE.githubUrl).toBe("https://github.com/cHrisbErg2");
-    expect(PROFILE.email).toBe("kos536@usask.ca");
+    expect(PROFILE.email).toBe("christian.muhirwa@usask.ca");
 
     const projectIds = PUBLIC_PROJECTS.map((project) => project.id);
     expect(projectIds).toContain("ikilang");

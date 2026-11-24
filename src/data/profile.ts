@@ -27,7 +27,7 @@ export const PROFILE: ProfileConfig = {
   affiliation: "University of Saskatchewan",
   locationLabel: "Saskatchewan, Canada",
   githubUrl: "https://github.com/cHrisbErg2",
-  email: "kos536@usask.ca",
+  email: "christian.muhirwa@usask.ca",
   linkedinUrl: "",
   resumeUrl: "",
   focusAreas: [
