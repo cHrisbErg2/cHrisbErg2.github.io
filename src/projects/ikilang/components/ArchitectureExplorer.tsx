@@ -13,10 +13,10 @@ import { IKILANG_DATA } from "../data";
 
 const SVG_SUBTITLES = [
   "16 kHz mono PCM",
-  "Black-box seam",
-  "Black-box guard",
+  "Swappable interface",
+  "Checks + eval",
   "Zero-PII logs",
-  "QR phone + screen",
+  "QR phone + display",
 ];
 
 export function ArchitectureExplorer() {
@@ -55,24 +55,24 @@ export function ArchitectureExplorer() {
       <div className="lab-header">
         <div>
           <span className="eyebrow">
-            <Layers size={14} aria-hidden="true" />
-            Lab 03 · 5-layer black-box architecture
+            <Layers size={14} strokeWidth={2} aria-hidden="true" />
+            Demo 03 · 5-stage system map
           </span>
           <h3 id={headingId} className="lab-title">
-            Public interface contracts &amp; protected internals
+            Public module boundaries &amp; private core
           </h3>
           <p className="lab-subtitle">
-            Inspect inputs, outputs, invariants, and trial limits across all five boundaries while
-            proprietary core internals stay black-boxed.
+            Click any module or use arrow keys to inspect inputs, outputs, and guardrails across all
+            five stages. Model prompts, scoring weights, and routing stay private.
           </p>
         </div>
       </div>
 
-      {/* Responsive SVG Signal-Flow Diagram (syncs with the WAI-ARIA tablist below) */}
+      {/* Crafted Multi-Part SVG Pipeline Schematic (scrolls horizontally on narrow screens instead of hiding) */}
       <div className="arch-diagram-shell" aria-hidden="true">
         <svg
           className="arch-svg"
-          viewBox="0 0 920 132"
+          viewBox="0 0 960 170"
           role="presentation"
           focusable="false"
         >
@@ -91,11 +91,11 @@ export function ArchitectureExplorer() {
           </defs>
 
           {layers.map((layer, index) => {
-            const boxWidth = 158;
-            const gap = 26;
+            const boxWidth = 166;
+            const gap = 25;
             const x = 14 + index * (boxWidth + gap);
-            const y = 16;
-            const height = 100;
+            const y = 20;
+            const height = 122;
             const isActive = index === selectedIndex;
 
             return (
@@ -107,39 +107,94 @@ export function ArchitectureExplorer() {
                 onClick={() => setSelectedIndex(index)}
                 style={{ cursor: "pointer" }}
               >
+                {/* Drop shadow backing plate */}
+                <rect
+                  x={x + 3}
+                  y={y + 6}
+                  width={boxWidth}
+                  height={height}
+                  rx="14"
+                  className="arch-svg-shadow"
+                />
+
+                {/* Main module casing */}
                 <rect
                   x={x}
                   y={y}
                   width={boxWidth}
                   height={height}
-                  rx="12"
+                  rx="14"
                   className="arch-svg-rect"
                 />
-                <text x={x + 12} y={y + 24} className="arch-svg-step">
-                  0{layer.step}
+
+                {/* Module top header band */}
+                <path
+                  d={`M ${x} ${y + 14} Q ${x} ${y} ${x + 14} ${y} L ${x + boxWidth - 14} ${y} Q ${x + boxWidth} ${y} ${x + boxWidth} ${y + 14} L ${x + boxWidth} ${y + 34} L ${x} ${y + 34} Z`}
+                  className="arch-svg-band"
+                />
+
+                <text x={x + 12} y={y + 22} className="arch-svg-step">
+                  STAGE 0{layer.step}
                 </text>
+
                 {layer.isBlackBox ? (
-                  <text x={x + boxWidth - 12} y={y + 24} textAnchor="end" className="arch-svg-lock">
-                    PRIVATE
-                  </text>
-                ) : null}
-                <text x={x + 12} y={y + 54} className="arch-svg-title">
+                  <g>
+                    <rect
+                      x={x + boxWidth - 68}
+                      y={y + 9}
+                      width="56"
+                      height="17"
+                      rx="6"
+                      className="arch-lock-pill"
+                    />
+                    <text x={x + boxWidth - 40} y={y + 21} textAnchor="middle" className="arch-svg-lock">
+                      PRIVATE
+                    </text>
+                  </g>
+                ) : (
+                  <circle cx={x + boxWidth - 16} cy={y + 17} r="4" className="arch-public-led" />
+                )}
+
+                <text x={x + 12} y={y + 62} className="arch-svg-title">
                   {layer.name}
                 </text>
-                <text x={x + 12} y={y + 78} className="arch-svg-sub">
+                <text x={x + 12} y={y + 84} className="arch-svg-sub">
                   {SVG_SUBTITLES[index] ?? ""}
                 </text>
 
+                {/* Contract indicator bar at bottom of module */}
+                <rect x={x + 12} y={y + 100} width={boxWidth - 24} height="8" rx="4" className="arch-bar-track" />
+                <rect
+                  x={x + 12}
+                  y={y + 100}
+                  width={isActive ? boxWidth - 24 : 56}
+                  height="8"
+                  rx="4"
+                  className="arch-bar-fill"
+                />
+
+                {/* Input & output terminal ports */}
+                {index > 0 ? (
+                  <circle cx={x} cy={y + height / 2} r="4.5" className="arch-port" />
+                ) : null}
                 {index < layers.length - 1 ? (
-                  <line
-                    x1={x + boxWidth + 4}
-                    y1={y + height / 2}
-                    x2={x + boxWidth + gap - 5}
-                    y2={y + height / 2}
-                    stroke="var(--control-border)"
-                    strokeWidth="2"
-                    markerEnd={`url(#${baseId}-arrow)`}
-                  />
+                  <>
+                    <circle cx={x + boxWidth} cy={y + height / 2} r="4.5" className="arch-port" />
+                    <line
+                      x1={x + boxWidth + 5}
+                      y1={y + height / 2}
+                      x2={x + boxWidth + gap - 5}
+                      y2={y + height / 2}
+                      className="arch-bus-line"
+                      markerEnd={`url(#${baseId}-arrow)`}
+                    />
+                    <circle
+                      cx={x + boxWidth + gap / 2}
+                      cy={y + height / 2}
+                      r="3"
+                      className={`arch-bus-pulse${isActive || index + 1 === selectedIndex ? " is-hot" : ""}`}
+                    />
+                  </>
                 ) : null}
               </g>
             );
@@ -173,7 +228,7 @@ export function ArchitectureExplorer() {
               <span className="arch-tab-num">{layer.step}</span>
               <span>{layer.name}</span>
               {layer.isBlackBox ? (
-                <Lock size={14} aria-hidden="true" className="arch-tab-lock" />
+                <Lock size={14} strokeWidth={2} aria-hidden="true" className="arch-tab-lock" />
               ) : null}
             </button>
           );
@@ -191,19 +246,19 @@ export function ArchitectureExplorer() {
         <div className="arch-detail-header">
           <div>
             <span className="eyebrow">
-              Layer 0{activeLayer.step} of 0{layers.length}
+              Stage 0{activeLayer.step} of 0{layers.length}
             </span>
             <h4 className="arch-detail-title">{activeLayer.name}</h4>
           </div>
 
           {activeLayer.isBlackBox ? (
             <span className="badge badge-validating">
-              <Lock size={14} aria-hidden="true" />
+              <Lock size={14} strokeWidth={2} aria-hidden="true" />
               <span>Black-boxed core internals</span>
             </span>
           ) : (
             <span className="badge badge-proven">
-              <Shield size={14} aria-hidden="true" />
+              <Shield size={14} strokeWidth={2} aria-hidden="true" />
               <span>Public interface boundary</span>
             </span>
           )}
@@ -213,7 +268,7 @@ export function ArchitectureExplorer() {
 
         {activeLayer.isBlackBox ? (
           <div className="blackbox-callout" role="note">
-            <Lock size={17} aria-hidden="true" />
+            <Lock size={17} strokeWidth={2} aria-hidden="true" />
             <div>
               <strong>Protected core internals:</strong> {IKILANG_DATA.blackBoxNotice}
             </div>
@@ -221,16 +276,16 @@ export function ArchitectureExplorer() {
         ) : null}
 
         <div className="grid-2 arch-contracts-grid">
-          <div className="card-subtle">
+          <div className="arch-contract-card">
             <span className="contract-label">
-              <ArrowRight size={14} aria-hidden="true" />
+              <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
               Input contract
             </span>
             <p className="contract-text">{activeLayer.inputContract}</p>
           </div>
-          <div className="card-subtle">
+          <div className="arch-contract-card">
             <span className="contract-label">
-              <ArrowRight size={14} aria-hidden="true" />
+              <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
               Output contract
             </span>
             <p className="contract-text">{activeLayer.outputContract}</p>
@@ -240,8 +295,8 @@ export function ArchitectureExplorer() {
         <div className="grid-2 arch-meta-grid">
           <div>
             <h5 className="arch-subheading">
-              <CheckCircle2 size={15} aria-hidden="true" />
-              Engineering invariants
+              <CheckCircle2 size={15} strokeWidth={2} aria-hidden="true" />
+              Guarantees
             </h5>
             <ul className="clean-check-list">
               {activeLayer.invariants.map((invariant) => (
@@ -253,8 +308,8 @@ export function ArchitectureExplorer() {
           <div className="arch-right-col">
             <div>
               <h5 className="arch-subheading">
-                <Wrench size={15} aria-hidden="true" />
-                Ecosystem tools
+                <Wrench size={15} strokeWidth={2} aria-hidden="true" />
+                Tools used
               </h5>
               <ul className="pill-list" aria-label={`Tools evaluated in ${activeLayer.name}`}>
                 {activeLayer.toolsEvaluated.map((tool) => (
@@ -267,8 +322,8 @@ export function ArchitectureExplorer() {
 
             <div className="trial-limits-box">
               <h5 className="arch-subheading">
-                <AlertCircle size={15} aria-hidden="true" />
-                Trial limits
+                <AlertCircle size={15} strokeWidth={2} aria-hidden="true" />
+                Current limits
               </h5>
               <p className="trial-limits-text">{activeLayer.trialLimits}</p>
             </div>

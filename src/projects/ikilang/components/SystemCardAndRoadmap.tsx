@@ -21,7 +21,7 @@ function renderMaturityBadge(status: MaturityStatus) {
   if (status === "proven") {
     return (
       <span className="badge badge-proven">
-        <CheckCircle2 size={14} aria-hidden="true" />
+        <CheckCircle2 size={14} strokeWidth={2} aria-hidden="true" />
         <span>{MATURITY_LABELS.proven}</span>
       </span>
     );
@@ -29,14 +29,14 @@ function renderMaturityBadge(status: MaturityStatus) {
   if (status === "validating") {
     return (
       <span className="badge badge-validating">
-        <FlaskConical size={14} aria-hidden="true" />
+        <FlaskConical size={14} strokeWidth={2} aria-hidden="true" />
         <span>{MATURITY_LABELS.validating}</span>
       </span>
     );
   }
   return (
     <span className="badge badge-gated">
-      <Lock size={14} aria-hidden="true" />
+      <Lock size={14} strokeWidth={2} aria-hidden="true" />
       <span>{MATURITY_LABELS.gated}</span>
     </span>
   );
@@ -73,16 +73,17 @@ export function SystemCardAndRoadmap() {
 
   return (
     <div className="section-stack system-card-stack">
-      {/* 1. Canonical System Card & Maturity Matrix */}
+      {/* 1. System Status & Maturity Matrix */}
       <section className="card" aria-labelledby={systemCardHeadingId}>
         <div className="section-heading-row">
           <div>
-            <span className="eyebrow">Canonical system card</span>
+            <span className="eyebrow">System status</span>
             <h2 id={systemCardHeadingId} className="section-title">
-              What is proven, actively validating, and gated
+              What works today vs. what is gated
             </h2>
             <p className="section-lead">
-              Capabilities are strictly tagged by verifiable evidence versus gated roadmap scope.
+              Filter every capability by what is proven in tests, running in trials, or kept off on
+              purpose.
             </p>
           </div>
         </div>
@@ -120,7 +121,7 @@ export function SystemCardAndRoadmap() {
                   <p className="maturity-field-text">{item.evidence}</p>
                 </div>
                 <div>
-                  <span className="maturity-field-label">Scope</span>
+                  <span className="maturity-field-label">Boundary</span>
                   <p className="maturity-field-text">{item.boundaryNote}</p>
                 </div>
               </div>
@@ -134,8 +135,8 @@ export function SystemCardAndRoadmap() {
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <ShieldAlert size={14} aria-hidden="true" />
-              Candid boundaries &amp; human handoff
+              <ShieldAlert size={14} strokeWidth={2} aria-hidden="true" />
+              Honest boundaries
             </span>
             <h2 id={shortcomingsHeadingId} className="section-title">
               {shortcomingsAndHumanBoundary.heading}
@@ -147,8 +148,8 @@ export function SystemCardAndRoadmap() {
         <div className="grid-2 shortcomings-grid">
           <div className="card-subtle">
             <h3 className="subpanel-title">
-              <AlertTriangle size={17} aria-hidden="true" />
-              Where it falls short
+              <AlertTriangle size={17} strokeWidth={2} aria-hidden="true" />
+              Where it still falls short
             </h3>
             <ul className="clean-bullet-list">
               {shortcomingsAndHumanBoundary.currentLimits.map((limit) => (
@@ -159,8 +160,8 @@ export function SystemCardAndRoadmap() {
 
           <div className="card-subtle human-essential-box">
             <h3 className="subpanel-title">
-              <HeartHandshake size={17} aria-hidden="true" />
-              When humans remain essential
+              <HeartHandshake size={17} strokeWidth={2} aria-hidden="true" />
+              When a human interpreter is mandatory
             </h3>
             <ul className="clean-bullet-list">
               {shortcomingsAndHumanBoundary.humanEssentialScenarios.map((scenario) => (
@@ -173,22 +174,22 @@ export function SystemCardAndRoadmap() {
         <p className="closing-principle">{shortcomingsAndHumanBoundary.closingPrinciple}</p>
       </section>
 
-      {/* 3. Privacy-Minimal Architecture & Cryptographic Honesty */}
+      {/* 3. Privacy & Encryption Honesty */}
       <section className="card" aria-labelledby={privacyHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <ShieldCheck size={14} aria-hidden="true" />
-              Privacy-minimal architecture
+              <ShieldCheck size={14} strokeWidth={2} aria-hidden="true" />
+              Privacy architecture
             </span>
             <h2 id={privacyHeadingId} className="section-title">
-              Zero attendee PII &amp; cryptographic honesty
+              Zero personal data &amp; honest encryption labels
             </h2>
           </div>
         </div>
 
         <div className="crypto-honesty-banner" role="note">
-          <Lock size={18} aria-hidden="true" />
+          <Lock size={18} strokeWidth={2} aria-hidden="true" />
           <p>{IKILANG_DATA.cryptographicHonestyNotice}</p>
         </div>
 
@@ -202,16 +203,16 @@ export function SystemCardAndRoadmap() {
         </div>
       </section>
 
-      {/* 4. Field-Readiness Spec Strip */}
+      {/* 4. Room Hardware & QR Chain */}
       <section className="card" aria-labelledby={fieldHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <Radio size={14} aria-hidden="true" />
-              Venue pre-flight standard
+              <Radio size={14} strokeWidth={2} aria-hidden="true" />
+              Room hardware guide
             </span>
             <h2 id={fieldHeadingId} className="section-title">
-              Field-readiness signal chain (no app download)
+              Room audio &amp; QR setup
             </h2>
           </div>
         </div>
@@ -222,7 +223,7 @@ export function SystemCardAndRoadmap() {
               <div className="field-spec-top">
                 <span className="field-spec-num">0{spec.step}</span>
                 {index < IKILANG_DATA.fieldSpecSteps.length - 1 ? (
-                  <ArrowRight size={15} className="field-spec-arrow" aria-hidden="true" />
+                  <ArrowRight size={15} strokeWidth={2} className="field-spec-arrow" aria-hidden="true" />
                 ) : null}
               </div>
               <h3 className="field-spec-label">{spec.label}</h3>
@@ -232,19 +233,19 @@ export function SystemCardAndRoadmap() {
         </ol>
       </section>
 
-      {/* 5. 4-Phase Execution Roadmap */}
+      {/* 5. 4-Phase Rollout Timeline */}
       <section className="card" aria-labelledby={roadmapHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <Milestone size={14} aria-hidden="true" />
-              Evidence-gated rollout
+              <Milestone size={14} strokeWidth={2} aria-hidden="true" />
+              Rollout plan
             </span>
             <h2 id={roadmapHeadingId} className="section-title">
-              4-phase execution roadmap
+              4-phase rollout
             </h2>
             <p className="section-lead">
-              Each phase unlocks only after objective latency, accuracy, and consent gates pass.
+              New capabilities unlock only after latency, accuracy, and consent benchmarks pass.
             </p>
           </div>
         </div>
@@ -262,11 +263,11 @@ export function SystemCardAndRoadmap() {
 
               <div className="grid-2 roadmap-details">
                 <div>
-                  <span className="maturity-field-label">Objective</span>
+                  <span className="maturity-field-label">Goal</span>
                   <p className="maturity-field-text">{phase.objective}</p>
                 </div>
                 <div>
-                  <span className="maturity-field-label">Exit gate</span>
+                  <span className="maturity-field-label">Unlock rule</span>
                   <p className="maturity-field-text">{phase.exitGate}</p>
                 </div>
               </div>
@@ -275,16 +276,16 @@ export function SystemCardAndRoadmap() {
         </ol>
       </section>
 
-      {/* 6. Living Engineering Changelog */}
+      {/* 6. Recent Engineering Log */}
       <section className="card" aria-labelledby={changelogHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <Calendar size={14} aria-hidden="true" />
-              Shipping cadence
+              <Calendar size={14} strokeWidth={2} aria-hidden="true" />
+              Changelog
             </span>
             <h2 id={changelogHeadingId} className="section-title">
-              Living engineering changelog
+              Recent engineering log
             </h2>
           </div>
         </div>

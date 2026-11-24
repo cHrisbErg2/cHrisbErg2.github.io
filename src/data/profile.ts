@@ -21,39 +21,39 @@ export interface ProfileConfig {
 export const PROFILE: ProfileConfig = {
   name: "Christian Muhirwa",
   roleLine:
-    "Applied AI and real-time systems builder — shipping field-tested speech software under live latency and privacy constraints.",
+    "Computer Science @ USask · Building live speech-to-text translation for underserved languages.",
   builderSummary:
-    "I build and measure production-oriented systems for real rooms, prioritizing empirical baselines, clean boundaries, and zero-PII design.",
+    "I build low-latency audio and AI software you can test in a live room — streaming 16 kHz soundboard audio to English phone captions in ~1 second, backed by 451 automated tests and zero user tracking.",
   affiliation: "University of Saskatchewan",
-  locationLabel: "Saskatchewan, Canada",
+  locationLabel: "Saskatoon, SK",
   githubUrl: "https://github.com/cHrisbErg2",
   email: "christian.muhirwa@usask.ca",
   linkedinUrl: "",
   resumeUrl: "",
   focusAreas: [
-    "Real-Time Speech Systems",
-    "Low-Resource Language AI",
-    "Privacy-Minimal Architecture",
-    "Evaluation-First Engineering",
+    "Real-Time Audio & WebSockets",
+    "Low-Resource Speech AI",
+    "Python & TypeScript",
+    "Offline Eval & Testing",
   ],
   principles: [
     {
       id: "field-reality",
-      title: "Build for real rooms",
+      title: "Test on real mics, not studio clips",
       detail:
-        "Design for soundboards, mobile WebViews, and rapid speech rather than clean lab recordings.",
+        "Soundboards, room echo, fast speakers, and mobile browsers break assumptions that pass on clean demos.",
     },
     {
       id: "measure-first",
-      title: "Evaluate before fine-tuning",
+      title: "Measure before fine-tuning",
       detail:
-        "Measure labeled baselines, p95 latency, and error categories before training heavier models.",
+        "Track p95 caption delay, mid-sentence cutoffs, and domain errors on labeled audio before training custom weights.",
     },
     {
       id: "privacy-minimal",
-      title: "Treat privacy as architecture",
+      title: "Zero personal data by default",
       detail:
-        "Keep audience access zero-PII and tracker-free, label transport honestly, and ship only what is proven.",
+        "Visitors scan a QR code and read live captions with no sign-up, no IP logging, and no analytics trackers.",
     },
   ],
 };

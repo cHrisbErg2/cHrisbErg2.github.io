@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { SwapIcon } from "./SwapIcon";
 
 type Theme = "light" | "dark";
 
@@ -75,7 +76,6 @@ export function ThemeToggle() {
 
     let mediaQuery: MediaQueryList | null = null;
     const handleMediaChange = (event: MediaQueryListEvent) => {
-      // Never retroactively delete an explicit stored user override when OS changes
       if (readStoredTheme() === null) {
         setTheme(event.matches ? "dark" : "light");
       }
@@ -108,7 +108,7 @@ export function ThemeToggle() {
         window.localStorage.removeItem(STORAGE_KEY);
       }
     } catch {
-      // Still apply theme to the document even if storage is blocked
+      // Apply document theme even if storage is restricted
     }
 
     suppressTransitionsOnThemeSwitch();
@@ -121,11 +121,15 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className="theme-toggle has-leading-icon"
       aria-pressed={isDark}
       onClick={handleToggle}
     >
-      {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+      <SwapIcon
+        active={isDark}
+        activeIcon={<Sun size={18} strokeWidth={2} aria-hidden="true" />}
+        inactiveIcon={<Moon size={18} strokeWidth={2} aria-hidden="true" />}
+      />
       <span className="theme-toggle-label">Dark theme</span>
     </button>
   );

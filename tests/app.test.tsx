@@ -17,13 +17,22 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 
-  it("renders portfolio overview with flagship IkiLang card, external AgrI-For-Prairie repo, and navigates to the case study", async () => {
+  it("renders graphical overview with interactive HeroSignalRig, flagship IkiLang card, AgrI-For-Prairie repo, and navigates to the case study", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Christian Muhirwa" })).toBeInTheDocument();
     expect(screen.getByText(/Flagship case study/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IkiLang / KinyaVoice" })).toBeInTheDocument();
+
+    // Hero signal rig Play/Pause & room preview selector work cleanly
+    const rigToggle = screen.getByRole("button", { name: /Pause demo|Play demo/i });
+    const wasPressed = rigToggle.getAttribute("aria-pressed") === "true";
+    await user.click(rigToggle);
+    expect(rigToggle).toHaveAttribute("aria-pressed", wasPressed ? "false" : "true");
+
+    await user.click(screen.getByRole("button", { name: /Show Clinic reception example/i }));
+    expect(screen.getByText(/Consent/i)).toBeInTheDocument();
 
     const agriLink = screen.getByRole("link", { name: /View repository on GitHub/i });
     expect(agriLink).toHaveAttribute("href", "https://github.com/cHrisbErg2/AgrI-For-Prairie");
@@ -235,7 +244,7 @@ describe("OperatorAudiencePreview", () => {
 });
 
 describe("ArchitectureExplorer", () => {
-  it("navigates 5 layers via click and keyboard and surfaces black-box disclosure on private layers", async () => {
+  it("navigates 5 stages via click and keyboard and surfaces black-box disclosure on private layers", async () => {
     const user = userEvent.setup();
     render(<ArchitectureExplorer />);
 
@@ -243,20 +252,20 @@ describe("ArchitectureExplorer", () => {
     const tabs = within(tablist).getAllByRole("tab");
     expect(tabs).toHaveLength(5);
 
-    // Layer 1 starts selected
+    // Stage 1 starts selected
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
     expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audio ingest/i);
 
-    // Keyboard ArrowRight moves to Layer 2 (Black-Boxed)
+    // Keyboard ArrowRight moves to Stage 2 (Black-Boxed)
     tabs[0].focus();
     await user.keyboard("{ArrowRight}");
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
     const panelLayer2 = screen.getByRole("tabpanel");
-    expect(panelLayer2).toHaveTextContent(/Speech seam/i);
+    expect(panelLayer2).toHaveTextContent(/Streaming translation/i);
     expect(panelLayer2).toHaveTextContent(/Black-boxed core internals/i);
     expect(panelLayer2).toHaveTextContent(IKILANG_DATA.blackBoxNotice);
 
-    // Clicking Layer 5 switches to Audience UI
+    // Clicking Stage 5 switches to Audience UI
     await user.click(tabs[4]);
     expect(tabs[4]).toHaveAttribute("aria-selected", "true");
     expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audience UI/i);
@@ -264,9 +273,13 @@ describe("ArchitectureExplorer", () => {
 });
 
 describe("SystemCardAndRoadmap", () => {
-  it("filters maturity matrix cleanly and renders limits, cryptographic honesty, field spec, roadmap, and changelog", async () => {
+  it("filters maturity matrix cleanly and renders limits, cryptographic honesty, setup, rollout, and changelog", async () => {
     const user = userEvent.setup();
     render(<SystemCardAndRoadmap />);
+
+    expect(
+      screen.getByRole("heading", { name: /What works today vs\. what is gated/i }),
+    ).toBeInTheDocument();
 
     const filterGroup = screen.getByRole("group", {
       name: /Filter system capabilities by maturity status/i,
@@ -296,7 +309,7 @@ describe("SystemCardAndRoadmap", () => {
       screen.getByRole("heading", { name: /Live sanctuary RW -> EN trials/i }),
     ).toBeInTheDocument();
 
-    // Candid Limits & Cryptographic Honesty sections present
+    // Honest boundaries, privacy, setup, rollout & changelog headings present
     expect(
       screen.getByRole("heading", {
         name: /Limits & when humans remain essential/i,
@@ -304,13 +317,13 @@ describe("SystemCardAndRoadmap", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(IKILANG_DATA.cryptographicHonestyNotice)).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Field-readiness signal chain/i }),
+      screen.getByRole("heading", { name: /Room audio & QR setup/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /4-phase execution roadmap/i }),
+      screen.getByRole("heading", { name: /4-phase rollout/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Living engineering changelog/i }),
+      screen.getByRole("heading", { name: /Recent engineering log/i }),
     ).toBeInTheDocument();
   });
 });

@@ -7,6 +7,7 @@ import {
   Github,
   MapPin,
 } from "lucide-react";
+import { HeroSignalRig } from "./components/HeroSignalRig";
 import { SkipLink } from "./components/SkipLink";
 import { SiteHeader } from "./components/SiteHeader";
 import type { PortfolioRoute } from "./components/SiteHeader";
@@ -34,6 +35,13 @@ function parseHashRoute(hash: string): PortfolioRoute | null {
 function hashForRoute(route: PortfolioRoute): string {
   return route === "ikilang" ? "#/projects/ikilang" : "#/";
 }
+
+const HERO_PROOF_METRICS = [
+  { value: "+1.02 s", label: "replay delay" },
+  { value: "451", label: "passing tests" },
+  { value: "0.10 ms", label: "p95 guardrail" },
+  { value: "0%", label: "clause cutoffs" },
+];
 
 export function App() {
   const [activeRoute, setActiveRoute] = useState<PortfolioRoute>(
@@ -82,48 +90,66 @@ export function App() {
           <IkiLangCaseStudy onBackToOverview={() => navigate("home")} />
         ) : (
           <div className="section-stack">
-            {/* Builder Overview Hero */}
+            {/* Split 2-Column Graphical Hero */}
             <section className="hero-panel overview-hero" aria-labelledby="overview-hero-heading">
-              <div className="overview-identity-row">
-                <span className="eyebrow">{PROFILE.affiliation}</span>
-                <span className="badge">
-                  <MapPin size={13} aria-hidden="true" />
-                  <span>{PROFILE.locationLabel}</span>
-                </span>
-              </div>
+              <div className="overview-hero-grid">
+                <div className="hero-copy-col">
+                  <div className="overview-identity-row hero-stagger-1">
+                    <span className="eyebrow">{PROFILE.affiliation}</span>
+                    <span className="badge">
+                      <MapPin size={13} strokeWidth={2} aria-hidden="true" />
+                      <span>{PROFILE.locationLabel}</span>
+                    </span>
+                  </div>
 
-              <h1 id="overview-hero-heading" className="hero-title">
-                {PROFILE.name}
-              </h1>
-              <p className="overview-role-line">{PROFILE.roleLine}</p>
-              <p className="hero-lead">{PROFILE.builderSummary}</p>
+                  <h1 id="overview-hero-heading" className="hero-title hero-stagger-1">
+                    {PROFILE.name}
+                  </h1>
+                  <p className="overview-role-line hero-stagger-2">{PROFILE.roleLine}</p>
+                  <p className="hero-lead hero-stagger-2">{PROFILE.builderSummary}</p>
 
-              <ul className="pill-list" aria-label="Core engineering focus areas">
-                {PROFILE.focusAreas.map((area) => (
-                  <li key={area} className="tech-pill tech-pill-strong">
-                    {area}
-                  </li>
-                ))}
-              </ul>
+                  {/* Compact Proof Metrics */}
+                  <dl className="hero-proof-strip hero-stagger-3" aria-label="Measured pipeline benchmarks">
+                    {HERO_PROOF_METRICS.map((metric) => (
+                      <div key={metric.label} className="hero-proof-item">
+                        <dt className="hero-proof-label">{metric.label}</dt>
+                        <dd className="hero-proof-value">{metric.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
 
-              <div className="hero-actions">
-                <button
-                  type="button"
-                  className="button button-primary"
-                  onClick={() => navigate("ikilang")}
-                >
-                  <span>Explore IkiLang case study</span>
-                  <ArrowRight size={17} aria-hidden="true" />
-                </button>
-                <a
-                  className="button button-secondary"
-                  href={PROFILE.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Github size={17} aria-hidden="true" />
-                  <span>View GitHub profile</span>
-                </a>
+                  <ul className="pill-list hero-stagger-3" aria-label="Core engineering focus areas">
+                    {PROFILE.focusAreas.map((area) => (
+                      <li key={area} className="tech-pill">
+                        {area}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="hero-actions hero-stagger-4">
+                    <button
+                      type="button"
+                      className="button button-primary has-trailing-icon"
+                      onClick={() => navigate("ikilang")}
+                    >
+                      <span>Explore IkiLang case study</span>
+                      <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
+                    </button>
+                    <a
+                      className="button button-secondary has-leading-icon"
+                      href={PROFILE.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github size={17} strokeWidth={2} aria-hidden="true" />
+                      <span>View GitHub profile</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="hero-rig-col hero-stagger-4">
+                  <HeroSignalRig />
+                </div>
               </div>
             </section>
 
@@ -133,11 +159,11 @@ export function App() {
                 <div className="overview-section-header">
                   <span className="eyebrow">Flagship case study</span>
                   <h2 id="flagship-section-heading" className="section-title">
-                    Real-time low-resource speech translation
+                    Live low-resource speech translation
                   </h2>
                 </div>
 
-                <article className="card flagship-card">
+                <article className="card interactive-card flagship-card">
                   <div className="flagship-top">
                     <div>
                       <span className="eyebrow">{flagshipProject.badge}</span>
@@ -145,7 +171,7 @@ export function App() {
                       <p className="flagship-subtitle">{flagshipProject.subtitle}</p>
                     </div>
                     <span className="badge badge-validating">
-                      <FlaskConical size={14} aria-hidden="true" />
+                      <FlaskConical size={14} strokeWidth={2} aria-hidden="true" />
                       <span>{flagshipProject.statusLabel}</span>
                     </span>
                   </div>
@@ -155,26 +181,26 @@ export function App() {
                   <ul className="flagship-highlights">
                     {flagshipProject.highlights.map((highlight) => (
                       <li key={highlight}>
-                        <CheckCircle2 size={16} aria-hidden="true" />
+                        <CheckCircle2 size={16} strokeWidth={2} aria-hidden="true" />
                         <span>{highlight}</span>
                       </li>
                     ))}
                   </ul>
 
                   <div className="flagship-inside-strip">
-                    <strong>Inside the case study:</strong>
-                    <span>65 s latency timeline</span>
+                    <strong>Interactive walkthroughs inside:</strong>
+                    <span>65 s latency chart</span>
                     <span aria-hidden="true">·</span>
-                    <span>Operator &amp; audience preview</span>
+                    <span>Phone QR &amp; projector preview</span>
                     <span aria-hidden="true">·</span>
-                    <span>5-layer architecture</span>
+                    <span>5-stage schematic</span>
                     <span aria-hidden="true">·</span>
-                    <span>Maturity &amp; roadmap</span>
+                    <span>What works vs. gated</span>
                   </div>
 
                   <ul className="pill-list" aria-label="IkiLang public stack highlights">
                     {flagshipProject.tags.map((tag) => (
-                      <li key={tag} className="tech-pill">
+                      <li key={tag} className="tech-pill tech-pill-strong">
                         {tag}
                       </li>
                     ))}
@@ -183,11 +209,11 @@ export function App() {
                   <div className="flagship-footer">
                     <button
                       type="button"
-                      className="button button-primary"
+                      className="button button-primary has-trailing-icon"
                       onClick={() => navigate("ikilang")}
                     >
                       <span>{flagshipProject.ctaLabel}</span>
-                      <ArrowRight size={17} aria-hidden="true" />
+                      <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
                     </button>
                   </div>
                 </article>
@@ -200,13 +226,13 @@ export function App() {
                 <div className="overview-section-header">
                   <span className="eyebrow">More public work</span>
                   <h2 id="more-work-heading" className="section-title">
-                    Independent public repositories
+                    Open repositories
                   </h2>
                 </div>
 
                 <div className={externalProjects.length === 1 ? "single-project-grid" : "grid-2"}>
                   {externalProjects.map((project) => (
-                    <article key={project.id} className="card external-project-card">
+                    <article key={project.id} className="card interactive-card external-project-card">
                       <div className="external-project-top">
                         <div>
                           <span className="eyebrow">{project.badge}</span>
@@ -229,13 +255,13 @@ export function App() {
                       {project.externalUrl ? (
                         <div className="external-project-actions">
                           <a
-                            className="button button-secondary"
+                            className="button button-secondary has-trailing-icon"
                             href={project.externalUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <span>{project.ctaLabel}</span>
-                            <ExternalLink size={16} aria-hidden="true" />
+                            <ExternalLink size={16} strokeWidth={2} aria-hidden="true" />
                           </a>
                         </div>
                       ) : null}
@@ -245,18 +271,19 @@ export function App() {
               </section>
             ) : null}
 
-            {/* Engineering Philosophy Strip */}
+            {/* Engineering Philosophy Hairline Strip */}
             <section aria-labelledby="philosophy-heading">
               <div className="overview-section-header">
-                <span className="eyebrow">How I build</span>
+                <span className="eyebrow">How I work</span>
                 <h2 id="philosophy-heading" className="section-title">
                   Engineering principles
                 </h2>
               </div>
 
-              <div className="grid-3">
-                {PROFILE.principles.map((principle) => (
-                  <article key={principle.id} className="card principle-card">
+              <div className="principles-strip">
+                {PROFILE.principles.map((principle, index) => (
+                  <article key={principle.id} className="principle-column">
+                    <span className="principle-index">0{index + 1}</span>
                     <h3 className="principle-title">{principle.title}</h3>
                     <p className="principle-detail">{principle.detail}</p>
                   </article>

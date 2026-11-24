@@ -46,10 +46,10 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
           <div className="case-back-row">
             <button
               type="button"
-              className="button button-ghost case-back-btn"
+              className="button button-ghost case-back-btn has-leading-icon"
               onClick={onBackToOverview}
             >
-              <ArrowLeft size={16} aria-hidden="true" />
+              <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
               <span>Back to overview</span>
             </button>
           </div>
@@ -61,11 +61,11 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
             <span>{IKILANG_DATA.coBrandLabel}</span>
           </span>
           <span className="badge badge-validating">
-            <FlaskConical size={14} aria-hidden="true" />
-            <span>Phase 1A · Active validation</span>
+            <FlaskConical size={14} strokeWidth={2} aria-hidden="true" />
+            <span>Phase 1A · Live trials</span>
           </span>
           <span className="badge">
-            <CalendarCheck size={14} aria-hidden="true" />
+            <CalendarCheck size={14} strokeWidth={2} aria-hidden="true" />
             <span>Verified {IKILANG_DATA.lastVerifiedDate}</span>
           </span>
         </div>
@@ -77,31 +77,31 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
         <nav className="section-jump-nav" aria-label="Case study sections">
           <button
             type="button"
-            className="button button-secondary jump-btn"
+            className="button button-secondary jump-btn has-leading-icon"
             onClick={() => jumpToSection("ikilang-story")}
           >
-            <Compass size={15} aria-hidden="true" />
-            <span>Read motivation</span>
+            <Compass size={15} strokeWidth={2} aria-hidden="true" />
+            <span>Why I&apos;m building this</span>
           </button>
           <button
             type="button"
-            className="button button-secondary jump-btn"
+            className="button button-secondary jump-btn has-leading-icon"
             onClick={() => jumpToSection("ikilang-labs")}
           >
-            <FlaskConical size={15} aria-hidden="true" />
-            <span>Explore interactive labs</span>
+            <FlaskConical size={15} strokeWidth={2} aria-hidden="true" />
+            <span>Interactive demos</span>
           </button>
           <button
             type="button"
-            className="button button-secondary jump-btn"
+            className="button button-secondary jump-btn has-leading-icon"
             onClick={() => jumpToSection("ikilang-system-card")}
           >
-            <ShieldCheck size={15} aria-hidden="true" />
-            <span>View system card &amp; roadmap</span>
+            <ShieldCheck size={15} strokeWidth={2} aria-hidden="true" />
+            <span>Status &amp; rollout</span>
           </button>
         </nav>
 
-        {/* Proof-First Discipline Highlights */}
+        {/* Measured Engineering Strip */}
         <div className="discipline-grid" aria-label="Verified engineering benchmarks">
           {IKILANG_DATA.disciplineSignals.map((signal) => (
             <div key={signal.id} className="discipline-card">
@@ -122,7 +122,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
       >
         <div className="section-heading-row">
           <div>
-            <span className="eyebrow">Motivation &amp; problem reality</span>
+            <span className="eyebrow">Real-world need</span>
             <h2 id={storyId} className="section-title">
               {IKILANG_DATA.founderStory.heading}
             </h2>
@@ -146,7 +146,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
             </p>
           </div>
           <div className="card-subtle story-callout-box">
-            <span className="eyebrow">Blueprint #1 principle</span>
+            <span className="eyebrow">Repeatability</span>
             <p className="story-callout-text">{IKILANG_DATA.founderStory.blueprintPrinciple}</p>
           </div>
         </div>
@@ -155,11 +155,11 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
         <div className="bridge-section" aria-labelledby={bridgeId}>
           <div className="bridge-header">
             <span className="eyebrow">
-              <ArrowLeftRight size={14} aria-hidden="true" />
-              Bidirectional community access
+              <ArrowLeftRight size={14} strokeWidth={2} aria-hidden="true" />
+              Two-way use cases
             </span>
             <h3 id={bridgeId} className="bridge-heading">
-              Two-way dignity: independent access &amp; local engagement
+              Built for newcomers here and visiting teams abroad
             </h3>
           </div>
 
@@ -180,7 +180,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
 
                 <p className="bridge-value">{direction.valueStatement}</p>
                 <p className="bridge-dignity">
-                  <CheckCircle2 size={15} aria-hidden="true" />
+                  <CheckCircle2 size={15} strokeWidth={2} aria-hidden="true" />
                   <span>{direction.dignityHighlight}</span>
                 </p>
               </article>
@@ -189,20 +189,20 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
         </div>
       </section>
 
-      {/* Tools & Engineering Discipline */}
+      {/* Tools & Stack */}
       <section className="card" aria-labelledby={toolsId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
-              <Wrench size={14} aria-hidden="true" />
-              Ecosystem stack
+              <Wrench size={14} strokeWidth={2} aria-hidden="true" />
+              Tech stack
             </span>
             <h2 id={toolsId} className="section-title">
-              Tools evaluated across streaming, capture &amp; verification
+              Streaming, audio capture &amp; testing stack
             </h2>
             <p className="section-lead">
-              Public stack isolated behind pluggable seams — private model routing, prompts, and
-              scoring internals remain black-boxed.
+              Models sit behind one backend interface so providers stay swappable without touching UI
+              code; core prompts and scoring logic stay private.
             </p>
           </div>
         </div>
@@ -233,15 +233,15 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
       >
         <div className="labs-intro">
           <span className="eyebrow">
-            <Layers size={14} aria-hidden="true" />
-            Zero-API interactive labs
+            <Layers size={14} strokeWidth={2} aria-hidden="true" />
+            Interactive walkthroughs
           </span>
           <h2 id={labsId} className="section-title">
-            Cadence, multi-screen UX &amp; black-box boundaries
+            Live cadence, multi-screen views &amp; system map
           </h2>
           <p className="section-lead">
-            Deterministic static previews — zero live API calls, zero autoplay audio, full keyboard
-            control.
+            Self-contained visual demos — no live API calls, no audio playback, full keyboard
+            support.
           </p>
         </div>
 
@@ -250,7 +250,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
         <ArchitectureExplorer />
       </section>
 
-      {/* System Card, Shortcomings, Privacy Honesty, Field Spec, Roadmap & Changelog */}
+      {/* Status, Limits, Privacy, Setup, Roadmap & Changelog */}
       <div id="ikilang-system-card" tabIndex={-1}>
         <SystemCardAndRoadmap />
       </div>
