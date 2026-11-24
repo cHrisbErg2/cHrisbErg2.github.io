@@ -1,6 +1,6 @@
 # Christian Muhirwa — Engineering Portfolio Hub
 
-Standalone public portfolio and interactive architecture showcase for **Christian Muhirwa** (University of Saskatchewan), featuring **IkiLang / KinyaVoice** — real-time speech-to-text translation infrastructure designed for low-resource languages, starting with Kinyarwanda.
+Standalone public portfolio and interactive architecture showcase for **Christian Muhirwa** (University of Saskatchewan), featuring **IkiLang / KinyaVoice** — real-time speech-to-text translation infrastructure designed for low-resource languages, starting with Kinyarwanda (`+1.02 s` live replay caption delay, `0.10 ms` p95 quality-guardrail overhead, `451` automated tests passing across backend and frontend).
 
 Built as a lightweight, zero-tracking static React + TypeScript + Vite site ready for GitHub Pages (`https://chrisberg2.github.io/`).
 

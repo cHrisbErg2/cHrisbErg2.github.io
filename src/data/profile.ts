@@ -21,9 +21,9 @@ export interface ProfileConfig {
 export const PROFILE: ProfileConfig = {
   name: "Christian Muhirwa",
   roleLine:
-    "Applied AI & Real-Time Systems Builder — shipping field-tested speech and community software rather than waiting for classroom assignments.",
+    "Applied AI and real-time systems builder — shipping field-tested speech software under live latency and privacy constraints.",
   builderSummary:
-    "I design and validate real-world software systems under live acoustic, latency, and privacy constraints. Every project here emphasizes measurable reliability, clean interface boundaries, and honest engineering maturity over surface-level demos.",
+    "I build and measure production-oriented systems for real rooms, prioritizing empirical baselines, clean boundaries, and zero-PII design.",
   affiliation: "University of Saskatchewan",
   locationLabel: "Saskatchewan, Canada",
   githubUrl: "https://github.com/cHrisbErg2",
@@ -33,27 +33,27 @@ export const PROFILE: ProfileConfig = {
   focusAreas: [
     "Real-Time Speech Systems",
     "Low-Resource Language AI",
-    "Privacy-Minimal Web Architecture",
+    "Privacy-Minimal Architecture",
     "Evaluation-First Engineering",
   ],
   principles: [
     {
       id: "field-reality",
-      title: "Build for Real Rooms, Not Clean Demos",
+      title: "Build for real rooms",
       detail:
-        "Design around soundboards, mobile WebViews, fast uninterrupted speakers, and low-bandwidth venues rather than curated lab clips.",
+        "Design for soundboards, mobile WebViews, and rapid speech rather than clean lab recordings.",
     },
     {
       id: "measure-first",
-      title: "Evaluate Before Fine-Tuning",
+      title: "Evaluate before fine-tuning",
       detail:
-        "Establish hand-labeled baselines, latency percentiles, and concrete error taxonomies before reaching for heavier models or training runs.",
+        "Measure labeled baselines, p95 latency, and error categories before training heavier models.",
     },
     {
       id: "privacy-minimal",
-      title: "Privacy & Honesty as Architecture",
+      title: "Treat privacy as architecture",
       detail:
-        "Keep attendee access zero-PII and tracker-free, separate encrypted transport from server-side processing honestly, and label only what is proven today.",
+        "Keep audience access zero-PII and tracker-free, label transport honestly, and ship only what is proven.",
     },
   ],
 };

@@ -76,11 +76,11 @@
   <g transform="translate(88, 434)">
     <rect x="0" y="0" width="212" height="44" rx="12" fill="#eef1eb" stroke="#dce2db" />
     <circle cx="20" cy="22" r="4.5" fill="#26764b" />
-    <text x="35" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">420+ Automated Tests</text>
+    <text x="35" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">451 Automated Tests</text>
 
     <rect x="226" y="0" width="216" height="44" rx="12" fill="#eef1eb" stroke="#dce2db" />
     <circle cx="246" cy="22" r="4.5" fill="#245c43" />
-    <text x="261" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">&lt; 1.5s Latency Budget</text>
+    <text x="261" y="26.5" font-family="system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#192b23">+1.02 s Replay Latency</text>
 
     <rect x="456" y="0" width="184" height="44" rx="12" fill="#fef3c7" stroke="#d97706" stroke-opacity="0.5" />
     <circle cx="476" cy="22" r="4.5" fill="#b45309" />
