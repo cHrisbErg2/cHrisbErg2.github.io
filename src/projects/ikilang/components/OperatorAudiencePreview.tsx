@@ -28,6 +28,7 @@ export function OperatorAudiencePreview() {
   const [highContrastProjector, setHighContrastProjector] = useState(false);
   const [largeProjectorText, setLargeProjectorText] = useState(false);
   const headingId = useId();
+  const audioNoticeId = useId();
 
   const activeScenario =
     scenarios.find((scenario) => scenario.id === scenarioId) ?? scenarios[0];
@@ -63,15 +64,14 @@ export function OperatorAudiencePreview() {
         <div>
           <span className="eyebrow">
             <Monitor size={14} aria-hidden="true" />
-            Interactive Lab 02 · Dual-Pane Operator &amp; Audience Preview
+            Lab 02 · Operator &amp; audience preview
           </span>
           <h3 id={headingId} className="lab-title">
-            Simulated Operator Soundboard Capture &amp; Multi-Screen Audience Delivery
+            Soundboard ingest &amp; multi-screen delivery
           </h3>
           <p className="lab-subtitle">
-            Switch between community, clinical/NGO, and field outreach contexts to inspect how clean
-            16 kHz mono capture feeds zero-download Mobile QR captions (audio intentionally
-            disarmed) and the high-contrast Sanctuary Projector upward book-scroll stage.
+            Switch contexts to inspect 16 kHz mono ingest alongside zero-download Mobile QR captions
+            (audio disarmed) and the upward book-scroll Sanctuary Projector.
           </p>
         </div>
       </div>
@@ -82,7 +82,7 @@ export function OperatorAudiencePreview() {
       </div>
 
       <div className="preview-scenario-bar">
-        <span className="preview-bar-label">Bidirectional Room Context:</span>
+        <span className="preview-bar-label">Room context:</span>
         <div
           className="segmented"
           role="group"
@@ -111,13 +111,13 @@ export function OperatorAudiencePreview() {
             <div className="pane-heading-group">
               <span className="eyebrow">
                 <Mic size={14} aria-hidden="true" />
-                Operator · Soundboard Capture
+                Operator · Soundboard capture
               </span>
               <h4 className="pane-title">{activeScenario.contextLabel}</h4>
             </div>
             <span className="badge badge-proven">
               <ShieldCheck size={14} aria-hidden="true" />
-              <span>Zero-PII Session</span>
+              <span>Zero-PII session</span>
             </span>
           </div>
 
@@ -130,9 +130,9 @@ export function OperatorAudiencePreview() {
             <div className="signal-meter-header">
               <span className="signal-meter-label">
                 <span className="status-dot" aria-hidden="true" />
-                Ingest Signal Hygiene (Simulated)
+                Signal hygiene (simulated)
               </span>
-              <span className="signal-meter-value">16 kHz Mono PCM · Nominal (-14 dBFS)</span>
+              <span className="signal-meter-value">16 kHz Mono PCM · -14 dBFS</span>
             </div>
 
             <div className="signal-bars" aria-hidden="true">
@@ -147,10 +147,7 @@ export function OperatorAudiencePreview() {
                 );
               })}
             </div>
-            <p className="signal-caption">
-              No microphone accessed and zero audio played — purely illustrates unclipped line-out
-              levels.
-            </p>
+            <p className="signal-caption">No mic accessed and zero audio played.</p>
           </div>
 
           <div className="utterance-stepper-card">
@@ -169,7 +166,7 @@ export function OperatorAudiencePreview() {
                 disabled={safeStepIndex === 0}
               >
                 <ChevronLeft size={16} aria-hidden="true" />
-                <span>Previous Utterance</span>
+                <span>Previous utterance</span>
               </button>
               <button
                 type="button"
@@ -177,7 +174,7 @@ export function OperatorAudiencePreview() {
                 onClick={() => handleStepChange(1)}
                 disabled={safeStepIndex === utteranceSteps.length - 1}
               >
-                <span>Next Utterance</span>
+                <span>Next utterance</span>
                 <ChevronRight size={16} aria-hidden="true" />
               </button>
             </div>
@@ -190,11 +187,9 @@ export function OperatorAudiencePreview() {
         <article className="pane-card audience-pane" aria-label="Audience delivery pane">
           <div className="pane-top">
             <div className="pane-heading-group">
-              <span className="eyebrow">Audience Delivery · Multi-Screen</span>
+              <span className="eyebrow">Audience · Multi-screen</span>
               <h4 className="pane-title">
-                {audienceMode === "mobile"
-                  ? "Mobile QR Listener View"
-                  : "Sanctuary Projector View"}
+                {audienceMode === "mobile" ? "Mobile QR listener" : "Sanctuary projector"}
               </h4>
             </div>
 
@@ -209,7 +204,7 @@ export function OperatorAudiencePreview() {
                 onClick={() => setAudienceMode("mobile")}
               >
                 <Smartphone size={15} aria-hidden="true" />
-                <span>Mobile QR Listener</span>
+                <span>Mobile QR</span>
               </button>
               <button
                 type="button"
@@ -217,7 +212,7 @@ export function OperatorAudiencePreview() {
                 onClick={() => setAudienceMode("projector")}
               >
                 <Monitor size={15} aria-hidden="true" />
-                <span>Sanctuary Projector</span>
+                <span>Projector</span>
               </button>
             </div>
           </div>
@@ -227,9 +222,9 @@ export function OperatorAudiencePreview() {
               <div className="mobile-listener-header">
                 <span className="badge badge-proven">
                   <QrCode size={14} aria-hidden="true" />
-                  <span>QR Join · No App Download</span>
+                  <span>QR join · no app</span>
                 </span>
-                <span className="mobile-join-hint">Feed anchored to join time</span>
+                <span className="mobile-join-hint">Anchored to join time</span>
               </div>
 
               <div
@@ -244,8 +239,7 @@ export function OperatorAudiencePreview() {
                 <button
                   type="button"
                   disabled
-                  aria-disabled="true"
-                  title={IKILANG_DATA.audioDisarmedNotice}
+                  aria-describedby={audioNoticeId}
                 >
                   <Headphones size={15} aria-hidden="true" />
                   <span>Audio (Off)</span>
@@ -253,15 +247,14 @@ export function OperatorAudiencePreview() {
                 <button
                   type="button"
                   disabled
-                  aria-disabled="true"
-                  title={IKILANG_DATA.audioDisarmedNotice}
+                  aria-describedby={audioNoticeId}
                 >
                   <VolumeX size={15} aria-hidden="true" />
                   <span>Both (Off)</span>
                 </button>
               </div>
 
-              <div className="audio-disarmed-notice" role="status">
+              <div id={audioNoticeId} className="audio-disarmed-notice" role="status">
                 <VolumeX size={16} aria-hidden="true" />
                 <span>{IKILANG_DATA.audioDisarmedNotice}</span>
               </div>
@@ -275,7 +268,7 @@ export function OperatorAudiencePreview() {
                 <div className="mobile-live-stage">
                   <span className="live-stage-label">
                     <span className="status-dot" aria-hidden="true" />
-                    Live English Caption
+                    Live caption
                   </span>
                   <p className="mobile-live-text">{activeStep.activeLine}</p>
                 </div>
@@ -291,7 +284,7 @@ export function OperatorAudiencePreview() {
               <div className="projector-toolbar">
                 <span className="projector-badge">
                   <span className="status-dot" aria-hidden="true" />
-                  Upward Book-Scroll · Sanctuary Display
+                  Upward book-scroll
                 </span>
 
                 <div className="projector-a11y-controls">
@@ -302,7 +295,7 @@ export function OperatorAudiencePreview() {
                     onClick={() => setHighContrastProjector((prev) => !prev)}
                   >
                     <Contrast size={15} aria-hidden="true" />
-                    <span>High Contrast</span>
+                    <span>High contrast</span>
                   </button>
                   <button
                     type="button"
@@ -334,7 +327,7 @@ export function OperatorAudiencePreview() {
               </div>
 
               <div className="projector-active-stage">
-                <span className="projector-live-label">Active Live Caption</span>
+                <span className="projector-live-label">Active live caption</span>
                 <p className="projector-active-text">{activeStep.activeLine}</p>
               </div>
             </div>

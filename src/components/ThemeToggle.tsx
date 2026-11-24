@@ -33,6 +33,28 @@ function applyThemeToDocument(resolvedTheme: Theme, storedOverride: Theme | null
   }
 }
 
+function suppressTransitionsOnThemeSwitch() {
+  if (typeof document === "undefined" || !document.head) return;
+  const style = document.createElement("style");
+  style.textContent = "*,*::before,*::after{transition:none !important}";
+  document.head.appendChild(style);
+  void window.getComputedStyle(document.documentElement).opacity;
+
+  const cleanup = () => {
+    if (style.parentNode) {
+      style.parentNode.removeChild(style);
+    }
+  };
+
+  if (typeof window.requestAnimationFrame === "function") {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(cleanup);
+    });
+  } else {
+    window.setTimeout(cleanup, 0);
+  }
+}
+
 export function ThemeToggle() {
   const [storedOverride, setStoredOverride] = useState<Theme | null>(() => readStoredTheme());
   const [theme, setTheme] = useState<Theme>(() => readStoredTheme() ?? getSystemTheme());
@@ -89,6 +111,7 @@ export function ThemeToggle() {
       // Still apply theme to the document even if storage is blocked
     }
 
+    suppressTransitionsOnThemeSwitch();
     setStoredOverride(nextOverride);
     setTheme(nextTheme);
   };

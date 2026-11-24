@@ -22,21 +22,22 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Christian Muhirwa" })).toBeInTheDocument();
-    expect(screen.getByText(/Flagship Case Study/i)).toBeInTheDocument();
+    expect(screen.getByText(/Flagship case study/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IkiLang / KinyaVoice" })).toBeInTheDocument();
 
-    const agriLink = screen.getByRole("link", { name: /Open Repository on GitHub/i });
+    const agriLink = screen.getByRole("link", { name: /View repository on GitHub/i });
     expect(agriLink).toHaveAttribute("href", "https://github.com/cHrisbErg2/AgrI-For-Prairie");
 
-    await user.click(screen.getByRole("button", { name: /Explore Interactive Case Study/i }));
+    await user.click(screen.getByRole("button", { name: /Open interactive case study/i }));
 
     expect(window.location.hash).toBe("#/projects/ikilang");
     expect(
       screen.getByRole("heading", { level: 1, name: "IkiLang / KinyaVoice" }),
     ).toBeInTheDocument();
     expect(screen.getByText(IKILANG_DATA.coBrandLabel)).toBeInTheDocument();
+    expect(screen.getByText("451 tests")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Why I'm Building This/i }),
+      screen.getByRole("heading", { name: /Why I'm building this/i }),
     ).toBeInTheDocument();
   });
 
@@ -49,7 +50,7 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
       screen.getByRole("heading", { level: 1, name: "IkiLang / KinyaVoice" }),
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /Back to Portfolio Overview/i }));
+    await user.click(screen.getByRole("button", { name: /Back to overview/i }));
 
     expect(window.location.hash).toBe("#/");
     expect(screen.getByRole("heading", { level: 1, name: "Christian Muhirwa" })).toBeInTheDocument();
@@ -74,7 +75,7 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     ).toBeInTheDocument();
     expect(document.activeElement).toBe(main);
 
-    // Also verify a raw non-route fragment hashchange never resets activeRoute to Overview
+    // Raw non-route fragment hashchange must not reset activeRoute to Overview
     window.location.hash = "#main-content";
     fireEvent(window, new HashChangeEvent("hashchange"));
 
@@ -125,9 +126,8 @@ describe("LatencyTimelineLab", () => {
     const user = userEvent.setup();
     render(<LatencyTimelineLab />);
 
-    // Provenance notice and paused default state
     expect(screen.getByText(IKILANG_DATA.timelineProvenanceNotice)).toBeInTheDocument();
-    const playButton = screen.getByRole("button", { name: /Play Timeline/i });
+    const playButton = screen.getByRole("button", { name: /Play timeline/i });
     expect(playButton).toHaveAttribute("aria-pressed", "false");
 
     const scrubber = screen.getByRole("slider", { name: /Timeline scrubber/i });
@@ -135,30 +135,30 @@ describe("LatencyTimelineLab", () => {
 
     // Scrub to 30s (index 3) where turn-based is stalled and continuous is delivered
     fireEvent.change(scrubber, { target: { value: "3" } });
-    expect(screen.getByText(/Stalled · Waiting for Long Silence/i)).toBeInTheDocument();
+    expect(screen.getByText(/Stalled · waiting for silence/i)).toBeInTheDocument();
     expect(
       screen.getByText(/30 s elapsed — turn-based listener view remains stalled/i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Delivered \(< 1\.5 s Target\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Delivered \(< 1\.5 s target\)/i)).toBeInTheDocument();
 
     // Scrub to 61s (index 6) where turn-based dumps a late wall of text
     fireEvent.change(scrubber, { target: { value: "6" } });
-    expect(screen.getByText(/Late Wall-of-Text Dump/i)).toBeInTheDocument();
+    expect(screen.getByText(/Late wall-of-text dump/i)).toBeInTheDocument();
     expect(screen.getByText(/1\.8 s silence/i)).toBeInTheDocument();
 
     // Reset returns cleanly to 0s
     await user.click(screen.getByRole("button", { name: /Reset timeline to 0 seconds/i }));
     expect(scrubber).toHaveValue("0");
-    expect(screen.getByText(/Waiting for Turn End/i)).toBeInTheDocument();
+    expect(screen.getByText(/Waiting for turn end/i)).toBeInTheDocument();
 
     // Play / Pause toggle updates aria-pressed cleanly
     await user.click(playButton);
-    expect(screen.getByRole("button", { name: /Pause Timeline/i })).toHaveAttribute(
+    expect(screen.getByRole("button", { name: /Pause timeline/i })).toHaveAttribute(
       "aria-pressed",
       "true",
     );
-    await user.click(screen.getByRole("button", { name: /Pause Timeline/i }));
-    expect(screen.getByRole("button", { name: /Play Timeline/i })).toHaveAttribute(
+    await user.click(screen.getByRole("button", { name: /Pause timeline/i }));
+    expect(screen.getByRole("button", { name: /Play timeline/i })).toHaveAttribute(
       "aria-pressed",
       "false",
     );
@@ -166,7 +166,7 @@ describe("LatencyTimelineLab", () => {
 });
 
 describe("OperatorAudiencePreview", () => {
-  it("switches scenarios, steps utterances, enforces disarmed mobile audio controls, and renders projector upward book-scroll order", async () => {
+  it("switches scenarios, steps utterances, enforces disarmed mobile audio controls via aria-describedby, and renders projector upward book-scroll order", async () => {
     const user = userEvent.setup();
     render(<OperatorAudiencePreview />);
 
@@ -174,29 +174,32 @@ describe("OperatorAudiencePreview", () => {
 
     // Step Next / Previous utterances
     expect(screen.getByText(/Utterance 2 of 3/i)).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: /Next Utterance/i }));
+    await user.click(screen.getByRole("button", { name: /Next utterance/i }));
     expect(screen.getByText(/Utterance 3 of 3/i)).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: /Previous Utterance/i }));
+    await user.click(screen.getByRole("button", { name: /Previous utterance/i }));
     expect(screen.getByText(/Utterance 2 of 3/i)).toBeInTheDocument();
 
-    // Default Mobile QR view: audio & both controls must be disabled/disarmed
+    // Default Mobile QR view: audio & both controls must be natively disabled and linked via aria-describedby
     const audioBtn = screen.getByRole("button", { name: /Audio \(Off\)/i });
     const bothBtn = screen.getByRole("button", { name: /Both \(Off\)/i });
     expect(audioBtn).toBeDisabled();
     expect(bothBtn).toBeDisabled();
+    expect(audioBtn).not.toHaveAttribute("aria-disabled");
+    expect(audioBtn).toHaveAccessibleDescription(IKILANG_DATA.audioDisarmedNotice);
+    expect(bothBtn).toHaveAccessibleDescription(IKILANG_DATA.audioDisarmedNotice);
     expect(screen.getByText(IKILANG_DATA.audioDisarmedNotice)).toBeInTheDocument();
 
-    // Switch scenario to Medical Clinic / NGO Intake
-    await user.click(screen.getByRole("button", { name: /Medical Clinic \/ NGO Intake/i }));
+    // Switch scenario to Clinic / NGO
+    await user.click(screen.getByRole("button", { name: /^Clinic \/ NGO$/i }));
     expect(screen.getByText(/16 kHz Mono PCM · Desk Directional Mic/i)).toBeInTheDocument();
 
-    // Switch scenario to Field Outreach & Visitor Exchange
-    await user.click(screen.getByRole("button", { name: /Field Outreach & Visitor Exchange/i }));
+    // Switch scenario to Field outreach
+    await user.click(screen.getByRole("button", { name: /^Field outreach$/i }));
     expect(screen.getByText(/16 kHz Mono PCM · Portable USB Interface/i)).toBeInTheDocument();
 
-    // Switch back to Sanctuary and inspect Sanctuary Projector view
-    await user.click(screen.getByRole("button", { name: /Sanctuary \/ Community Worship/i }));
-    await user.click(screen.getByRole("button", { name: /Sanctuary Projector/i }));
+    // Switch back to Sanctuary and inspect Projector view
+    await user.click(screen.getByRole("button", { name: /^Sanctuary$/i }));
+    await user.click(screen.getByRole("button", { name: /^Projector$/i }));
 
     const projector = screen.getByLabelText(
       /Sanctuary projector upward book-scroll caption stage/i,
@@ -204,7 +207,7 @@ describe("OperatorAudiencePreview", () => {
     const earlierLabel = within(projector).getByText(/Earlier in the session/i);
     const justSaidBadge = within(projector).getByText(/^Just said$/i);
     const activeCaptionText = within(projector).getByText(
-      /After the closing hymn, community hospitality volunteers will be available/i,
+      /Volunteers will be in the foyer after service with translated welcome cards/i,
     );
 
     // Verify DOM order matches upward book-scroll: Earlier -> Just said -> Active live caption
@@ -216,7 +219,7 @@ describe("OperatorAudiencePreview", () => {
     ).toBeTruthy();
 
     // Verify High-Contrast and Text Size accessibility toggles
-    const contrastBtn = within(projector).getByRole("button", { name: /High Contrast/i });
+    const contrastBtn = within(projector).getByRole("button", { name: /High contrast/i });
     expect(contrastBtn).toHaveAttribute("aria-pressed", "false");
     await user.click(contrastBtn);
     expect(contrastBtn).toHaveAttribute("aria-pressed", "true");
@@ -242,26 +245,26 @@ describe("ArchitectureExplorer", () => {
 
     // Layer 1 starts selected
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audio Ingest/i);
+    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audio ingest/i);
 
     // Keyboard ArrowRight moves to Layer 2 (Black-Boxed)
     tabs[0].focus();
     await user.keyboard("{ArrowRight}");
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
     const panelLayer2 = screen.getByRole("tabpanel");
-    expect(panelLayer2).toHaveTextContent(/Pluggable Speech & Translation Interface/i);
-    expect(panelLayer2).toHaveTextContent(/Black-Boxed Core Internals/i);
+    expect(panelLayer2).toHaveTextContent(/Speech seam/i);
+    expect(panelLayer2).toHaveTextContent(/Black-boxed core internals/i);
     expect(panelLayer2).toHaveTextContent(IKILANG_DATA.blackBoxNotice);
 
-    // Clicking Layer 5 switches to Multi-Screen Audience Delivery
+    // Clicking Layer 5 switches to Audience UI
     await user.click(tabs[4]);
     expect(tabs[4]).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Multi-Screen Audience Delivery/i);
+    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audience UI/i);
   });
 });
 
 describe("SystemCardAndRoadmap", () => {
-  it("filters maturity matrix cleanly and renders shortcomings, cryptographic honesty, field spec, roadmap, and changelog", async () => {
+  it("filters maturity matrix cleanly and renders limits, cryptographic honesty, field spec, roadmap, and changelog", async () => {
     const user = userEvent.setup();
     render(<SystemCardAndRoadmap />);
 
@@ -269,45 +272,45 @@ describe("SystemCardAndRoadmap", () => {
       name: /Filter system capabilities by maturity status/i,
     });
 
-    // Filter to Deliberately Gated
-    await user.click(within(filterGroup).getByRole("button", { name: /Deliberately Gated/i }));
+    // Filter to Deliberately gated
+    await user.click(within(filterGroup).getByRole("button", { name: /Deliberately gated/i }));
     expect(
-      screen.getByRole("heading", { name: /Live Audience Audio Streaming/i }),
+      screen.getByRole("heading", { name: /Live audience audio streaming/i }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { name: /Mono 16 kHz PCM Audio Ingest/i }),
+      screen.queryByRole("heading", { name: /Mono 16 kHz PCM ingest/i }),
     ).not.toBeInTheDocument();
 
-    // Filter to Proven Today
-    await user.click(within(filterGroup).getByRole("button", { name: /Proven Today/i }));
+    // Filter to Proven today
+    await user.click(within(filterGroup).getByRole("button", { name: /Proven today/i }));
     expect(
-      screen.getByRole("heading", { name: /Mono 16 kHz PCM Audio Ingest/i }),
+      screen.getByRole("heading", { name: /Mono 16 kHz PCM ingest/i }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { name: /Live Audience Audio Streaming/i }),
+      screen.queryByRole("heading", { name: /Live audience audio streaming/i }),
     ).not.toBeInTheDocument();
 
-    // Filter to Active Validation
-    await user.click(within(filterGroup).getByRole("button", { name: /Active Validation/i }));
+    // Filter to Active validation
+    await user.click(within(filterGroup).getByRole("button", { name: /Active validation/i }));
     expect(
-      screen.getByRole("heading", { name: /Live Sanctuary Captions-Only Trials/i }),
+      screen.getByRole("heading", { name: /Live sanctuary RW -> EN trials/i }),
     ).toBeInTheDocument();
 
-    // Candid Shortcomings & Cryptographic Honesty sections present
+    // Candid Limits & Cryptographic Honesty sections present
     expect(
       screen.getByRole("heading", {
-        name: /Where It Currently Falls Short & When Humans Are Still Essential/i,
+        name: /Limits & when humans remain essential/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(IKILANG_DATA.cryptographicHonestyNotice)).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Field-Readiness Signal Chain/i }),
+      screen.getByRole("heading", { name: /Field-readiness signal chain/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /4-Phase Blueprint Roadmap/i }),
+      screen.getByRole("heading", { name: /4-phase execution roadmap/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /Living Engineering Changelog/i }),
+      screen.getByRole("heading", { name: /Living engineering changelog/i }),
     ).toBeInTheDocument();
   });
 });

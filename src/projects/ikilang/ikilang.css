@@ -5,6 +5,32 @@
  * Forced Colors Mode, and zero horizontal overflow down to 320px.
  */
 
+#main-content,
+#ikilang-story,
+#ikilang-labs,
+#ikilang-system-card {
+  scroll-margin-top: 88px;
+}
+
+.hero-lead,
+.section-lead,
+.lab-subtitle,
+.story-paragraph {
+  text-wrap: pretty;
+}
+
+.discipline-metric,
+.elapsed-time,
+.elapsed-step,
+.speaker-timestamp,
+.marker-time,
+.marker-pause,
+.filter-count,
+.field-spec-num,
+.changelog-date {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---------- Portfolio Overview Hub ---------- */
 .overview-hero {
   gap: 16px;
@@ -582,9 +608,11 @@
   line-height: 1.25;
 }
 
-.marker-pill:hover {
-  border-color: var(--control-border);
-  color: var(--ink);
+@media (hover: hover) {
+  .marker-pill:hover {
+    border-color: var(--control-border);
+    color: var(--ink);
+  }
 }
 
 .marker-pill.is-long-pause {
@@ -606,7 +634,7 @@
 }
 
 .marker-pause {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   opacity: 0.9;
 }
 
@@ -977,7 +1005,7 @@
   background: var(--accent-soft);
   border: 1px solid var(--line-strong);
   color: var(--accent);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1027,9 +1055,9 @@
 }
 
 .projector-stage.is-high-contrast {
-  background: #000000;
-  color: #ffffff;
-  border-color: #ffffff;
+  background: var(--projector-hc-bg);
+  color: var(--projector-hc-ink);
+  border-color: var(--projector-hc-border);
 }
 
 .projector-toolbar {
@@ -1077,14 +1105,14 @@
 
 .projector-control-btn[aria-pressed="true"] {
   border-color: var(--projector-accent);
-  background: #23382b;
-  color: #ffffff;
+  background: var(--projector-control-active-bg);
+  color: var(--projector-control-active-ink);
 }
 
 .projector-stage.is-high-contrast .projector-control-btn[aria-pressed="true"] {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
+  background: var(--projector-hc-ink);
+  color: var(--projector-hc-bg);
+  border-color: var(--projector-hc-border);
 }
 
 .projector-earlier-section {
@@ -1102,7 +1130,7 @@
 }
 
 .projector-stage.is-high-contrast .projector-section-label {
-  color: #d9e6dc;
+  color: var(--projector-hc-label);
 }
 
 .projector-earlier-list {
@@ -1124,7 +1152,7 @@
 }
 
 .projector-stage.is-high-contrast .projector-earlier-item {
-  color: #e6ece7;
+  color: var(--projector-hc-muted);
 }
 
 .projector-stage.is-large-text .projector-earlier-item {
@@ -1140,9 +1168,9 @@
 }
 
 .projector-stage.is-high-contrast .projector-just-said {
-  background: #121212;
-  border-color: #ffffff;
-  border-inline-start-color: #fde047;
+  background: var(--projector-hc-surface);
+  border-color: var(--projector-hc-border);
+  border-inline-start-color: var(--projector-hc-accent);
 }
 
 .projector-recency-badge {
@@ -1150,19 +1178,19 @@
   margin-block-end: 6px;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  background: rgba(191, 214, 176, 0.16);
+  background: var(--projector-recency-bg);
   border: 1px solid var(--projector-accent);
   color: var(--projector-accent);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .projector-stage.is-high-contrast .projector-recency-badge {
-  background: #fde047;
-  color: #000000;
-  border-color: #fde047;
+  background: var(--projector-hc-accent);
+  color: var(--projector-hc-accent-ink);
+  border-color: var(--projector-hc-accent);
 }
 
 .projector-just-said-text {
@@ -1181,7 +1209,7 @@
   margin-block-start: auto;
   padding: 16px;
   border-radius: var(--radius-md);
-  background: #17271e;
+  background: var(--projector-active-bg);
   border: 1px solid var(--projector-accent);
   display: flex;
   flex-direction: column;
@@ -1189,8 +1217,8 @@
 }
 
 .projector-stage.is-high-contrast .projector-active-stage {
-  background: #000000;
-  border: 2px solid #fde047;
+  background: var(--projector-hc-bg);
+  border: 2px solid var(--projector-hc-accent);
 }
 
 .projector-live-label {
@@ -1202,14 +1230,14 @@
 }
 
 .projector-stage.is-high-contrast .projector-live-label {
-  color: #fde047;
+  color: var(--projector-hc-accent);
 }
 
 .projector-active-text {
   font-size: clamp(1.25rem, 2.6vw, 1.625rem);
   font-weight: 700;
   line-height: 1.38;
-  color: #ffffff;
+  color: var(--projector-active-ink);
   overflow-wrap: anywhere;
 }
 
@@ -1223,13 +1251,11 @@
   border-radius: var(--radius-md);
   background: var(--surface-subtle);
   border: 1px solid var(--line);
-  overflow-x: auto;
 }
 
 .arch-svg {
   display: block;
   inline-size: 100%;
-  min-inline-size: 620px;
   block-size: auto;
 }
 
@@ -1253,28 +1279,28 @@
 
 .arch-svg-step {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   fill: var(--muted);
 }
 
 .arch-svg-lock {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 700;
   fill: var(--amber);
 }
 
 .arch-svg-title {
   font-family: var(--font-sans);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
   fill: var(--ink);
 }
 
 .arch-svg-sub {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--muted);
 }
 
@@ -1444,14 +1470,14 @@
 .maturity-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .maturity-row {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: clamp(14px, 2vw, 18px);
+  gap: 8px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   background: var(--surface-subtle);
   border: 1px solid var(--line);
@@ -1620,8 +1646,8 @@
 .roadmap-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: clamp(14px, 2vw, 20px);
+  gap: 8px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   background: var(--surface-subtle);
   border: 1px solid var(--line);
@@ -1698,7 +1724,7 @@
   }
 
   .field-spec-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 
   .field-spec-arrow {
@@ -1726,6 +1752,12 @@
 
   .utterance-stepper-actions {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .arch-diagram-shell {
+    display: none;
   }
 }
 

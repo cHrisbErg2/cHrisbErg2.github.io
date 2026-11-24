@@ -36,7 +36,7 @@ function renderTurnBasedBadge(status: TurnBasedStatus) {
     return (
       <span className="badge badge-danger">
         <AlertOctagon size={14} aria-hidden="true" />
-        <span>Late Wall-of-Text Dump</span>
+        <span>Late wall-of-text dump</span>
       </span>
     );
   }
@@ -44,14 +44,14 @@ function renderTurnBasedBadge(status: TurnBasedStatus) {
     return (
       <span className="badge badge-validating">
         <AlertTriangle size={14} aria-hidden="true" />
-        <span>Stalled · Waiting for Long Silence</span>
+        <span>Stalled · waiting for silence</span>
       </span>
     );
   }
   return (
     <span className="badge badge-gated">
       <Clock size={14} aria-hidden="true" />
-      <span>Waiting for Turn End</span>
+      <span>Waiting for turn end</span>
     </span>
   );
 }
@@ -61,14 +61,14 @@ function renderContinuousBadge(status: ContinuousStatus) {
     return (
       <span className="badge badge-proven">
         <Radio size={14} aria-hidden="true" />
-        <span>Streaming Live (&lt; 1.5 s)</span>
+        <span>Streaming (&lt; 1.5 s)</span>
       </span>
     );
   }
   return (
     <span className="badge badge-proven">
       <CheckCircle2 size={14} aria-hidden="true" />
-      <span>Delivered (&lt; 1.5 s Target)</span>
+      <span>Delivered (&lt; 1.5 s target)</span>
     </span>
   );
 }
@@ -142,15 +142,14 @@ export function LatencyTimelineLab() {
         <div>
           <span className="eyebrow">
             <Activity size={14} aria-hidden="true" />
-            Interactive Lab 01 · Continuous vs. Turn-Based Cadence
+            Lab 01 · Streaming vs. turn-based cadence
           </span>
           <h3 id={headingId} className="lab-title">
-            Why Rapid Uninterrupted Speech Breaks Turn-Based Translation
+            Why rapid speech stalls turn-based translation
           </h3>
           <p className="lab-subtitle">
-            Scrub or step through a 65-second uninterrupted delivery containing natural 200–500 ms
-            breath pauses to see how turn-based endpoints stall until a long silence while
-            continuous streaming keeps listeners aligned clause by clause.
+            Scrub 65 s of uninterrupted speech with 200–500 ms pauses to compare turn-based stalls
+            against sub-1.5 s continuous captions.
           </p>
         </div>
 
@@ -158,7 +157,7 @@ export function LatencyTimelineLab() {
           <span className="elapsed-label">Elapsed speech</span>
           <span className="elapsed-time">{formatElapsed(currentFrame.timeSec)}</span>
           <span className="elapsed-step">
-            Checkpoint {frameIndex + 1} of {frames.length} · {currentFrame.timeSec}s / {totalSec}s
+            Step {frameIndex + 1}/{frames.length} · {currentFrame.timeSec}s / {totalSec}s
           </span>
         </div>
       </div>
@@ -179,12 +178,12 @@ export function LatencyTimelineLab() {
             {isPlaying ? (
               <>
                 <Pause size={16} aria-hidden="true" />
-                <span>Pause Timeline</span>
+                <span>Pause timeline</span>
               </>
             ) : (
               <>
                 <Play size={16} aria-hidden="true" />
-                <span>{frameIndex >= maxIndex ? "Replay Timeline" : "Play Timeline"}</span>
+                <span>{frameIndex >= maxIndex ? "Replay timeline" : "Play timeline"}</span>
               </>
             )}
           </button>
@@ -197,7 +196,7 @@ export function LatencyTimelineLab() {
             aria-label="Previous speech checkpoint"
           >
             <ChevronLeft size={16} aria-hidden="true" />
-            <span>Prev</span>
+            <span>Previous</span>
           </button>
 
           <button
@@ -224,7 +223,7 @@ export function LatencyTimelineLab() {
 
         {reducedMotion ? (
           <p className="reduced-motion-hint">
-            Reduced motion detected: timeline starts paused and transitions without visual animation.
+            Reduced motion active: starts paused without animation.
           </p>
         ) : null}
 
@@ -234,7 +233,7 @@ export function LatencyTimelineLab() {
               Timeline scrubber (0s to {totalSec}s)
             </label>
             <span className="breath-badge">
-              Breath pause at {currentFrame.timeSec}s:{" "}
+              Pause at {currentFrame.timeSec}s:{" "}
               <strong>
                 {currentFrame.breathPauseMs >= 1000
                   ? `${(currentFrame.breathPauseMs / 1000).toFixed(1)} s silence`
@@ -284,7 +283,7 @@ export function LatencyTimelineLab() {
 
       <div className="speaker-stream-card">
         <div className="speaker-stream-meta">
-          <span className="eyebrow">Live Speaker Audio Reference (Simulated Speech Cadence)</span>
+          <span className="eyebrow">Speaker reference (simulated cadence)</span>
           <span className="speaker-timestamp">t = {currentFrame.timeSec}s</span>
         </div>
         <p className="speaker-stream-text">&ldquo;{currentFrame.speakerLine}&rdquo;</p>
@@ -293,12 +292,12 @@ export function LatencyTimelineLab() {
       <div className="grid-2 timeline-tracks">
         <article
           className={`track-card track-turn-based status-${currentFrame.turnBasedStatus}`}
-          aria-label="Track A: Turn-Based Conversational Endpoint"
+          aria-label="Track A: Turn-based endpoint"
         >
           <div className="track-header">
             <div>
-              <span className="track-kicker">Track A · Turn-Based Conversational Endpoint</span>
-              <h4 className="track-title">Waits for Extended Silence (~60 s Stall)</h4>
+              <span className="track-kicker">Track A · Turn-based endpoint</span>
+              <h4 className="track-title">Waits for extended silence (~60 s stall)</h4>
             </div>
             {renderTurnBasedBadge(currentFrame.turnBasedStatus)}
           </div>
@@ -316,12 +315,12 @@ export function LatencyTimelineLab() {
 
         <article
           className={`track-card track-continuous status-${currentFrame.continuousStatus}`}
-          aria-label="Track B: Continuous Streaming Target"
+          aria-label="Track B: Continuous streaming"
         >
           <div className="track-header">
             <div>
-              <span className="track-kicker">Track B · Continuous Streaming Target</span>
-              <h4 className="track-title">Clause-by-Clause Delivery (&lt; 1.5 s Cadence)</h4>
+              <span className="track-kicker">Track B · Continuous streaming</span>
+              <h4 className="track-title">Clause-by-clause delivery (&lt; 1.5 s cadence)</h4>
             </div>
             {renderContinuousBadge(currentFrame.continuousStatus)}
           </div>
@@ -333,7 +332,7 @@ export function LatencyTimelineLab() {
       </div>
 
       <p className="timeline-takeaway" aria-live="polite">
-        <strong>Observed behavior at {currentFrame.timeSec}s:</strong> {currentFrame.latencyNote}
+        <strong>At {currentFrame.timeSec}s:</strong> {currentFrame.latencyNote}
       </p>
     </section>
   );

@@ -112,7 +112,7 @@ export function App() {
                   className="button button-primary"
                   onClick={() => navigate("ikilang")}
                 >
-                  <span>Explore IkiLang / KinyaVoice Case Study</span>
+                  <span>Explore IkiLang case study</span>
                   <ArrowRight size={17} aria-hidden="true" />
                 </button>
                 <a
@@ -122,7 +122,7 @@ export function App() {
                   rel="noopener noreferrer"
                 >
                   <Github size={17} aria-hidden="true" />
-                  <span>GitHub Profile</span>
+                  <span>View GitHub profile</span>
                 </a>
               </div>
             </section>
@@ -131,9 +131,9 @@ export function App() {
             {flagshipProject ? (
               <section aria-labelledby="flagship-section-heading">
                 <div className="overview-section-header">
-                  <span className="eyebrow">Flagship Case Study</span>
+                  <span className="eyebrow">Flagship case study</span>
                   <h2 id="flagship-section-heading" className="section-title">
-                    Real-Time Low-Resource Speech Translation Blueprint
+                    Real-time low-resource speech translation
                   </h2>
                 </div>
 
@@ -162,14 +162,14 @@ export function App() {
                   </ul>
 
                   <div className="flagship-inside-strip">
-                    <strong>Inside the interactive case study:</strong>
-                    <span>65 s Latency Timeline Lab</span>
+                    <strong>Inside the case study:</strong>
+                    <span>65 s latency timeline</span>
                     <span aria-hidden="true">·</span>
-                    <span>Operator &amp; Audience Dual-Pane Preview</span>
+                    <span>Operator &amp; audience preview</span>
                     <span aria-hidden="true">·</span>
-                    <span>5-Layer Black-Box Map</span>
+                    <span>5-layer architecture</span>
                     <span aria-hidden="true">·</span>
-                    <span>Canonical Maturity Matrix &amp; Roadmap</span>
+                    <span>Maturity &amp; roadmap</span>
                   </div>
 
                   <ul className="pill-list" aria-label="IkiLang public stack highlights">
@@ -198,13 +198,13 @@ export function App() {
             {externalProjects.length > 0 ? (
               <section aria-labelledby="more-work-heading">
                 <div className="overview-section-header">
-                  <span className="eyebrow">More Public Work</span>
+                  <span className="eyebrow">More public work</span>
                   <h2 id="more-work-heading" className="section-title">
-                    Independent Public Repositories
+                    Independent public repositories
                   </h2>
                 </div>
 
-                <div className="grid-2">
+                <div className={externalProjects.length === 1 ? "single-project-grid" : "grid-2"}>
                   {externalProjects.map((project) => (
                     <article key={project.id} className="card external-project-card">
                       <div className="external-project-top">
@@ -248,9 +248,9 @@ export function App() {
             {/* Engineering Philosophy Strip */}
             <section aria-labelledby="philosophy-heading">
               <div className="overview-section-header">
-                <span className="eyebrow">How I Build</span>
+                <span className="eyebrow">How I build</span>
                 <h2 id="philosophy-heading" className="section-title">
-                  Engineering Philosophy
+                  Engineering principles
                 </h2>
               </div>
 

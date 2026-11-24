@@ -77,14 +77,12 @@ export function SystemCardAndRoadmap() {
       <section className="card" aria-labelledby={systemCardHeadingId}>
         <div className="section-heading-row">
           <div>
-            <span className="eyebrow">Canonical System Card · Maturity Boundaries</span>
+            <span className="eyebrow">Canonical system card</span>
             <h2 id={systemCardHeadingId} className="section-title">
-              What Is Proven Today, Actively Validating, and Deliberately Gated
+              What is proven, actively validating, and gated
             </h2>
             <p className="section-lead">
-              Every capability is labeled by verifiable engineering evidence so visitors,
-              community hosts, and engineers can separate shipped functionality from gated
-              roadmap work.
+              Capabilities are strictly tagged by verifiable evidence versus gated roadmap scope.
             </p>
           </div>
         </div>
@@ -118,11 +116,11 @@ export function SystemCardAndRoadmap() {
               </div>
               <div className="grid-2 maturity-row-details">
                 <div>
-                  <span className="maturity-field-label">Verification Evidence</span>
+                  <span className="maturity-field-label">Evidence</span>
                   <p className="maturity-field-text">{item.evidence}</p>
                 </div>
                 <div>
-                  <span className="maturity-field-label">Scope &amp; Boundary Note</span>
+                  <span className="maturity-field-label">Scope</span>
                   <p className="maturity-field-text">{item.boundaryNote}</p>
                 </div>
               </div>
@@ -131,13 +129,13 @@ export function SystemCardAndRoadmap() {
         </div>
       </section>
 
-      {/* 2. Where It Currently Falls Short & When Humans Are Still Essential */}
+      {/* 2. Limits & When Humans Remain Essential */}
       <section className="card shortcomings-card" aria-labelledby={shortcomingsHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
               <ShieldAlert size={14} aria-hidden="true" />
-              Candid Boundaries &amp; Human-in-the-Loop Discipline
+              Candid boundaries &amp; human handoff
             </span>
             <h2 id={shortcomingsHeadingId} className="section-title">
               {shortcomingsAndHumanBoundary.heading}
@@ -150,7 +148,7 @@ export function SystemCardAndRoadmap() {
           <div className="card-subtle">
             <h3 className="subpanel-title">
               <AlertTriangle size={17} aria-hidden="true" />
-              Where It Currently Falls Short
+              Where it falls short
             </h3>
             <ul className="clean-bullet-list">
               {shortcomingsAndHumanBoundary.currentLimits.map((limit) => (
@@ -162,7 +160,7 @@ export function SystemCardAndRoadmap() {
           <div className="card-subtle human-essential-box">
             <h3 className="subpanel-title">
               <HeartHandshake size={17} aria-hidden="true" />
-              When Human Interpreters Remain Essential
+              When humans remain essential
             </h3>
             <ul className="clean-bullet-list">
               {shortcomingsAndHumanBoundary.humanEssentialScenarios.map((scenario) => (
@@ -181,10 +179,10 @@ export function SystemCardAndRoadmap() {
           <div>
             <span className="eyebrow">
               <ShieldCheck size={14} aria-hidden="true" />
-              Privacy-Minimal Architecture
+              Privacy-minimal architecture
             </span>
             <h2 id={privacyHeadingId} className="section-title">
-              Zero Attendee PII &amp; Cryptographic Honesty
+              Zero attendee PII &amp; cryptographic honesty
             </h2>
           </div>
         </div>
@@ -210,10 +208,10 @@ export function SystemCardAndRoadmap() {
           <div>
             <span className="eyebrow">
               <Radio size={14} aria-hidden="true" />
-              Venue Pre-Flight Standard
+              Venue pre-flight standard
             </span>
             <h2 id={fieldHeadingId} className="section-title">
-              Field-Readiness Signal Chain — No App Download Required
+              Field-readiness signal chain (no app download)
             </h2>
           </div>
         </div>
@@ -234,20 +232,19 @@ export function SystemCardAndRoadmap() {
         </ol>
       </section>
 
-      {/* 5. 4-Phase Commercialization Roadmap */}
+      {/* 5. 4-Phase Execution Roadmap */}
       <section className="card" aria-labelledby={roadmapHeadingId}>
         <div className="section-heading-row">
           <div>
             <span className="eyebrow">
               <Milestone size={14} aria-hidden="true" />
-              Evidence-Gated Execution Plan
+              Evidence-gated rollout
             </span>
             <h2 id={roadmapHeadingId} className="section-title">
-              4-Phase Blueprint Roadmap (Phase 1A to Phase 4)
+              4-phase execution roadmap
             </h2>
             <p className="section-lead">
-              Each phase advances only when objective latency, accuracy, and community-consent
-              exit gates pass.
+              Each phase unlocks only after objective latency, accuracy, and consent gates pass.
             </p>
           </div>
         </div>
@@ -265,11 +262,11 @@ export function SystemCardAndRoadmap() {
 
               <div className="grid-2 roadmap-details">
                 <div>
-                  <span className="maturity-field-label">Phase Objective</span>
+                  <span className="maturity-field-label">Objective</span>
                   <p className="maturity-field-text">{phase.objective}</p>
                 </div>
                 <div>
-                  <span className="maturity-field-label">Exit Gate</span>
+                  <span className="maturity-field-label">Exit gate</span>
                   <p className="maturity-field-text">{phase.exitGate}</p>
                 </div>
               </div>
@@ -284,10 +281,10 @@ export function SystemCardAndRoadmap() {
           <div>
             <span className="eyebrow">
               <Calendar size={14} aria-hidden="true" />
-              Shipping Cadence
+              Shipping cadence
             </span>
             <h2 id={changelogHeadingId} className="section-title">
-              Living Engineering Changelog
+              Living engineering changelog
             </h2>
           </div>
         </div>

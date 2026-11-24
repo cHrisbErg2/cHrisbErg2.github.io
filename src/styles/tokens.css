@@ -115,6 +115,19 @@
   --projector-muted: #a7b4a9;
   --projector-accent: #bfd6b0;
   --projector-line: rgba(255, 255, 255, 0.14);
+  --projector-active-bg: #17271e;
+  --projector-active-ink: #ffffff;
+  --projector-recency-bg: rgba(191, 214, 176, 0.16);
+  --projector-control-active-bg: #23382b;
+  --projector-control-active-ink: #ffffff;
+  --projector-hc-bg: #000000;
+  --projector-hc-surface: #121212;
+  --projector-hc-ink: #ffffff;
+  --projector-hc-muted: #e6ece7;
+  --projector-hc-label: #d9e6dc;
+  --projector-hc-border: #ffffff;
+  --projector-hc-accent: #fde047;
+  --projector-hc-accent-ink: #000000;
 
   /* Subtle Hairline Shadows (Light defaults) */
   --shadow-border:

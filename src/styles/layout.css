@@ -14,6 +14,8 @@ html {
   color: var(--ink);
   font-family: var(--font-sans);
   font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -73,6 +75,12 @@ h4 {
   font-family: var(--font-sans);
   font-weight: 700;
   line-height: 1.2;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 h1 {
@@ -251,9 +259,11 @@ p {
   transition: color 150ms ease, background-color 150ms ease;
 }
 
-.nav-link:hover {
-  color: var(--ink);
-  background: var(--surface-subtle);
+@media (hover: hover) {
+  .nav-link:hover {
+    color: var(--ink);
+    background: var(--surface-subtle);
+  }
 }
 
 /* Current page indication: never color alone (border underline survives Forced Colors Mode) */
@@ -291,9 +301,11 @@ p {
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
-.theme-toggle:hover {
-  background: var(--surface-subtle);
-  border-color: var(--control-border);
+@media (hover: hover) {
+  .theme-toggle:hover {
+    background: var(--surface-subtle);
+    border-color: var(--control-border);
+  }
 }
 
 .theme-toggle[aria-pressed="true"] {
@@ -304,13 +316,17 @@ p {
 
 @media (prefers-reduced-motion: no-preference) {
   .theme-toggle:active:not(:disabled) {
-    transform: scale(0.97);
+    transform: scale(0.96);
     transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), background-color 150ms ease;
   }
 }
 
 /* Mobile Header Reflow (320px - 680px) */
 @media (max-width: 680px) {
+  .site-header {
+    position: static;
+  }
+
   .header-inner {
     padding-block: 8px;
   }
@@ -431,6 +447,12 @@ p {
 }
 
 /* Modular Grids */
+.single-project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 2.5vw, 24px);
+}
+
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -469,7 +491,7 @@ p {
 
 @media (prefers-reduced-motion: no-preference) {
   .button:active:not(:disabled):not([aria-disabled="true"]) {
-    transform: scale(0.97);
+    transform: scale(0.96);
     transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), background-color 150ms ease;
   }
 }
@@ -480,21 +502,11 @@ p {
   box-shadow: var(--shadow-button);
 }
 
-.button-primary:hover {
-  background: var(--accent-hover);
-  box-shadow: var(--shadow-button-hover);
-}
-
 .button-secondary {
   background: var(--surface);
   color: var(--ink);
   border-color: var(--line-strong);
   box-shadow: var(--shadow-border);
-}
-
-.button-secondary:hover {
-  background: var(--surface-subtle);
-  border-color: var(--control-border);
 }
 
 .button-ghost {
@@ -503,20 +515,29 @@ p {
   padding-inline: 12px;
 }
 
-.button-ghost:hover {
-  background: var(--surface-tint);
+@media (hover: hover) {
+  .button-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: var(--shadow-button-hover);
+  }
+
+  .button-secondary:hover {
+    background: var(--surface-subtle);
+    border-color: var(--control-border);
+  }
+
+  .button-ghost:hover {
+    background: var(--surface-tint);
+  }
 }
 
-/* Segmented Controls & Single-Row Scrollable Tablists (modern-web-guidance: tabs) */
+/* Segmented Controls & Wrapping Accessible Tablists (zero horizontal clipping on 320px-1280px) */
 .segmented,
 .tablist {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 4px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: inline proximity;
   padding: 4px;
   border-radius: var(--radius-md);
   background: var(--surface-subtle);
@@ -527,8 +548,7 @@ p {
 .segmented button,
 .tablist [role="tab"] {
   position: relative;
-  flex: none;
-  scroll-snap-align: start;
+  flex: 1 1 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -546,9 +566,11 @@ p {
   transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
 }
 
-.segmented button:hover:not(:disabled):not([aria-disabled="true"]),
-.tablist [role="tab"]:hover:not(:disabled) {
-  color: var(--ink);
+@media (hover: hover) {
+  .segmented button:hover:not(:disabled):not([aria-disabled="true"]),
+  .tablist [role="tab"]:hover:not(:disabled) {
+    color: var(--ink);
+  }
 }
 
 /* Non-color-only active state: pseudo-element border underline (survives Forced Colors Mode) */
@@ -678,9 +700,11 @@ p {
   transition: color 150ms ease, background-color 150ms ease;
 }
 
-.footer-link:hover {
-  color: var(--accent);
-  background: var(--surface-subtle);
+@media (hover: hover) {
+  .footer-link:hover {
+    color: var(--accent);
+    background: var(--surface-subtle);
+  }
 }
 
 .footer-note {

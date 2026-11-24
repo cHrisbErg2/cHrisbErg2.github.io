@@ -50,7 +50,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
               onClick={onBackToOverview}
             >
               <ArrowLeft size={16} aria-hidden="true" />
-              <span>Back to Portfolio Overview</span>
+              <span>Back to overview</span>
             </button>
           </div>
         ) : null}
@@ -62,11 +62,11 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
           </span>
           <span className="badge badge-validating">
             <FlaskConical size={14} aria-hidden="true" />
-            <span>Phase 1A · Active Validation</span>
+            <span>Phase 1A · Active validation</span>
           </span>
           <span className="badge">
             <CalendarCheck size={14} aria-hidden="true" />
-            <span>Last verified: {IKILANG_DATA.lastVerifiedDate}</span>
+            <span>Verified {IKILANG_DATA.lastVerifiedDate}</span>
           </span>
         </div>
 
@@ -81,7 +81,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
             onClick={() => jumpToSection("ikilang-story")}
           >
             <Compass size={15} aria-hidden="true" />
-            <span>Why I&apos;m Building This</span>
+            <span>Read motivation</span>
           </button>
           <button
             type="button"
@@ -89,7 +89,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
             onClick={() => jumpToSection("ikilang-labs")}
           >
             <FlaskConical size={15} aria-hidden="true" />
-            <span>Interactive Labs</span>
+            <span>Explore interactive labs</span>
           </button>
           <button
             type="button"
@@ -97,12 +97,12 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
             onClick={() => jumpToSection("ikilang-system-card")}
           >
             <ShieldCheck size={15} aria-hidden="true" />
-            <span>System Card &amp; Roadmap</span>
+            <span>View system card &amp; roadmap</span>
           </button>
         </nav>
 
         {/* Proof-First Discipline Highlights */}
-        <div className="discipline-grid" aria-label="Verified engineering discipline signals">
+        <div className="discipline-grid" aria-label="Verified engineering benchmarks">
           {IKILANG_DATA.disciplineSignals.map((signal) => (
             <div key={signal.id} className="discipline-card">
               <span className="discipline-metric">{signal.metric}</span>
@@ -122,7 +122,7 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
       >
         <div className="section-heading-row">
           <div>
-            <span className="eyebrow">Founder Story &amp; Problem Reality</span>
+            <span className="eyebrow">Motivation &amp; problem reality</span>
             <h2 id={storyId} className="section-title">
               {IKILANG_DATA.founderStory.heading}
             </h2>
@@ -140,13 +140,13 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
 
         <div className="grid-2 story-callouts">
           <div className="card-subtle story-callout-box">
-            <span className="eyebrow">Community Stewardship</span>
+            <span className="eyebrow">Mother tongue &amp; validation</span>
             <p className="story-callout-text">
               {IKILANG_DATA.founderStory.languageStewardshipNote}
             </p>
           </div>
           <div className="card-subtle story-callout-box">
-            <span className="eyebrow">Blueprint #1 Principle</span>
+            <span className="eyebrow">Blueprint #1 principle</span>
             <p className="story-callout-text">{IKILANG_DATA.founderStory.blueprintPrinciple}</p>
           </div>
         </div>
@@ -156,10 +156,10 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
           <div className="bridge-header">
             <span className="eyebrow">
               <ArrowLeftRight size={14} aria-hidden="true" />
-              Bidirectional Human Dignity
+              Bidirectional community access
             </span>
             <h3 id={bridgeId} className="bridge-heading">
-              A Two-Way Bridge: Independent Access &amp; Respectful Local Engagement
+              Two-way dignity: independent access &amp; local engagement
             </h3>
           </div>
 
@@ -195,15 +195,14 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
           <div>
             <span className="eyebrow">
               <Wrench size={14} aria-hidden="true" />
-              Ecosystem Tools &amp; Engineering Boundaries
+              Ecosystem stack
             </span>
             <h2 id={toolsId} className="section-title">
-              Tools Evaluated Across Streaming, Capture, Speech &amp; Verification
+              Tools evaluated across streaming, capture &amp; verification
             </h2>
             <p className="section-lead">
-              High-level public stack and speech ecosystems evaluated behind pluggable boundaries
-              — with proprietary provider routing, prompts, and scoring internals intentionally
-              excluded.
+              Public stack isolated behind pluggable seams — private model routing, prompts, and
+              scoring internals remain black-boxed.
             </p>
           </div>
         </div>
@@ -235,14 +234,13 @@ export function IkiLangCaseStudy({ onBackToOverview }: IkiLangCaseStudyProps) {
         <div className="labs-intro">
           <span className="eyebrow">
             <Layers size={14} aria-hidden="true" />
-            Zero-API Static Showcase Labs
+            Zero-API interactive labs
           </span>
           <h2 id={labsId} className="section-title">
-            Inspect the Streaming Cadence, Multi-Screen UX &amp; Black-Box Architecture
+            Cadence, multi-screen UX &amp; black-box boundaries
           </h2>
           <p className="section-lead">
-            Every interactive lab below runs locally in your browser using deterministic
-            illustrative data — zero live inference calls, zero autoplay audio, and full keyboard
+            Deterministic static previews — zero live API calls, zero autoplay audio, full keyboard
             control.
           </p>
         </div>

@@ -11,6 +11,14 @@ import {
 } from "lucide-react";
 import { IKILANG_DATA } from "../data";
 
+const SVG_SUBTITLES = [
+  "16 kHz mono PCM",
+  "Black-box seam",
+  "Black-box guard",
+  "Zero-PII logs",
+  "QR phone + screen",
+];
+
 export function ArchitectureExplorer() {
   const layers = IKILANG_DATA.architectureLayers;
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -48,15 +56,14 @@ export function ArchitectureExplorer() {
         <div>
           <span className="eyebrow">
             <Layers size={14} aria-hidden="true" />
-            Interactive Lab 03 · 5-Layer Black-Box Architecture Map
+            Lab 03 · 5-layer black-box architecture
           </span>
           <h3 id={headingId} className="lab-title">
-            Clean Interface Boundaries With Private Core Internals Protected
+            Public interface contracts &amp; protected internals
           </h3>
           <p className="lab-subtitle">
-            Inspect each layer of the speech-to-caption pipeline to review input/output contracts,
-            evaluated ecosystem tools, engineering invariants, and honest trial limits — while
-            keeping proprietary core heuristics cleanly black-boxed.
+            Inspect inputs, outputs, invariants, and trial limits across all five boundaries while
+            proprietary core internals stay black-boxed.
           </p>
         </div>
       </div>
@@ -65,7 +72,7 @@ export function ArchitectureExplorer() {
       <div className="arch-diagram-shell" aria-hidden="true">
         <svg
           className="arch-svg"
-          viewBox="0 0 920 136"
+          viewBox="0 0 920 132"
           role="presentation"
           focusable="false"
         >
@@ -87,8 +94,8 @@ export function ArchitectureExplorer() {
             const boxWidth = 158;
             const gap = 26;
             const x = 14 + index * (boxWidth + gap);
-            const y = 18;
-            const height = 98;
+            const y = 16;
+            const height = 100;
             const isActive = index === selectedIndex;
 
             return (
@@ -108,35 +115,19 @@ export function ArchitectureExplorer() {
                   rx="12"
                   className="arch-svg-rect"
                 />
-                <text x={x + 14} y={y + 24} className="arch-svg-step">
-                  LAYER {layer.step}
+                <text x={x + 12} y={y + 24} className="arch-svg-step">
+                  0{layer.step}
                 </text>
                 {layer.isBlackBox ? (
-                  <text x={x + boxWidth - 14} y={y + 24} textAnchor="end" className="arch-svg-lock">
-                    LOCKED
+                  <text x={x + boxWidth - 12} y={y + 24} textAnchor="end" className="arch-svg-lock">
+                    PRIVATE
                   </text>
                 ) : null}
-                <text x={x + 14} y={y + 52} className="arch-svg-title">
-                  {layer.step === 1
-                    ? "Audio Ingest"
-                    : layer.step === 2
-                      ? "Pluggable Speech"
-                      : layer.step === 3
-                        ? "Domain & Eval"
-                        : layer.step === 4
-                          ? "Zero-PII Telemetry"
-                          : "Audience Delivery"}
+                <text x={x + 12} y={y + 54} className="arch-svg-title">
+                  {layer.name}
                 </text>
-                <text x={x + 14} y={y + 74} className="arch-svg-sub">
-                  {layer.step === 1
-                    ? "16 kHz Mono PCM"
-                    : layer.step === 2
-                      ? "Black-Box Seam"
-                      : layer.step === 3
-                        ? "Black-Box Boundary"
-                        : layer.step === 4
-                          ? "Non-Blocking Logs"
-                          : "QR Mobile + Screen"}
+                <text x={x + 12} y={y + 78} className="arch-svg-sub">
+                  {SVG_SUBTITLES[index] ?? ""}
                 </text>
 
                 {index < layers.length - 1 ? (
@@ -199,19 +190,21 @@ export function ArchitectureExplorer() {
       >
         <div className="arch-detail-header">
           <div>
-            <span className="eyebrow">Layer 0{activeLayer.step} of 0{layers.length}</span>
+            <span className="eyebrow">
+              Layer 0{activeLayer.step} of 0{layers.length}
+            </span>
             <h4 className="arch-detail-title">{activeLayer.name}</h4>
           </div>
 
           {activeLayer.isBlackBox ? (
             <span className="badge badge-validating">
               <Lock size={14} aria-hidden="true" />
-              <span>Black-Boxed Core Internals</span>
+              <span>Black-boxed core internals</span>
             </span>
           ) : (
             <span className="badge badge-proven">
               <Shield size={14} aria-hidden="true" />
-              <span>Public Interface Boundary</span>
+              <span>Public interface boundary</span>
             </span>
           )}
         </div>
@@ -222,7 +215,7 @@ export function ArchitectureExplorer() {
           <div className="blackbox-callout" role="note">
             <Lock size={17} aria-hidden="true" />
             <div>
-              <strong>Protected Proprietary Internals:</strong> {IKILANG_DATA.blackBoxNotice}
+              <strong>Protected core internals:</strong> {IKILANG_DATA.blackBoxNotice}
             </div>
           </div>
         ) : null}
@@ -231,14 +224,14 @@ export function ArchitectureExplorer() {
           <div className="card-subtle">
             <span className="contract-label">
               <ArrowRight size={14} aria-hidden="true" />
-              Input Interface Contract
+              Input contract
             </span>
             <p className="contract-text">{activeLayer.inputContract}</p>
           </div>
           <div className="card-subtle">
             <span className="contract-label">
               <ArrowRight size={14} aria-hidden="true" />
-              Output Interface Contract
+              Output contract
             </span>
             <p className="contract-text">{activeLayer.outputContract}</p>
           </div>
@@ -248,7 +241,7 @@ export function ArchitectureExplorer() {
           <div>
             <h5 className="arch-subheading">
               <CheckCircle2 size={15} aria-hidden="true" />
-              Engineering Invariants
+              Engineering invariants
             </h5>
             <ul className="clean-check-list">
               {activeLayer.invariants.map((invariant) => (
@@ -261,7 +254,7 @@ export function ArchitectureExplorer() {
             <div>
               <h5 className="arch-subheading">
                 <Wrench size={15} aria-hidden="true" />
-                Ecosystem Tools Evaluated
+                Ecosystem tools
               </h5>
               <ul className="pill-list" aria-label={`Tools evaluated in ${activeLayer.name}`}>
                 {activeLayer.toolsEvaluated.map((tool) => (
@@ -275,18 +268,13 @@ export function ArchitectureExplorer() {
             <div className="trial-limits-box">
               <h5 className="arch-subheading">
                 <AlertCircle size={15} aria-hidden="true" />
-                Current Trial Limits
+                Trial limits
               </h5>
               <p className="trial-limits-text">{activeLayer.trialLimits}</p>
             </div>
           </div>
         </div>
       </div>
-
-      <p className="arch-footnote">
-        <Lock size={14} aria-hidden="true" />
-        <span>{IKILANG_DATA.blackBoxNotice}</span>
-      </p>
     </section>
   );
 }
