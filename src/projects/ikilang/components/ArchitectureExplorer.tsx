@@ -10,14 +10,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { IKILANG_DATA } from "../data";
-
-const SVG_SUBTITLES = [
-  "16 kHz mono PCM",
-  "Swappable interface",
-  "Checks + eval",
-  "Zero-PII logs",
-  "QR phone + display",
-];
+import { TranslationBenchFigure } from "../../../components/anatomy/bench/TranslationBenchFigure";
 
 export function ArchitectureExplorer() {
   const layers = IKILANG_DATA.architectureLayers;
@@ -68,138 +61,13 @@ export function ArchitectureExplorer() {
         </div>
       </div>
 
-      {/* Crafted Multi-Part SVG Pipeline Schematic (scrolls horizontally on narrow screens instead of hiding) */}
-      <div className="arch-diagram-shell" aria-hidden="true">
-        <svg
-          className="arch-svg"
-          viewBox="0 0 960 170"
-          role="presentation"
-          focusable="false"
-        >
-          <defs>
-            <marker
-              id={`${baseId}-arrow`}
-              viewBox="0 0 10 10"
-              refX="8"
-              refY="5"
-              markerWidth="6"
-              markerHeight="6"
-              orient="auto-start-reverse"
-            >
-              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--control-border)" />
-            </marker>
-          </defs>
-
-          {layers.map((layer, index) => {
-            const boxWidth = 166;
-            const gap = 25;
-            const x = 14 + index * (boxWidth + gap);
-            const y = 20;
-            const height = 122;
-            const isActive = index === selectedIndex;
-
-            return (
-              <g
-                key={layer.id}
-                className={`arch-svg-node${isActive ? " is-active" : ""}${
-                  layer.isBlackBox ? " is-blackbox" : ""
-                }`}
-                onClick={() => setSelectedIndex(index)}
-                style={{ cursor: "pointer" }}
-              >
-                {/* Drop shadow backing plate */}
-                <rect
-                  x={x + 3}
-                  y={y + 6}
-                  width={boxWidth}
-                  height={height}
-                  rx="14"
-                  className="arch-svg-shadow"
-                />
-
-                {/* Main module casing */}
-                <rect
-                  x={x}
-                  y={y}
-                  width={boxWidth}
-                  height={height}
-                  rx="14"
-                  className="arch-svg-rect"
-                />
-
-                {/* Module top header band */}
-                <path
-                  d={`M ${x} ${y + 14} Q ${x} ${y} ${x + 14} ${y} L ${x + boxWidth - 14} ${y} Q ${x + boxWidth} ${y} ${x + boxWidth} ${y + 14} L ${x + boxWidth} ${y + 34} L ${x} ${y + 34} Z`}
-                  className="arch-svg-band"
-                />
-
-                <text x={x + 12} y={y + 22} className="arch-svg-step">
-                  STAGE 0{layer.step}
-                </text>
-
-                {layer.isBlackBox ? (
-                  <g>
-                    <rect
-                      x={x + boxWidth - 68}
-                      y={y + 9}
-                      width="56"
-                      height="17"
-                      rx="6"
-                      className="arch-lock-pill"
-                    />
-                    <text x={x + boxWidth - 40} y={y + 21} textAnchor="middle" className="arch-svg-lock">
-                      PRIVATE
-                    </text>
-                  </g>
-                ) : (
-                  <circle cx={x + boxWidth - 16} cy={y + 17} r="4" className="arch-public-led" />
-                )}
-
-                <text x={x + 12} y={y + 62} className="arch-svg-title">
-                  {layer.name}
-                </text>
-                <text x={x + 12} y={y + 84} className="arch-svg-sub">
-                  {SVG_SUBTITLES[index] ?? ""}
-                </text>
-
-                {/* Contract indicator bar at bottom of module */}
-                <rect x={x + 12} y={y + 100} width={boxWidth - 24} height="8" rx="4" className="arch-bar-track" />
-                <rect
-                  x={x + 12}
-                  y={y + 100}
-                  width={isActive ? boxWidth - 24 : 56}
-                  height="8"
-                  rx="4"
-                  className="arch-bar-fill"
-                />
-
-                {/* Input & output terminal ports */}
-                {index > 0 ? (
-                  <circle cx={x} cy={y + height / 2} r="4.5" className="arch-port" />
-                ) : null}
-                {index < layers.length - 1 ? (
-                  <>
-                    <circle cx={x + boxWidth} cy={y + height / 2} r="4.5" className="arch-port" />
-                    <line
-                      x1={x + boxWidth + 5}
-                      y1={y + height / 2}
-                      x2={x + boxWidth + gap - 5}
-                      y2={y + height / 2}
-                      className="arch-bus-line"
-                      markerEnd={`url(#${baseId}-arrow)`}
-                    />
-                    <circle
-                      cx={x + boxWidth + gap / 2}
-                      cy={y + height / 2}
-                      r="3"
-                      className={`arch-bus-pulse${isActive || index + 1 === selectedIndex ? " is-hot" : ""}`}
-                    />
-                  </>
-                ) : null}
-              </g>
-            );
-          })}
-        </svg>
+      {/* Interactive 3D Isometric Live Translation Bench (2-way synced with 5-stage tablist) */}
+      <div className="arch-bench-wrap">
+        <TranslationBenchFigure
+          variant="explorer"
+          selectedStage={selectedIndex}
+          onSelectStage={setSelectedIndex}
+        />
       </div>
 
       {/* Accessible WAI-ARIA Tablist */}

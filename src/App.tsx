@@ -7,7 +7,7 @@ import {
   Github,
   MapPin,
 } from "lucide-react";
-import { HeroSignalRig } from "./components/HeroSignalRig";
+import { TranslationBenchFigure } from "./components/anatomy/bench/TranslationBenchFigure";
 import { SkipLink } from "./components/SkipLink";
 import { SiteHeader } from "./components/SiteHeader";
 import type { PortfolioRoute } from "./components/SiteHeader";
@@ -148,7 +148,7 @@ export function App() {
                 </div>
 
                 <div className="hero-rig-col hero-stagger-4">
-                  <HeroSignalRig />
+                  <TranslationBenchFigure variant="hero" onOpenCaseStudy={() => navigate("ikilang")} />
                 </div>
               </div>
             </section>
