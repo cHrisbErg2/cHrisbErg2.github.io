@@ -1,0 +1,331 @@
+/*
+ * Scoped Warm Sage-Emerald tokens & interactive styles for The Live Translation Bench.
+ * Automatically tracks :root[data-theme="light" | "dark"] and system preference.
+ */
+
+.iso.ikilang-bench {
+  --anatomy-card: #fafbf8;
+  --anatomy-paper: #fafbf8;
+  --anatomy-face: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #dce3d9;
+  --anatomy-shade-1: #e5ebe2;
+  --anatomy-shade-2: #edf2ea;
+  --anatomy-shade-3: #f4f7f2;
+  --anatomy-hi: #1b2d24;
+  --anatomy-mid: #6d7f74;
+  --anatomy-lo: #a5b4aa;
+  --anatomy-faint: #cbd5ce;
+  --anatomy-lit: #16563c;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #e3efe7;
+  --anatomy-text: var(--ink-secondary, #31443a);
+  --anatomy-strong: var(--ink, #16261f);
+  --anatomy-muted: var(--muted, #55645b);
+  --anatomy-halo: #6a7d71;
+  --anatomy-halo-opacity: 0.28;
+  --anatomy-dot: #244033;
+
+  --bench-screen-bg: #101713;
+  --bench-screen-bar: #6f8679;
+  --bench-screen-bar-lit: #86d9a4;
+  --bench-btn-bg: #ffffff;
+  --bench-btn-hover: #eef3ec;
+  --bench-btn-ring: rgba(22, 86, 60, 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .iso.ikilang-bench {
+    --anatomy-card: #141f19;
+    --anatomy-paper: #141f19;
+    --anatomy-face: #1c2a22;
+    --anatomy-top: #1f2f26;
+    --anatomy-shade-0: #0f1813;
+    --anatomy-shade-1: #131e18;
+    --anatomy-shade-2: #17241d;
+    --anatomy-shade-3: #1b2a21;
+    --anatomy-hi: #dce6de;
+    --anatomy-mid: #748c7d;
+    --anatomy-lo: #43574b;
+    --anatomy-faint: #2b3c32;
+    --anatomy-lit: #9be4b4;
+    --anatomy-lit-top: #233a2d;
+    --anatomy-lit-shade: #1a2d22;
+    --anatomy-text: var(--ink-secondary, #cfdbd2);
+    --anatomy-strong: var(--ink, #f0f4ee);
+    --anatomy-muted: var(--muted, #a2b1a5);
+    --anatomy-halo: #050806;
+    --anatomy-halo-opacity: 0.85;
+    --anatomy-dot: #dce6de;
+
+    --bench-screen-bg: #0c120f;
+    --bench-screen-bar: #556c5f;
+    --bench-screen-bar-lit: #86d9a4;
+    --bench-btn-bg: #1c2a22;
+    --bench-btn-hover: #23352a;
+    --bench-btn-ring: rgba(155, 228, 180, 0.26);
+  }
+}
+
+:root[data-theme="dark"] .iso.ikilang-bench,
+.iso.ikilang-bench[data-theme="dark"] {
+  --anatomy-card: #141f19;
+  --anatomy-paper: #141f19;
+  --anatomy-face: #1c2a22;
+  --anatomy-top: #1f2f26;
+  --anatomy-shade-0: #0f1813;
+  --anatomy-shade-1: #131e18;
+  --anatomy-shade-2: #17241d;
+  --anatomy-shade-3: #1b2a21;
+  --anatomy-hi: #dce6de;
+  --anatomy-mid: #748c7d;
+  --anatomy-lo: #43574b;
+  --anatomy-faint: #2b3c32;
+  --anatomy-lit: #9be4b4;
+  --anatomy-lit-top: #233a2d;
+  --anatomy-lit-shade: #1a2d22;
+  --anatomy-text: var(--ink-secondary, #cfdbd2);
+  --anatomy-strong: var(--ink, #f0f4ee);
+  --anatomy-muted: var(--muted, #a2b1a5);
+  --anatomy-halo: #050806;
+  --anatomy-halo-opacity: 0.85;
+  --anatomy-dot: #dce6de;
+
+  --bench-screen-bg: #0c120f;
+  --bench-screen-bar: #556c5f;
+  --bench-screen-bar-lit: #86d9a4;
+  --bench-btn-bg: #1c2a22;
+  --bench-btn-hover: #23352a;
+  --bench-btn-ring: rgba(155, 228, 180, 0.26);
+}
+
+:root[data-theme="light"] .iso.ikilang-bench,
+.iso.ikilang-bench[data-theme="light"] {
+  --anatomy-card: #fafbf8;
+  --anatomy-paper: #fafbf8;
+  --anatomy-face: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #dce3d9;
+  --anatomy-shade-1: #e5ebe2;
+  --anatomy-shade-2: #edf2ea;
+  --anatomy-shade-3: #f4f7f2;
+  --anatomy-hi: #1b2d24;
+  --anatomy-mid: #6d7f74;
+  --anatomy-lo: #a5b4aa;
+  --anatomy-faint: #cbd5ce;
+  --anatomy-lit: #16563c;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #e3efe7;
+  --anatomy-text: var(--ink-secondary, #31443a);
+  --anatomy-strong: var(--ink, #16261f);
+  --anatomy-muted: var(--muted, #55645b);
+  --anatomy-halo: #6a7d71;
+  --anatomy-halo-opacity: 0.28;
+  --anatomy-dot: #244033;
+
+  --bench-screen-bg: #101713;
+  --bench-screen-bar: #6f8679;
+  --bench-screen-bar-lit: #86d9a4;
+  --bench-btn-bg: #ffffff;
+  --bench-btn-hover: #eef3ec;
+  --bench-btn-ring: rgba(22, 86, 60, 0.22);
+}
+
+.ikilang-bench .iso-plate {
+  padding: 50px 20px 64px;
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0 0 0 1px var(--line-strong, var(--anatomy-mid));
+  overflow: hidden;
+}
+
+.ikilang-bench.is-explorer .iso-plate {
+  padding: 46px 18px 60px;
+}
+
+.bench-interactive-shell {
+  position: relative;
+}
+
+.bench-stage {
+  border-radius: 10px;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.bench-stage:focus-visible {
+  outline: 2px solid var(--anatomy-lit);
+  outline-offset: 6px;
+}
+
+.bench-piece {
+  cursor: pointer;
+}
+
+/* Focus dimming & active stage lit highlight */
+.bench-stage[data-focus] .bench-piece:not([data-on]) {
+  --anatomy-hi: var(--anatomy-mid);
+  --anatomy-mid: var(--anatomy-lo);
+}
+
+.bench-piece[data-on] {
+  --anatomy-hi: var(--anatomy-lit);
+  --anatomy-mid: var(--anatomy-hi);
+}
+
+.bench-piece[data-on] .iso-top {
+  fill: var(--anatomy-lit-top);
+}
+
+.bench-piece[data-on] .iso-shade {
+  fill: var(--anatomy-lit-shade);
+}
+
+.bench-piece[data-on] .iso-edge {
+  stroke: var(--anatomy-lit);
+}
+
+.bench-coil {
+  stroke-linejoin: round;
+}
+
+.bench-needle {
+  stroke-width: 1.15;
+}
+
+/* Dark-cavity recessed glass screens (projector & visitor phone) */
+.bench-screen-cavity {
+  fill: var(--bench-screen-bg);
+  stroke: none;
+}
+
+.bench-screen-bar {
+  fill: var(--bench-screen-bar);
+  stroke: none;
+}
+
+.bench-screen-bar.is-active {
+  fill: var(--bench-screen-bar-lit);
+}
+
+.bench-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.bench-explode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bench-btn-bg);
+  color: var(--anatomy-strong);
+  font-family: var(--anatomy-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 0 1px var(--bench-btn-ring);
+  cursor: pointer;
+  transition: background-color 180ms var(--anatomy-ease), color 180ms var(--anatomy-ease), transform 140ms var(--anatomy-ease);
+}
+
+@media (hover: hover) {
+  .bench-explode-btn:hover {
+    background: var(--bench-btn-hover);
+  }
+}
+
+.bench-explode-btn:focus-visible {
+  outline: 2px solid var(--anatomy-lit);
+  outline-offset: 2px;
+}
+
+.bench-explode-btn:active {
+  transform: scale(0.97);
+}
+
+.bench-explode-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--anatomy-mid);
+  transition: background-color 180ms var(--anatomy-ease);
+}
+
+.bench-explode-btn[aria-pressed="true"] {
+  background: var(--anatomy-lit-shade);
+  color: var(--anatomy-lit);
+  box-shadow: inset 0 0 0 1px var(--anatomy-lit);
+}
+
+.bench-explode-btn[aria-pressed="true"] .bench-explode-dot {
+  background: var(--anatomy-lit);
+}
+
+.bench-live-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bench-hero-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  margin-top: 8px;
+}
+
+.bench-case-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--anatomy-lit);
+  font-family: var(--anatomy-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .ikilang-bench .iso-plate {
+    padding: 48px 12px 78px;
+  }
+
+  .ikilang-bench .iso-plate-corner[data-corner="hint"] {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bench-stage {
+    overflow: hidden;
+  }
+
+  .iso-plate .bench-stage .iso-svg {
+    width: 112%;
+    margin: -3% -6% -2%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ikilang-bench * {
+    transition: none !important;
+  }
+}
