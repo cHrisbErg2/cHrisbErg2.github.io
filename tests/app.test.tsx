@@ -28,6 +28,14 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Christian Muhirwa" })).toBeInTheDocument();
+    expect(document.title).toBe(
+      "Christian Muhirwa — Computer Engineering, DSP, Edge & Embedded ML | Portfolio",
+    );
+    expect(screen.getByText(/Computer Engineering Student & Entrepreneur/i)).toBeInTheDocument();
+    expect(screen.getByText("Digital Signal Processing")).toBeInTheDocument();
+    expect(screen.getByText("Edge Computing")).toBeInTheDocument();
+    expect(screen.getByText("Embedded ML")).toBeInTheDocument();
+    expect(screen.getAllByText("AgTech").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/Flagship case study/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IkiLang / KinyaVoice" })).toBeInTheDocument();
 
@@ -92,6 +100,9 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
 
     expect(window.location.hash).toBe("#/");
     expect(screen.getByRole("heading", { level: 1, name: "Christian Muhirwa" })).toBeInTheDocument();
+    expect(document.title).toBe(
+      "Christian Muhirwa — Computer Engineering, DSP, Edge & Embedded ML | Portfolio",
+    );
   });
 
   it("preserves the IkiLang Case Study route and focuses #main-content when using SkipLink or fragment hashes", async () => {

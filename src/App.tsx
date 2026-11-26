@@ -63,7 +63,7 @@ export function App() {
     document.title =
       activeRoute === "ikilang"
         ? "IkiLang / KinyaVoice Case Study — Christian Muhirwa"
-        : "Christian Muhirwa — Applied AI & Real-Time Systems Portfolio";
+        : "Christian Muhirwa — Computer Engineering, DSP, Edge & Embedded ML | Portfolio";
   }, [activeRoute]);
 
   const navigate = useCallback((route: PortfolioRoute) => {

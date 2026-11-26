@@ -21,9 +21,9 @@ export interface ProfileConfig {
 export const PROFILE: ProfileConfig = {
   name: "Christian Muhirwa",
   roleLine:
-    "Department of Electrical and Computer Engineering · University of Saskatchewan",
+    "Computer Engineering Student & Entrepreneur · Department of Electrical and Computer Engineering, USask",
   builderSummary:
-    "I build low-latency, privacy-preserving speech translation software — streaming live audio into context-aware captions on a zero-install web app today, with future support for expressive voice audio, host-run local models, and media plugins.",
+    "Solving everyday problems around me through curiosity, validation, and testing before building. Across Digital Signal Processing, Speech AI, Edge Computing, Embedded ML, and AgTech, I stretch software and hardware boundaries for reliability, accessibility, mutual value, and continuous growth from honest feedback.",
   affiliation: "University of Saskatchewan",
   locationLabel: "Saskatoon, SK",
   githubUrl: "https://github.com/cHrisbErg2",
@@ -31,29 +31,30 @@ export const PROFILE: ProfileConfig = {
   linkedinUrl: "",
   resumeUrl: "",
   focusAreas: [
-    "Real-Time Audio & WebSockets",
-    "Low-Resource Speech AI",
-    "Python & TypeScript",
-    "Offline Eval & Testing",
+    "Digital Signal Processing",
+    "Speech AI",
+    "Edge Computing",
+    "Embedded ML",
+    "AgTech",
   ],
   principles: [
     {
-      id: "field-reality",
-      title: "Test on real mics, not studio clips",
+      id: "validate-first",
+      title: "Curiosity, validation & testing first",
       detail:
-        "Soundboards, room echo, fast speakers, and mobile browsers break assumptions that pass on clean demos.",
+        "Start with real problems people face and validate assumptions with hands-on testing before committing to architecture or code.",
     },
     {
-      id: "measure-first",
-      title: "Measure before fine-tuning",
+      id: "reliability-by-design",
+      title: "Reliability & accessibility by design",
       detail:
-        "Track p95 caption delay, mid-sentence cutoffs, and domain errors on labeled audio before training custom weights.",
+        "Stretch software and hardware capabilities together so tools stay dependable and accessible in everyday hands.",
     },
     {
-      id: "privacy-minimal",
-      title: "Zero personal data by default",
+      id: "honesty-feedback",
+      title: "Honesty, mutual value & open feedback",
       detail:
-        "Visitors scan a QR code and read live captions with no sign-up, no IP logging, and no analytics trackers.",
+        "Build equitable solutions that deliver honest value to both sides, treating criticism and candid feedback as an opportunity to improve.",
     },
   ],
 };
