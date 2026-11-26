@@ -21,7 +21,7 @@ export const PUBLIC_PROJECTS: ProjectSummary[] = [
   {
     id: "ikilang",
     name: "IkiLang / KinyaVoice",
-    subtitle: "Live Kinyarwanda → English Captions via Soundboard & QR",
+    subtitle: "Live Kinyarwanda via Soundboard → English Captions",
     badge: "Flagship system · Live trials",
     kind: "case-study",
     route: "ikilang",
@@ -49,19 +49,19 @@ export const PUBLIC_PROJECTS: ProjectSummary[] = [
   {
     id: "agri-for-prairie",
     name: "AgriAI for Prairie",
-    subtitle: "Applied AI tools for Saskatchewan grain growers.",
-    badge: "Public repository",
+    subtitle: "Applied AI side project built for agricultural producers.",
+    badge: "Side project · GitHub",
     kind: "external",
     externalUrl: "https://github.com/cHrisbErg2/AgrI-For-Prairie",
     summary:
-      "Open-source agricultural software focused on practical field decisions for prairie farms.",
+      "Another side project in active development exploring practical decision tools for agricultural producers.",
     highlights: [
-      "Open-source repository on GitHub",
-      "Built in Saskatchewan around real grower workflows",
+      "Separate side project linked on GitHub",
+      "Built around practical workflows for agricultural producers",
     ],
-    tags: ["Applied AI", "AgTech", "Saskatchewan", "GitHub"],
+    tags: ["Applied AI", "AgTech", "Side project", "GitHub"],
     status: "public-repo",
-    statusLabel: "Public repo",
+    statusLabel: "GitHub project",
     ctaLabel: "View repository on GitHub",
   },
 ];

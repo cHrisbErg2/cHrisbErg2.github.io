@@ -14,11 +14,11 @@ const THEME = process.argv.includes("--light") ? "light" : "dark";
 const STAGE_IDS = ["stage-01", "stage-02", "stage-03", "stage-04", "stage-05"];
 
 const BENCH_STAGES = [
-  { id: "stage-01", index: 0, step: 1, name: "Audio ingest", readout: "01 AUDIO STREAM · 16 KHZ MONO PCM" },
-  { id: "stage-02", index: 1, step: 2, name: "Streaming translation", readout: "02 TRANSLATION CORE · CLOUD / LOCAL HOST · +1.02 S" },
-  { id: "stage-03", index: 2, step: 3, name: "Quality & context", readout: "03 ACCURACY + CONTEXT · 0.10 MS P95 CHECK" },
-  { id: "stage-04", index: 3, step: 4, name: "Anonymous telemetry", readout: "04 ZERO PII · MEDIA & HOSTING PLUGINS" },
-  { id: "stage-05", index: 4, step: 5, name: "Audience UI", readout: "05 WEB CAPTIONS LIVE · VOICE AUDIO PLANNED" },
+  { id: "stage-01", index: 0, step: 1, name: "Audio ingest", readout: "01 AUDIO · 16 KHZ MONO PCM" },
+  { id: "stage-02", index: 1, step: 2, name: "Streaming translation", readout: "02 TRANSLATION · CLOUD / LOCAL" },
+  { id: "stage-03", index: 2, step: 3, name: "Quality & context", readout: "03 GUARDRAIL · +1.02 S REPLAY" },
+  { id: "stage-04", index: 3, step: 4, name: "Anonymous telemetry", readout: "04 ZERO PII · PLUGIN DOCK" },
+  { id: "stage-05", index: 4, step: 5, name: "Audience UI", readout: "05 CAPTIONS LIVE · AUDIO SOON" },
 ];
 
 const BENCH_CLAUSES = [

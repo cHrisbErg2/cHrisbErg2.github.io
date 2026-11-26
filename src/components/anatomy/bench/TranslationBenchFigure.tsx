@@ -35,7 +35,7 @@ export function TranslationBenchFigure({
       <Plate
         fig={isExplorer ? "Fig 2" : "Fig 1"}
         title="Streaming software pipeline"
-        hint="Hover modules · Space to separate"
+        hint="Hover modules · Space explode"
         readout={initialReadout}
         pdfHref="/ikilang-bench-drawing-a4.pdf"
         pdfLabel="Open printable 1-page A4 technical drawing PDF"

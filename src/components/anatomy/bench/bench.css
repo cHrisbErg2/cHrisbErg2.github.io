@@ -305,11 +305,7 @@
 
 @media (max-width: 560px) {
   .ikilang-bench .iso-plate {
-    padding: 48px 12px 78px;
-  }
-
-  .ikilang-bench .iso-plate-corner[data-corner="hint"] {
-    bottom: 20px;
+    padding: 48px 12px 72px;
   }
 }
 

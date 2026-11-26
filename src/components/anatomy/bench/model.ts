@@ -22,7 +22,7 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     name: "Audio ingest",
     shortTitle: "01 Audio stream",
     blackBox: false,
-    readout: "01 AUDIO STREAM · 16 KHZ MONO PCM",
+    readout: "01 AUDIO · 16 KHZ MONO PCM",
     ariaSummary: "Stage 1: Audio ingest, web audio capture terminal streaming 16 kilohertz mono PCM",
   },
   {
@@ -32,7 +32,7 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     name: "Streaming translation",
     shortTitle: "02 Translation core",
     blackBox: true,
-    readout: "02 TRANSLATION CORE · CLOUD / LOCAL HOST · +1.02 S",
+    readout: "02 TRANSLATION · CLOUD / LOCAL",
     ariaSummary: "Stage 2: Streaming translation, context-aware translation core with cloud today and local host runtime slot",
   },
   {
@@ -42,7 +42,7 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     name: "Quality & context",
     shortTitle: "03 Accuracy & privacy",
     blackBox: true,
-    readout: "03 ACCURACY + CONTEXT · 0.10 MS P95 CHECK",
+    readout: "03 GUARDRAIL · +1.02 S REPLAY",
     ariaSummary: "Stage 3: Quality and context, sealed verification blade and live latency monitor",
   },
   {
@@ -52,7 +52,7 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     name: "Anonymous telemetry",
     shortTitle: "04 Privacy + plugins",
     blackBox: false,
-    readout: "04 ZERO PII · MEDIA & HOSTING PLUGINS",
+    readout: "04 ZERO PII · PLUGIN DOCK",
     ariaSummary: "Stage 4: Anonymous telemetry, zero-PII privacy module and media/hosting provider plugin dock",
   },
   {
@@ -62,7 +62,7 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     name: "Audience UI",
     shortTitle: "05 Captions + audio",
     blackBox: false,
-    readout: "05 WEB CAPTIONS LIVE · VOICE AUDIO PLANNED",
+    readout: "05 CAPTIONS LIVE · AUDIO SOON",
     ariaSummary: "Stage 5: Audience UI, QR web app, projector display, and gated future expressive audio capsule",
   },
 ];

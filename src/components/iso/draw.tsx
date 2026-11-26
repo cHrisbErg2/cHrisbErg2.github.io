@@ -180,22 +180,26 @@ export function Plate({ fig, title, hint, readout, keys = [], caption, pdfHref, 
           </a>
         ) : null}
         <div className="iso-plate-corners" aria-hidden="true">
-          <span className="iso-plate-corner" data-corner="fig">
-            {fig}
-          </span>
-          {title ? (
-            <span className="iso-plate-corner" data-corner="title">
-              {title}
+          <div className="iso-plate-row iso-plate-row-top">
+            <span className="iso-plate-corner" data-corner="fig">
+              {fig}
             </span>
-          ) : null}
-          {hint ? (
-            <span className="iso-plate-corner" data-corner="hint">
-              {hint}
+            {title ? (
+              <span className="iso-plate-corner" data-corner="title">
+                {title}
+              </span>
+            ) : null}
+          </div>
+          <div className="iso-plate-row iso-plate-row-bottom">
+            {hint ? (
+              <span className="iso-plate-corner" data-corner="hint">
+                {hint}
+              </span>
+            ) : null}
+            <span className="iso-plate-corner" data-corner="readout" data-readout="">
+              {readout}
             </span>
-          ) : null}
-          <span className="iso-plate-corner" data-corner="readout" data-readout="">
-            {readout}
-          </span>
+          </div>
         </div>
         {children}
         {footer}
