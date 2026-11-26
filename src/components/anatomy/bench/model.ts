@@ -20,83 +20,71 @@ export const BENCH_STAGES: readonly BenchStageSpec[] = [
     index: 0,
     step: 1,
     name: "Audio ingest",
-    shortTitle: "01 Audio ingest",
+    shortTitle: "01 Audio stream",
     blackBox: false,
-    readout: "01 AUDIO IN · 16 KHZ MONO PCM",
-    ariaSummary: "Stage 1: Audio ingest, soundboard box with moving fader and 16 kilohertz meter",
+    readout: "01 AUDIO STREAM · 16 KHZ MONO PCM",
+    ariaSummary: "Stage 1: Audio ingest, web audio capture terminal streaming 16 kilohertz mono PCM",
   },
   {
     id: "stage-02",
     index: 1,
     step: 2,
     name: "Streaming translation",
-    shortTitle: "02 Streaming core",
+    shortTitle: "02 Translation core",
     blackBox: true,
-    readout: "02 STREAMING CORE · SEALED · +1.02 S",
-    ariaSummary: "Stage 2: Streaming translation, sprung clause carriage and sealed black-box Vault A",
+    readout: "02 TRANSLATION CORE · CLOUD / LOCAL HOST · +1.02 S",
+    ariaSummary: "Stage 2: Streaming translation, context-aware translation core with cloud today and local host runtime slot",
   },
   {
     id: "stage-03",
     index: 2,
     step: 3,
     name: "Quality & context",
-    shortTitle: "03 Guardrail + dial",
+    shortTitle: "03 Accuracy & privacy",
     blackBox: true,
-    readout: "03 GUARDRAIL · SEALED · 0.10 MS P95",
-    ariaSummary: "Stage 3: Quality and context, sealed black-box Cassette B and radial +1.02 second dial gauge",
+    readout: "03 ACCURACY + CONTEXT · 0.10 MS P95 CHECK",
+    ariaSummary: "Stage 3: Quality and context, sealed verification blade and live latency monitor",
   },
   {
     id: "stage-04",
     index: 3,
     step: 4,
     name: "Anonymous telemetry",
-    shortTitle: "04 Tally + 0 PII",
+    shortTitle: "04 Privacy + plugins",
     blackBox: false,
-    readout: "04 TELEMETRY · 451 TESTS · 0 PII",
-    ariaSummary: "Stage 4: Anonymous telemetry, mechanical clause tally counter and zero PII ground post",
+    readout: "04 ZERO PII · MEDIA & HOSTING PLUGINS",
+    ariaSummary: "Stage 4: Anonymous telemetry, zero-PII privacy module and media/hosting provider plugin dock",
   },
   {
     id: "stage-05",
     index: 4,
     step: 5,
     name: "Audience UI",
-    shortTitle: "05 QR + screens",
+    shortTitle: "05 Captions + audio",
     blackBox: false,
-    readout: "05 QR + PROJECTOR · 0 PII · AUDIO OFF",
-    ariaSummary: "Stage 5: Audience UI, bench QR tile, sanctuary projector panel, and cradled phone with audio off",
+    readout: "05 WEB CAPTIONS LIVE · VOICE AUDIO PLANNED",
+    ariaSummary: "Stage 5: Audience UI, QR web app, projector display, and gated future expressive audio capsule",
   },
 ];
 
 export interface BenchClause {
   id: string;
   latencySec: number;
-  faderNorm: number;
   vuBars: number;
-  carriageOffset: number;
+  packetOffset: number;
 }
 
 export const BENCH_CLAUSES: readonly BenchClause[] = [
-  { id: "clause-1", latencySec: 1.02, faderNorm: 0.72, vuBars: 6, carriageOffset: 6.0 },
-  { id: "clause-2", latencySec: 1.14, faderNorm: 0.86, vuBars: 7, carriageOffset: 11.5 },
-  { id: "clause-3", latencySec: 1.06, faderNorm: 0.56, vuBars: 5, carriageOffset: 8.5 },
+  { id: "clause-1", latencySec: 1.02, vuBars: 6, packetOffset: 8.0 },
+  { id: "clause-2", latencySec: 1.14, vuBars: 7, packetOffset: 24.0 },
+  { id: "clause-3", latencySec: 1.06, vuBars: 5, packetOffset: 16.0 },
 ];
 
-export const DIAL_MIN_SEC = 0.0;
-export const DIAL_MAX_SEC = 2.0;
-export const DIAL_TARGET_SEC = 1.5;
-export const DIAL_REST_SEC = BENCH_CLAUSES[0]!.latencySec;
-export const DIAL_SWEEP_START = -Math.PI * 0.75;
-export const DIAL_SWEEP_SPAN = Math.PI * 1.5;
+export const LATENCY_MAX_SEC = 2.0;
+export const LATENCY_TARGET_SEC = 1.5;
+export const LATENCY_REST_SEC = BENCH_CLAUSES[0]!.latencySec;
 
-export function dialAngleRad(seconds: number): number {
-  const clamped = Math.min(DIAL_MAX_SEC, Math.max(DIAL_MIN_SEC, seconds));
-  const share = (clamped - DIAL_MIN_SEC) / (DIAL_MAX_SEC - DIAL_MIN_SEC);
-  return DIAL_SWEEP_START + share * DIAL_SWEEP_SPAN;
-}
-
-export const CARRIAGE_REST_OFFSET = BENCH_CLAUSES[0]!.carriageOffset;
-export const CARRIAGE_MIN_OFFSET = 0.0;
-export const CARRIAGE_MAX_OFFSET = 14.0;
+export const PACKET_REST_OFFSET = BENCH_CLAUSES[0]!.packetOffset;
 
 export const SPRING = {
   stagger: 0.035,
@@ -111,7 +99,7 @@ export const STAGGER_CLOSE: readonly StageId[] = ["stage-02", "stage-03", "stage
 export const EXPLODE_VECTORS: Record<StageId, Point3> = {
   "stage-01": [-22, -10, 20],
   "stage-02": [-6, -16, 36],
-  "stage-03": [4, 14, 44],
+  "stage-03": [4, 14, 42],
   "stage-04": [14, -18, 28],
   "stage-05": [24, 12, 24],
 };
@@ -126,14 +114,14 @@ export interface ReadoutState {
 
 export function formatBenchReadout({ stageIndex, apart, moving, clauseIndex, latencySec }: ReadoutState): string {
   if (moving) {
-    return apart ? "OPENING SEAMS…" : "CLOSING UP…";
+    return apart ? "SEPARATING MODULES…" : "ASSEMBLING PIPELINE…";
   }
   if (stageIndex !== null) {
     const spec = BENCH_STAGES[stageIndex];
     if (spec) return spec.readout;
   }
   if (apart) {
-    return "APART · 5 BOUNDARIES · CORES SEALED";
+    return "APART · 5 SOFTWARE MODULES · CORES SEALED";
   }
-  return `CLAUSE ${clauseIndex + 1}/${BENCH_CLAUSES.length} · +${latencySec.toFixed(2)} S (< 1.5 S)`;
+  return `STREAM ${clauseIndex + 1}/${BENCH_CLAUSES.length} · +${latencySec.toFixed(2)} S REPLAY`;
 }

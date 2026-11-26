@@ -11,44 +11,23 @@ export const PLATE: Plan = { x: -168, y: -78, w: 336, d: 156, r: 9 };
 export const PLATE_H = 12;
 export const FOOT_H = 5;
 
-export const SOUNDBOARD_BOX: Plan = { x: -156, y: -34, w: 58, d: 68, r: 4 };
-export const VAULT_A: Plan = { x: -78, y: -62, w: 94, d: 44, r: 4 };
-export const CARRIAGE_BED: Plan = { x: -82, y: -6, w: 80, d: 48, r: 3 };
+export const CAPTURE_TERMINAL: Plan = { x: -156, y: -32, w: 56, d: 64, r: 4 };
+export const VAULT_A: Plan = { x: -80, y: -62, w: 96, d: 44, r: 4 };
+export const STREAM_BUS_BED: Plan = { x: -82, y: -4, w: 84, d: 42, r: 3 };
 export const CASSETTE_B: Plan = { x: 28, y: -56, w: 54, d: 40, r: 4 };
+export const TELEMETRY_PANEL: Plan = { x: 26, y: -2, w: 52, d: 36, r: 3 };
 
-export const ROD_X_FROM = -77;
-export const ROD_X_TO = -7;
-export const ROD_Y_BACK = 5;
-export const ROD_Y_FRONT = 31;
-export const ROD_Z = 7.6;
-export const ROD_HALF = 1.6;
-export const COIL_R = 3.8;
-export const COIL_TURNS = 5;
+export const PACKET_REST_X = -68;
+export const PACKET_W = 22;
 
-export const CARRIAGE_REST_X = -46;
-export const CARRIAGE_W = 28;
-export const CARRIAGE_Z = 9.2;
-export const CARRIAGE_H = 3.0;
-
-export const DIAL_CENTER: Flat = [58, 15];
-export const DIAL_R = 18.5;
-export const DIAL_Z = 34;
-export const DIAL_H = 10;
-export const DIAL_TOP = DIAL_Z + DIAL_H;
-
-export const FADER_X = -146;
-export const FADER_Y_MIN = -16;
-export const FADER_Y_MAX = 16;
-export const FADER_Z = 24;
-
-export const COUNTER_BODY: Plan = { x: 96, y: -52, w: 42, d: 36, r: 3 };
+export const PLUGIN_HUB: Plan = { x: 96, y: -52, w: 56, d: 38, r: 3 };
 export const PROJECTOR_BODY: Plan = { x: 120, y: 2, w: 40, d: 10, r: 2.5 };
 export const PHONE_BODY: Plan = { x: 128, y: 31, w: 24, d: 9, r: 2 };
 
 const stageExtremes: Point3[] = [
-  [-173 + EXPLODE_VECTORS["stage-01"][0], -36 + EXPLODE_VECTORS["stage-01"][1], 29 + EXPLODE_VECTORS["stage-01"][2]],
-  [-80 + EXPLODE_VECTORS["stage-02"][0], -64 + EXPLODE_VECTORS["stage-02"][1], 37 + EXPLODE_VECTORS["stage-02"][2]],
-  [84 + EXPLODE_VECTORS["stage-03"][0], 34 + EXPLODE_VECTORS["stage-03"][1], DIAL_TOP + EXPLODE_VECTORS["stage-03"][2]],
+  [-166 + EXPLODE_VECTORS["stage-01"][0], -34 + EXPLODE_VECTORS["stage-01"][1], 36 + EXPLODE_VECTORS["stage-01"][2]],
+  [-82 + EXPLODE_VECTORS["stage-02"][0], -64 + EXPLODE_VECTORS["stage-02"][1], 37 + EXPLODE_VECTORS["stage-02"][2]],
+  [84 + EXPLODE_VECTORS["stage-03"][0], 34 + EXPLODE_VECTORS["stage-03"][1], 42 + EXPLODE_VECTORS["stage-03"][2]],
   [156 + EXPLODE_VECTORS["stage-04"][0], -54 + EXPLODE_VECTORS["stage-04"][1], 24 + EXPLODE_VECTORS["stage-04"][2]],
   [160 + EXPLODE_VECTORS["stage-05"][0], 54 + EXPLODE_VECTORS["stage-05"][1], 44 + EXPLODE_VECTORS["stage-05"][2]],
 ];

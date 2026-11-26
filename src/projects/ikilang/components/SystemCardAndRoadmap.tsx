@@ -307,37 +307,6 @@ export function SystemCardAndRoadmap() {
           </div>
         </div>
 
-        <p className="maturity-field-label" style={{ marginBlockEnd: "8px" }}>
-          {nvidiaMigrationGoal.gatesHeading}
-        </p>
-
-        <div className="maturity-list">
-          {nvidiaMigrationGoal.gates.map((gate) => (
-            <article key={gate.id} className="maturity-row">
-              <div className="maturity-row-top">
-                <h3 className="maturity-capability">
-                  <span className="principle-index">{gate.gateNumber} · </span>
-                  {gate.title}
-                </h3>
-                <span className="badge badge-gated">
-                  <Lock size={14} strokeWidth={2} aria-hidden="true" />
-                  <span>Required before cutover</span>
-                </span>
-              </div>
-              <div className="grid-2">
-                <div>
-                  <span className="maturity-field-label">Pass criterion</span>
-                  <p className="maturity-field-text">{gate.requirement}</p>
-                </div>
-                <div>
-                  <span className="maturity-field-label">Protection rule</span>
-                  <p className="maturity-field-text">{gate.guardrail}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
         <p className="closing-principle">{nvidiaMigrationGoal.cutoverRule}</p>
       </section>
 

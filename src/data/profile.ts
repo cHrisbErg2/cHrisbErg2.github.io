@@ -21,9 +21,9 @@ export interface ProfileConfig {
 export const PROFILE: ProfileConfig = {
   name: "Christian Muhirwa",
   roleLine:
-    "Computer Science @ USask · Building live speech-to-text translation for underserved languages.",
+    "Department of Electrical and Computer Engineering · University of Saskatchewan",
   builderSummary:
-    "I build low-latency audio and AI software you can test in a live room — streaming 16 kHz soundboard audio to English phone captions in ~1 second, backed by 451 automated tests and zero user tracking.",
+    "I build low-latency, privacy-preserving speech translation software — streaming live audio into context-aware captions on a zero-install web app today, with future support for expressive voice audio, host-run local models, and media plugins.",
   affiliation: "University of Saskatchewan",
   locationLabel: "Saskatoon, SK",
   githubUrl: "https://github.com/cHrisbErg2",

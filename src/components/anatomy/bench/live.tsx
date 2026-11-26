@@ -4,12 +4,13 @@ import * as React from "react";
 import { IsoFigure, Solid } from "../../iso/draw";
 import type { SolidPaths } from "../../iso/iso-kit";
 import { asksForStillness, follow, useInView, useReadout } from "../../iso/live";
+import { STAGE03_ART, type RecessSpec } from "./geometry";
 import {
   BENCH_CLAUSES,
   BENCH_STAGES,
-  CARRIAGE_REST_OFFSET,
-  DIAL_REST_SEC,
   EXPLODE_VECTORS,
+  LATENCY_REST_SEC,
+  PACKET_REST_OFFSET,
   SPRING,
   STAGGER_CLOSE,
   STAGGER_OPEN,
@@ -26,7 +27,7 @@ const CLAUSE_HOLD_SEC = 2.4;
 const MOST_DT = 1 / 30;
 
 const BENCH_LABEL =
-  "The Live Translation Bench: a stationary base plate holding five modular assemblies. From left to right: Stage 1 soundboard box with moving fader and 16 kilohertz meter; Stage 2 sprung clause carriage on twin rods feeding a tamper-bolted streaming vault; Stage 3 tamper-bolted guardrail cassette and radial dial gauge reading +1.02 seconds under a 1.5 second mark; Stage 4 mechanical clause tally counter and zero-PII ground post; and Stage 5 bench QR tile, sanctuary projector panel, and cradled phone with audio muted.";
+  "Software streaming translation pipeline: Stage 1 audio capture terminal streaming 16 kilohertz audio; Stage 2 context-aware translation core with cloud web runtime and future local host runtime; Stage 3 sealed verification blade and live latency display; Stage 4 zero-PII privacy module and media/hosting plugin dock; and Stage 5 QR web app, projector display, and future expressive audio capsule.";
 
 interface SpringEntry {
   x: number;
@@ -38,14 +39,12 @@ interface SpringEntry {
 interface BenchLiveProps {
   base: React.ReactNode;
   stage01Static: React.ReactNode;
-  stage01FaderCap: React.ReactNode;
   stage01VuBars: SolidPaths[];
   stage02Vault: React.ReactNode;
-  stage02BedBack: React.ReactNode;
-  stage02Rods: React.ReactNode;
-  stage02Carriage: React.ReactNode;
-  stage02StopFront: React.ReactNode;
-  stage03Static: React.ReactNode;
+  stage02BusBase: React.ReactNode;
+  stage02Packet: React.ReactNode;
+  stage03StaticBase: React.ReactNode;
+  stage03MonitorRecess: RecessSpec;
   stage04Static: React.ReactNode;
   stage05Static: React.ReactNode;
   selectedStage?: number | null;
@@ -56,14 +55,12 @@ interface BenchLiveProps {
 export function BenchLive({
   base,
   stage01Static,
-  stage01FaderCap,
   stage01VuBars,
   stage02Vault,
-  stage02BedBack,
-  stage02Rods,
-  stage02Carriage,
-  stage02StopFront,
-  stage03Static,
+  stage02BusBase,
+  stage02Packet,
+  stage03StaticBase,
+  stage03MonitorRecess,
   stage04Static,
   stage05Static,
   selectedStage,
@@ -81,12 +78,8 @@ export function BenchLive({
     "stage-04": null,
     "stage-05": null,
   });
-  const faderRef = React.useRef<SVGGElement | null>(null);
-  const carriageRef = React.useRef<SVGGElement | null>(null);
-  const coilsBackRef = React.useRef<SVGPathElement | null>(null);
-  const coilsLeftFrontRef = React.useRef<SVGPathElement | null>(null);
-  const coilsRightFrontRef = React.useRef<SVGPathElement | null>(null);
-  const needleRef = React.useRef<SVGPathElement | null>(null);
+  const packetRef = React.useRef<SVGGElement | null>(null);
+  const latencyBarRef = React.useRef<SVGRectElement | null>(null);
   const vuRefs = React.useRef<Array<SVGGElement | null>>([]);
   const liveRegionRef = React.useRef<HTMLSpanElement | null>(null);
 
@@ -98,12 +91,8 @@ export function BenchLive({
   const committedStage = controlled ? selectedStage : localSelected;
   const activeStage = hoveredStage !== null ? hoveredStage : committedStage;
 
-  const restPose = React.useMemo(
-    () => dynamicPoseOf(CARRIAGE_REST_OFFSET, BENCH_CLAUSES[0]!.faderNorm, DIAL_REST_SEC),
-    [],
-  );
+  const restPose = React.useMemo(() => dynamicPoseOf(PACKET_REST_OFFSET, LATENCY_REST_SEC), []);
 
-  // Mutable animation state for 60fps DOM ref updates (zero React re-renders per frame)
   const anim = React.useRef({
     clock: 0,
     tourClock: 0,
@@ -114,9 +103,8 @@ export function BenchLive({
     apart: false,
     activeStage: null as number | null,
     clauseIndex: 0,
-    carriageOffset: CARRIAGE_REST_OFFSET,
-    faderNorm: BENCH_CLAUSES[0]!.faderNorm,
-    latencySec: DIAL_REST_SEC,
+    packetOffset: PACKET_REST_OFFSET,
+    latencySec: LATENCY_REST_SEC,
     springs: Object.fromEntries(
       STAGE_IDS.map((id) => [id, { x: 0, v: 0, target: 0, pending: null }]),
     ) as Record<StageId, SpringEntry>,
@@ -130,14 +118,10 @@ export function BenchLive({
 
   const drawFrame = React.useCallback(() => {
     const s = anim.current;
-    const pose = dynamicPoseOf(s.carriageOffset, s.faderNorm, s.latencySec);
+    const pose = dynamicPoseOf(s.packetOffset, s.latencySec);
 
-    faderRef.current?.setAttribute("transform", pose.faderTransform);
-    carriageRef.current?.setAttribute("transform", pose.carriageTransform);
-    coilsBackRef.current?.setAttribute("d", pose.coilsBackD);
-    coilsLeftFrontRef.current?.setAttribute("d", pose.coilsLeftFrontD);
-    coilsRightFrontRef.current?.setAttribute("d", pose.coilsRightFrontD);
-    needleRef.current?.setAttribute("d", pose.needleD);
+    packetRef.current?.setAttribute("transform", pose.packetTransform);
+    latencyBarRef.current?.setAttribute("width", `${pose.latencyBarWidth}`);
 
     const activeClause = BENCH_CLAUSES[s.clauseIndex] ?? BENCH_CLAUSES[0]!;
     vuRefs.current.forEach((node, idx) => {
@@ -198,8 +182,7 @@ export function BenchLive({
       }
 
       const clause = BENCH_CLAUSES[s.clauseIndex] ?? BENCH_CLAUSES[0]!;
-      s.carriageOffset = follow(s.carriageOffset, clause.carriageOffset, dt, 0.24, calm);
-      s.faderNorm = follow(s.faderNorm, clause.faderNorm, dt, 0.18, calm);
+      s.packetOffset = follow(s.packetOffset, clause.packetOffset, dt, 0.24, calm);
       s.latencySec = follow(s.latencySec, clause.latencySec, dt, 0.22, calm);
 
       let springsMoving = false;
@@ -231,9 +214,7 @@ export function BenchLive({
       drawFrame();
 
       const dynamicsMoving =
-        s.carriageOffset !== clause.carriageOffset ||
-        s.faderNorm !== clause.faderNorm ||
-        s.latencySec !== clause.latencySec;
+        s.packetOffset !== clause.packetOffset || s.latencySec !== clause.latencySec;
 
       if (inView && (springsMoving || dynamicsMoving || (s.touring && !calm && !s.engaged))) {
         s.frameId = requestAnimationFrame(tick);
@@ -284,18 +265,15 @@ export function BenchLive({
     [drawFrame, kickLoop],
   );
 
-  // Sync activeStage to anim ref and update readout immediately
   React.useEffect(() => {
     anim.current.activeStage = activeStage;
     drawFrame();
   }, [activeStage, drawFrame]);
 
-  // Sync apart state to spring scheduler
   React.useEffect(() => {
     scheduleApart(apart);
   }, [apart, scheduleApart]);
 
-  // Manage idle tour lifecycle and intersection pausing
   React.useEffect(() => {
     if (!inView) {
       anim.current.touring = false;
@@ -346,7 +324,6 @@ export function BenchLive({
       if (spec) {
         announce(spec.ariaSummary);
       }
-      // Advance sample clause visually on stage tap for crisp mechanical feedback
       anim.current.clauseIndex = index % BENCH_CLAUSES.length;
       kickLoop();
     },
@@ -359,8 +336,8 @@ export function BenchLive({
       const next = !prev;
       announce(
         next
-          ? "Exploded bench into 5 module boundaries; translation and guardrail vaults remain sealed."
-          : "Assembled bench modules back to rest.",
+          ? "Separated pipeline into 5 software module boundaries; translation and privacy cores remain sealed."
+          : "Assembled pipeline modules back to rest.",
       );
       return next;
     });
@@ -381,6 +358,7 @@ export function BenchLive({
   };
 
   const isFocused = activeStage !== null;
+  const meta = STAGE03_ART.latencyScreenMeta;
 
   return (
     <div className="bench-interactive-shell">
@@ -392,7 +370,7 @@ export function BenchLive({
         className="bench-stage"
         role="group"
         tabIndex={0}
-        aria-label="Interactive isometric translation bench. Hover or click modules 1 to 5 to inspect contracts, use arrow keys to step stages, and press Space to explode or assemble seams."
+        aria-label="Interactive isometric software translation pipeline. Hover or click modules 1 to 5 to inspect contracts, use arrow keys to step stages, and press Space to separate or assemble modules."
         data-focus={isFocused ? "" : undefined}
         onPointerMove={(event) => {
           if (event.pointerType === "touch") return;
@@ -433,7 +411,7 @@ export function BenchLive({
             if (!controlled) setLocalSelected(null);
             if (apart) {
               setApart(false);
-              announce("Assembled bench modules back to rest.");
+              announce("Assembled pipeline modules back to rest.");
             }
             return;
           }
@@ -456,7 +434,7 @@ export function BenchLive({
         <IsoFigure width={WIDTH} height={HEIGHT} label={BENCH_LABEL}>
           {base}
 
-          {/* Stage 01: Audio Ingest — Soundboard Box */}
+          {/* Stage 01: Audio Stream Capture Terminal */}
           <g
             ref={bindStage("stage-01")}
             className="bench-piece"
@@ -465,9 +443,6 @@ export function BenchLive({
             data-on={activeStage === 0 ? "" : undefined}
           >
             {stage01Static}
-            <g ref={faderRef} transform={restPose.faderTransform}>
-              {stage01FaderCap}
-            </g>
             <g className="bench-vu-bank">
               {stage01VuBars.map((paths, idx) => (
                 <g
@@ -476,18 +451,13 @@ export function BenchLive({
                     vuRefs.current[idx] = node;
                   }}
                 >
-                  <Solid
-                    paths={paths}
-                    tone="mid"
-                    crease="none"
-                    lit={idx < BENCH_CLAUSES[0]!.vuBars}
-                  />
+                  <Solid paths={paths} tone="mid" crease="none" lit={idx < BENCH_CLAUSES[0]!.vuBars} />
                 </g>
               ))}
             </g>
           </g>
 
-          {/* Stage 02: Sprung Clause Carriage & Sealed Black-Box Vault A */}
+          {/* Stage 02: Context-Aware Translation Core (Cloud/Local Host + Sealed Vault A) */}
           <g
             ref={bindStage("stage-02")}
             className="bench-piece"
@@ -496,18 +466,13 @@ export function BenchLive({
             data-on={activeStage === 1 ? "" : undefined}
           >
             {stage02Vault}
-            {stage02BedBack}
-            <path ref={coilsBackRef} className="iso-line bench-coil" data-tone="lo" d={restPose.coilsBackD} />
-            {stage02Rods}
-            <path ref={coilsLeftFrontRef} className="iso-line bench-coil" data-tone="mid" d={restPose.coilsLeftFrontD} />
-            <g ref={carriageRef} transform={restPose.carriageTransform}>
-              {stage02Carriage}
+            {stage02BusBase}
+            <g ref={packetRef} transform={restPose.packetTransform}>
+              {stage02Packet}
             </g>
-            <path ref={coilsRightFrontRef} className="iso-line bench-coil" data-tone="mid" d={restPose.coilsRightFrontD} />
-            {stage02StopFront}
           </g>
 
-          {/* Stage 03: Sealed Black-Box Cassette B + Plunger + Radial +1.02 s Dial Gauge */}
+          {/* Stage 03: Sealed Guardrail Cassette B + Digital Latency Monitor */}
           <g
             ref={bindStage("stage-03")}
             className="bench-piece"
@@ -515,17 +480,69 @@ export function BenchLive({
             data-stage="2"
             data-on={activeStage === 2 ? "" : undefined}
           >
-            {stage03Static}
-            <path
-              ref={needleRef}
-              className="iso-line bench-needle"
-              data-tone="lit"
-              data-free=""
-              d={restPose.needleD}
-            />
+            {stage03StaticBase}
+            <g className="bench-recess">
+              <defs>
+                <clipPath id={stage03MonitorRecess.clipId}>
+                  <path transform={stage03MonitorRecess.faceTransform} d={stage03MonitorRecess.clipPathD} />
+                </clipPath>
+              </defs>
+              <g clipPath={`url(#${stage03MonitorRecess.clipId})`}>
+                {stage03MonitorRecess.topsD ? <path className="iso-top" d={stage03MonitorRecess.topsD} /> : null}
+                {stage03MonitorRecess.shadesD.map((d, idx) =>
+                  d ? <path key={idx} className="iso-shade" data-shade={idx} d={d} /> : null,
+                )}
+                <g transform={stage03MonitorRecess.backTransform}>
+                  <path className="bench-screen-cavity" d={stage03MonitorRecess.shapeD} />
+                  <rect
+                    className="bench-screen-bar"
+                    x={meta.x0}
+                    y={-(meta.zTopLine + 2.4)}
+                    width={16}
+                    height={2.4}
+                    rx={0.5}
+                  />
+                  <rect
+                    className="bench-screen-bar"
+                    x={meta.x0}
+                    y={-(meta.zTopLine - 4.0)}
+                    width={24}
+                    height={2.2}
+                    rx={0.5}
+                  />
+                  <rect
+                    className="bench-screen-bar"
+                    x={meta.x0}
+                    y={-(meta.zTrack + meta.hBar)}
+                    width={meta.wMax}
+                    height={meta.hBar}
+                    rx={0.8}
+                  />
+                  <rect
+                    ref={latencyBarRef}
+                    className="bench-screen-bar is-active"
+                    x={meta.x0}
+                    y={-(meta.zTrack + meta.hBar)}
+                    width={restPose.latencyBarWidth}
+                    height={meta.hBar}
+                    rx={0.8}
+                  />
+                  <path
+                    className="iso-line"
+                    data-tone="hi"
+                    d={`M${meta.xTarget.toFixed(1)} ${(-(meta.zTrack - 1.5)).toFixed(1)}V${(-(meta.zTrack + meta.hBar + 1.5)).toFixed(1)}`}
+                    data-free=""
+                  />
+                  <path className="iso-line" data-tone="faint" d={stage03MonitorRecess.shapeD} />
+                </g>
+              </g>
+              <g transform={stage03MonitorRecess.faceTransform}>
+                <path className="iso-line" data-tone="lo" d={stage03MonitorRecess.shapeD} />
+              </g>
+            </g>
           </g>
 
-          {/* Stage 04: Mechanical Clause Tally + 0 PII Ground Post */}
+          {/* Stage 04: Zero-PII Privacy Shield + Media/Hosting Plugin Dock */}
           <g
             ref={bindStage("stage-04")}
             className="bench-piece"
@@ -536,7 +553,7 @@ export function BenchLive({
             {stage04Static}
           </g>
 
-          {/* Stage 05: QR Tile + Sanctuary Projector Panel + Cradled Phone */}
+          {/* Stage 05: QR Web App + Projector + Phone + Future Audio Capsule */}
           <g
             ref={bindStage("stage-05")}
             className="bench-piece"

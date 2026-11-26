@@ -33,7 +33,7 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
 
     // Hero isometric TranslationBenchFigure plate, printable A4 PDF link & asset, and Explode/Assemble toggles
     expect(screen.getByText("Fig 1")).toBeInTheDocument();
-    expect(screen.getByText("Live translation bench")).toBeInTheDocument();
+    expect(screen.getByText("Streaming software pipeline")).toBeInTheDocument();
 
     const pdfLink = screen.getByRole("link", {
       name: /Open printable 1-page A4 technical drawing PDF/i,
@@ -49,7 +49,7 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
 
     // Space key on the interactive bench group toggles Assemble -> Explode seams
     const benchGroup = screen.getByRole("group", {
-      name: /Interactive isometric translation bench/i,
+      name: /Interactive isometric software translation pipeline/i,
     });
     benchGroup.focus();
     await user.keyboard(" ");
@@ -278,7 +278,7 @@ describe("ArchitectureExplorer", () => {
     const { container } = render(<ArchitectureExplorer />);
 
     expect(screen.getByText("Fig 2")).toBeInTheDocument();
-    expect(screen.getByText("Live translation bench")).toBeInTheDocument();
+    expect(screen.getByText("Streaming software pipeline")).toBeInTheDocument();
 
     const tablist = screen.getByRole("tablist", { name: /IkiLang 5-layer architecture/i });
     const tabs = within(tablist).getAllByRole("tab");
@@ -376,16 +376,9 @@ describe("SystemCardAndRoadmap", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: /Long-Term Goal: Cloud → NVIDIA Migration Gate/i }),
+      screen.getByRole("heading", { name: /Long-Term Goal: Cloud Web App → Local Host & Plugins/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Language coverage gate/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /License & community trust gate/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Mode isolation gate/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /Live fallback protection gate/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/NVIDIA NeMo & ONNX Runtime/i)).toBeInTheDocument();
     expect(screen.getByText(IKILANG_DATA.nvidiaMigrationGoal.cutoverRule)).toBeInTheDocument();
 
     expect(

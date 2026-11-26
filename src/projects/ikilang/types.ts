@@ -114,14 +114,6 @@ export interface RoadmapPhase {
   exitGate: string;
 }
 
-export interface MigrationGateCriterion {
-  id: string;
-  gateNumber: string;
-  title: string;
-  requirement: string;
-  guardrail: string;
-}
-
 export interface NvidiaMigrationGoal {
   eyebrow: string;
   heading: string;
@@ -132,8 +124,6 @@ export interface NvidiaMigrationGoal {
   longTermTargetLabel: string;
   longTermTargetTitle: string;
   longTermTargetDetail: string;
-  gatesHeading: string;
-  gates: MigrationGateCriterion[];
   cutoverRule: string;
 }
 

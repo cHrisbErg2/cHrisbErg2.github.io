@@ -379,7 +379,7 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
       id: "speech-translation",
       step: 2,
       name: "Streaming translation",
-      role: "Wraps real-time speech recognition and translation behind a swappable Cloud-to-NVIDIA cartridge boundary so providers can be tested offline or rolled back without disrupting rooms.",
+      role: "Runs real-time speech recognition and context-aware translation in a cloud web app today, with a swappable boundary for hosts to run fine-tuned local models in a future standalone app or media plugin.",
       inputContract: "16 kHz mono PCM frames plus active language pair.",
       outputContract: "Translated English clauses with timing data and typed errors.",
       toolsEvaluated: [
@@ -391,11 +391,11 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
         "ONNX Runtime",
       ],
       invariants: [
-        "Provider switches happen only in config or offline tests, never mid-sermon.",
+        "Runs as a live web app today while keeping room for host-run local models.",
         "Continuous streaming prevents ~60 s blackouts during rapid speaking.",
-        "Private prompt logic and routing rules stay decoupled from the UI.",
+        "Future output expands from captions to expressive audio (voice clone, tone, expression).",
       ],
-      trialLimits: "Live trials support RW -> EN captions; EN -> RW and custom fine-tuning stay gated.",
+      trialLimits: "Live trials support RW -> EN captions; EN -> RW, expressive voice audio, and local fine-tuned models stay in development.",
       isBlackBox: true,
     },
     {
@@ -587,55 +587,20 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
   ],
 
   nvidiaMigrationGoal: {
-    eyebrow: "NVIDIA Inception roadmap",
-    heading: "Long-Term Goal: Cloud → NVIDIA Migration Gate",
+    eyebrow: "NVIDIA Inception & local-host roadmap",
+    heading: "Long-Term Goal: Cloud Web App → Local Host & Plugins",
     summary:
-      "Move toward a self-hosted and edge speech stack with NVIDIA NeMo and ONNX Runtime without ever risking active live rooms.",
-    liveBaselineLabel: "Current live baseline · Protected today",
+      "IkiLang runs as a zero-install web app today while building toward an NVIDIA NeMo and ONNX Runtime stack so hosts can choose to run the fine-tuned model and standalone app locally — or connect it as a plug-in for media and hosting providers.",
+    liveBaselineLabel: "Active today · Cloud web app",
     liveBaselineTitle: "Google Gemini Live API",
     liveBaselineDetail:
-      "Proven sub-1.5 s cloud streaming remains the active live path for rooms until a self-hosted stack beats it in real audio tests.",
+      "Real-time cloud streaming delivers context-aware captions over the web with zero attendee tracking while preserving host and listener privacy.",
     longTermTargetLabel: "Long-term target · Self-hosted & edge",
     longTermTargetTitle: "NVIDIA NeMo & ONNX Runtime",
     longTermTargetDetail:
-      "Quantized local inference and NVIDIA Inception-ready tooling evaluated offline behind the swappable Stage 02/03 boundary.",
-    gatesHeading: "Four gates required before any live switchover",
-    gates: [
-      {
-        id: "language-coverage",
-        gateNumber: "01",
-        title: "Language coverage gate",
-        requirement:
-          "Confirm Kinyarwanda and East African speech accuracy on official model cards and consented community audio.",
-        guardrail: "Never assume low-resource language support from general marketing claims.",
-      },
-      {
-        id: "license-community-trust",
-        gateNumber: "02",
-        title: "License & community trust gate",
-        requirement:
-          "Verify open and commercial license terms alongside consent-based community data governance before training or shipping.",
-        guardrail: "Block any dataset or model weight that lacks clear consent or compatible licensing.",
-      },
-      {
-        id: "mode-isolation",
-        gateNumber: "03",
-        title: "Mode isolation gate",
-        requirement:
-          "Keep live streaming, offline batch evaluation, fine-tuning prep, and local inference behind separate Stage 02/03 seams.",
-        guardrail: "Never mix experimental adapters or batch evaluation code into live room servers.",
-      },
-      {
-        id: "live-fallback-protection",
-        gateNumber: "04",
-        title: "Live fallback protection gate",
-        requirement:
-          "Keep the proven Google Gemini Live API path intact behind a feature flag during every local or edge trial.",
-        guardrail: "Refuse live cutover until the NVIDIA path beats < 1.5 s latency and room accuracy targets.",
-      },
-    ],
+      "Quantized local inference and NVIDIA Inception-ready tooling evaluated offline so future hosts can run our fine-tuned model locally — alongside future voice-cloned, tone-preserving audio output.",
     cutoverRule:
-      "Live rooms never beta-test unverified models: cloud streaming stays the protected fallback until all four gates pass in real room acoustics.",
+      "Built to keep every speaker and listener private and accurate: web app first, then host-run local standalone app and media/hosting plug-ins.",
   },
 
   changelog: [

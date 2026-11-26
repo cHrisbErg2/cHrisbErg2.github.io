@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dots, FaceText, Line, Solid, Wire } from "../../iso/draw";
+import { Dots, Line, Solid } from "../../iso/draw";
 import { BASE_ART, STAGE01_ART, STAGE02_ART, STAGE03_ART, STAGE04_ART, STAGE05_ART, type RecessSpec } from "./geometry";
 import { BenchLive } from "./live";
 
@@ -70,27 +70,15 @@ const BASE = (
 const STAGE_01_STATIC = (
   <g key="stage-01-static">
     <Solid paths={STAGE01_ART.plinth} tone="lo" crease="faint" />
-    <Solid paths={STAGE01_ART.cordAnchor} tone="mid" crease="faint" />
-    <Solid paths={STAGE01_ART.xlrBoot} tone="mid" crease="faint" />
-    <Solid paths={STAGE01_ART.xlrBarrel} tone="mid" crease="faint" />
-    <Solid paths={STAGE01_ART.xlrCollar} tone="mid" crease="faint" />
-    <Wire from={STAGE01_ART.cordFrom} via={STAGE01_ART.cordVia} to={STAGE01_ART.cordTo} tone="mid" ends="both" size={0.9} />
+    <Solid paths={STAGE01_ART.ingressPort} tone="mid" crease="faint" />
     <Solid paths={STAGE01_ART.box} tone="mid" crease="faint" inner={<Line d={STAGE01_ART.boxSeam} tone="faint" />} />
     <Line d={STAGE01_ART.boxInset} tone="faint" />
     <Dots points={STAGE01_ART.boxScrews} size={0.45} tone="mid" />
     <Solid paths={STAGE01_ART.outStub} tone="mid" crease="faint" />
-    <Solid paths={STAGE01_ART.faderSlot} tone="lo" crease="none" />
-    <Solid paths={STAGE01_ART.gainCollar} tone="lo" crease="faint" />
-    <Solid paths={STAGE01_ART.gainKnob} tone="mid" crease="faint" />
-    <Line d={STAGE01_ART.gainKnurl} tone="lo" />
-    <Line d={STAGE01_ART.gainPointer} tone="hi" />
-    <Dots points={STAGE01_ART.gainCenterDot} size={0.45} tone="hi" />
-  </g>
-);
-
-const STAGE_01_FADER_CAP = (
-  <g key="stage-01-fader-cap">
-    <Solid paths={STAGE01_ART.faderCapRest} tone="hi" crease="faint" />
+    <Solid paths={STAGE01_ART.displayStand} tone="hi" crease="faint" inner={<Line d={STAGE01_ART.displaySeam} tone="faint" />} />
+    <RecessScreen recess={STAGE01_ART.audioRecess} bars={STAGE01_ART.audioWaveBars} />
+    <Solid paths={STAGE01_ART.deckStrip} tone="lo" crease="faint" />
+    <Line d={STAGE01_ART.deckStripLine} tone="faint" />
   </g>
 );
 
@@ -112,44 +100,28 @@ const STAGE_02_VAULT = (
   </g>
 );
 
-const STAGE_02_BED_BACK = (
-  <g key="stage-02-bed-back">
-    <Solid paths={STAGE02_ART.carriageBed} tone="lo" crease="faint" />
-    <Line d={STAGE02_ART.carriageGrid} tone="faint" />
-    <Solid paths={STAGE02_ART.endStops[0]!} tone="mid" crease="faint" />
+const STAGE_02_BUS_BASE = (
+  <g key="stage-02-bus-base">
+    <Solid paths={STAGE02_ART.busBed} tone="lo" crease="faint" />
+    <Line d={STAGE02_ART.busGrid} tone="faint" />
+    <Solid paths={STAGE02_ART.cloudCartridge} tone="hi" crease="faint" lit />
+    <Line d={STAGE02_ART.cloudLine} tone="lo" />
+    <Solid paths={STAGE02_ART.localCartridge} tone="mid" crease="faint" />
+    <Line d={STAGE02_ART.localLine} tone="faint" />
+    <Solid paths={STAGE02_ART.busChannel} tone="lo" crease="faint" />
   </g>
 );
 
-const STAGE_02_RODS = (
-  <g key="stage-02-rods">
-    {STAGE02_ART.rods.map((paths, idx) => (
-      <Solid key={idx} paths={paths} tone="mid" crease="none" />
-    ))}
+const STAGE_02_PACKET = (
+  <g key="stage-02-packet">
+    <Solid paths={STAGE02_ART.packetBlock} tone="hi" crease="lo" lit />
+    <Line d={STAGE02_ART.packetLine} tone="lo" />
   </g>
 );
 
-const STAGE_02_CARRIAGE = (
-  <g key="stage-02-carriage">
-    {STAGE02_ART.carriageBushings.map((paths, idx) => (
-      <Solid key={idx} paths={paths} tone="mid" crease="faint" />
-    ))}
-    <Dots points={STAGE02_ART.carriageBushDots} size={0.42} tone="mid" />
-    <Solid paths={STAGE02_ART.carriagePlate} tone="mid" crease="faint" />
-    <Solid paths={STAGE02_ART.clauseBlock} tone="hi" crease="lo" />
-    <Line d={STAGE02_ART.clauseBlockOutline} tone="faint" />
-  </g>
-);
-
-const STAGE_02_STOP_FRONT = (
-  <g key="stage-02-stop-front">
-    <Solid paths={STAGE02_ART.endStops[1]!} tone="mid" crease="faint" />
-    <Dots points={STAGE02_ART.endStopDots} size={0.45} tone="mid" />
-  </g>
-);
-
-const STAGE_03_STATIC = (
-  <g key="stage-03-static">
-    {/* Sealed Cassette B */}
+const STAGE_03_STATIC_BASE = (
+  <g key="stage-03-static-base">
+    {/* Sealed Black-Box Cassette B */}
     <Solid paths={STAGE03_ART.cassetteBase} tone="lo" crease="faint" />
     <Solid paths={STAGE03_ART.cassetteBody} tone="hi" crease="lo" inner={<Line d={STAGE03_ART.cassetteSeam} tone="faint" />} />
     <Solid paths={STAGE03_ART.cassetteLatch} tone="mid" crease="faint" />
@@ -159,80 +131,50 @@ const STAGE_03_STATIC = (
       <Solid key={idx} paths={paths} tone="hi" crease="none" />
     ))}
     <Dots points={STAGE03_ART.cassetteStudDots} size={0.45} tone="hi" />
-    {/* Coupling Plunger & Vertical Stand Dial Gauge */}
-    <Solid paths={STAGE03_ART.dialStand} tone="lo" crease="faint" />
-    <Dots points={STAGE03_ART.dialStandDots} size={0.45} tone="mid" />
-    <Solid paths={STAGE03_ART.plungerRodLeft} tone="mid" crease="none" />
-    <Solid paths={STAGE03_ART.plungerCollar} tone="hi" crease="faint" />
-    <Solid paths={STAGE03_ART.plungerRodRight} tone="mid" crease="none" />
-    <Solid paths={STAGE03_ART.plungerSleeve} tone="mid" crease="faint" />
-    <Solid paths={STAGE03_ART.dialCollar} tone="mid" crease="faint" />
-    <Solid paths={STAGE03_ART.dialColumnLow} tone="mid" crease="none" />
-    <Line d={STAGE03_ART.dialColumnSeams} tone="faint" />
-    <Solid paths={STAGE03_ART.dialClamp} tone="mid" crease="faint" />
-    <Solid paths={STAGE03_ART.dialColumnHigh} tone="mid" crease="none" />
-    <Solid paths={STAGE03_ART.dialThumbNeck} tone="mid" crease="none" />
-    <Solid paths={STAGE03_ART.dialThumb} tone="mid" crease="faint" />
-    <Line d={STAGE03_ART.dialThumbKnurl} tone="lo" />
-    <Solid paths={STAGE03_ART.dialLug} tone="mid" crease="faint" />
-    <Solid paths={STAGE03_ART.dialPuck} tone="hi" crease="lo" />
-    <Line d={STAGE03_ART.dialBand} tone="faint" />
-    <Line d={STAGE03_ART.dialKnurl} tone="lo" />
-    <Line d={STAGE03_ART.dialBezel} tone="lo" />
-    <Line d={STAGE03_ART.dialFace} tone="faint" />
-    <Line d={STAGE03_ART.dialMinor} tone="lo" />
-    <Line d={STAGE03_ART.dialMajor} tone="mid" />
-    <Dots points={STAGE03_ART.dialTargetDot} size={0.75} tone="hi" />
-    <Line d={STAGE03_ART.dialHub} tone="mid" />
-    <FaceText transform={STAGE03_ART.dialLabelTransform} size={2.7} tone="lo" anchor="middle">
-      s
-    </FaceText>
-    <Solid paths={STAGE03_ART.dialCrownStem} tone="mid" crease="faint" />
-    <Solid paths={STAGE03_ART.dialCrownCap} tone="mid" crease="faint" />
+    {/* Digital Latency & Privacy Monitor */}
+    <Solid paths={STAGE03_ART.telemetryStand} tone="lo" crease="faint" />
+    <Dots points={STAGE03_ART.telemetryDots} size={0.45} tone="mid" />
+    <Solid paths={STAGE03_ART.telemetryBridge} tone="mid" crease="faint" />
+    <Solid paths={STAGE03_ART.monitorBody} tone="hi" crease="faint" inner={<Line d={STAGE03_ART.monitorSeam} tone="faint" />} />
+    <Solid paths={STAGE03_ART.statusPod} tone="mid" crease="faint" />
   </g>
 );
 
 const STAGE_04_STATIC = (
   <g key="stage-04-static">
     <Solid paths={STAGE04_ART.plinth} tone="lo" crease="faint" />
-    <Solid paths={STAGE04_ART.body} tone="mid" crease="faint" inner={<Line d={STAGE04_ART.bodySeam} tone="faint" />} />
-    <Solid paths={STAGE04_ART.bezel} tone="mid" crease="faint" />
-    {STAGE04_ART.wheels.map((paths, idx) => (
+    <Solid paths={STAGE04_ART.privacyBlock} tone="hi" crease="faint" inner={<Line d={STAGE04_ART.privacySeam} tone="faint" />} />
+    <Line d={STAGE04_ART.privacyRingOuter} tone="mid" />
+    <Line d={STAGE04_ART.privacyRingInner} tone="hi" />
+    <Dots points={STAGE04_ART.privacyCenterDot} size={0.55} tone="hi" />
+    <Solid paths={STAGE04_ART.pluginDock} tone="mid" crease="faint" />
+    {STAGE04_ART.pluginSlots.map((paths, idx) => (
       <Solid key={idx} paths={paths} tone="hi" crease="faint" />
     ))}
-    <Line d={STAGE04_ART.wheelMarks} tone="faint" />
-    <Solid paths={STAGE04_ART.resetNeck} tone="mid" crease="none" />
-    <Solid paths={STAGE04_ART.resetKnob} tone="mid" crease="faint" />
-    <Line d={STAGE04_ART.resetKnurl} tone="lo" />
-    {/* Isolated 0 PII Open Ground Post */}
-    <Solid paths={STAGE04_ART.groundBase} tone="lo" crease="faint" />
-    <Solid paths={STAGE04_ART.groundPost} tone="mid" crease="none" />
-    <Solid paths={STAGE04_ART.groundNut} tone="hi" crease="faint" />
-    <Solid paths={STAGE04_ART.groundCap} tone="mid" crease="faint" />
-    <Line d={STAGE04_ART.groundRing} tone="lo" />
+    <Line d={STAGE04_ART.pluginLines} tone="faint" />
   </g>
 );
 
 const STAGE_05_STATIC = (
   <g key="stage-05-static">
-    {/* Raised QR Tile Plinth */}
+    {/* QR Web App Tile */}
     <Solid paths={STAGE05_ART.qrPlinth} tone="lo" crease="faint" />
     <Solid paths={STAGE05_ART.qrTile} tone="hi" crease="faint" />
     <Line d={STAGE05_ART.qrFinders} tone="hi" />
     <Line d={STAGE05_ART.qrCells} tone="mid" />
-    {/* Sanctuary Projector Panel on Swivel Post */}
+    {/* Sanctuary Projector Screen */}
     <Solid paths={STAGE05_ART.projFoot} tone="lo" crease="faint" />
     <Solid paths={STAGE05_ART.projPost} tone="mid" crease="none" />
     <Solid paths={STAGE05_ART.projKnuckle} tone="mid" crease="faint" />
     <Solid paths={STAGE05_ART.projBody} tone="mid" crease="faint" inner={<Line d={STAGE05_ART.projSeam} tone="faint" />} />
     <RecessScreen recess={STAGE05_ART.projRecess} bars={STAGE05_ART.projBars} />
-    {/* Cradled Visitor Phone in Milled Dock + Muted Audio Lock Cap */}
+    {/* Cradled Visitor Phone + Future Expressive Audio Capsule */}
     <Solid paths={STAGE05_ART.phoneDock} tone="lo" crease="faint" />
     <Solid paths={STAGE05_ART.phoneBody} tone="hi" crease="faint" />
     <RecessScreen recess={STAGE05_ART.phoneRecess} bars={STAGE05_ART.phoneBars} />
-    <Solid paths={STAGE05_ART.muteBlock} tone="mid" crease="faint" />
-    <Solid paths={STAGE05_ART.muteCap} tone="mid" crease="faint" />
-    <Line d={STAGE05_ART.muteSeal} tone="hi" />
+    <Solid paths={STAGE05_ART.audioCapsuleBase} tone="mid" crease="faint" />
+    <Solid paths={STAGE05_ART.audioCapsuleTop} tone="mid" crease="faint" />
+    <Line d={STAGE05_ART.audioCapsuleSeal} tone="hi" />
   </g>
 );
 
@@ -247,14 +189,12 @@ export function BenchArt({ selectedStage, onSelectStage, showExplodeControl = tr
     <BenchLive
       base={BASE}
       stage01Static={STAGE_01_STATIC}
-      stage01FaderCap={STAGE_01_FADER_CAP}
       stage01VuBars={STAGE01_ART.vuBars}
       stage02Vault={STAGE_02_VAULT}
-      stage02BedBack={STAGE_02_BED_BACK}
-      stage02Rods={STAGE_02_RODS}
-      stage02Carriage={STAGE_02_CARRIAGE}
-      stage02StopFront={STAGE_02_STOP_FRONT}
-      stage03Static={STAGE_03_STATIC}
+      stage02BusBase={STAGE_02_BUS_BASE}
+      stage02Packet={STAGE_02_PACKET}
+      stage03StaticBase={STAGE_03_STATIC_BASE}
+      stage03MonitorRecess={STAGE03_ART.monitorRecess}
       stage04Static={STAGE_04_STATIC}
       stage05Static={STAGE_05_STATIC}
       selectedStage={selectedStage}
