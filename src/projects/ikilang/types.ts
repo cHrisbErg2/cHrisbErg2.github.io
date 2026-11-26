@@ -114,6 +114,29 @@ export interface RoadmapPhase {
   exitGate: string;
 }
 
+export interface MigrationGateCriterion {
+  id: string;
+  gateNumber: string;
+  title: string;
+  requirement: string;
+  guardrail: string;
+}
+
+export interface NvidiaMigrationGoal {
+  eyebrow: string;
+  heading: string;
+  summary: string;
+  liveBaselineLabel: string;
+  liveBaselineTitle: string;
+  liveBaselineDetail: string;
+  longTermTargetLabel: string;
+  longTermTargetTitle: string;
+  longTermTargetDetail: string;
+  gatesHeading: string;
+  gates: MigrationGateCriterion[];
+  cutoverRule: string;
+}
+
 export interface ChangelogEntry {
   date: string;
   tag: string;
@@ -145,5 +168,6 @@ export interface IkiLangShowcaseData {
   privacyCommitments: PrivacyCommitment[];
   fieldSpecSteps: FieldSpecStep[];
   roadmapPhases: RoadmapPhase[];
+  nvidiaMigrationGoal: NvidiaMigrationGoal;
   changelog: ChangelogEntry[];
 }

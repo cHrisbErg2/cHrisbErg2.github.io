@@ -379,7 +379,7 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
       id: "speech-translation",
       step: 2,
       name: "Streaming translation",
-      role: "Wraps real-time speech recognition and translation behind a swappable interface so models can be tested or rolled back cleanly.",
+      role: "Wraps real-time speech recognition and translation behind a swappable Cloud-to-NVIDIA cartridge boundary so providers can be tested offline or rolled back without disrupting rooms.",
       inputContract: "16 kHz mono PCM frames plus active language pair.",
       outputContract: "Translated English clauses with timing data and typed errors.",
       toolsEvaluated: [
@@ -391,7 +391,7 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
         "ONNX Runtime",
       ],
       invariants: [
-        "Model switches happen only in config/offline tests, never mid-sermon.",
+        "Provider switches happen only in config or offline tests, never mid-sermon.",
         "Continuous streaming prevents ~60 s blackouts during rapid speaking.",
         "Private prompt logic and routing rules stay decoupled from the UI.",
       ],
@@ -585,6 +585,58 @@ export const IKILANG_DATA: IkiLangShowcaseData = {
       exitGate: "Proven accuracy win over base models using consented local data.",
     },
   ],
+
+  nvidiaMigrationGoal: {
+    eyebrow: "NVIDIA Inception roadmap",
+    heading: "Long-Term Goal: Cloud → NVIDIA Migration Gate",
+    summary:
+      "Move toward a self-hosted and edge speech stack with NVIDIA NeMo and ONNX Runtime without ever risking active live rooms.",
+    liveBaselineLabel: "Current live baseline · Protected today",
+    liveBaselineTitle: "Google Gemini Live API",
+    liveBaselineDetail:
+      "Proven sub-1.5 s cloud streaming remains the active live path for rooms until a self-hosted stack beats it in real audio tests.",
+    longTermTargetLabel: "Long-term target · Self-hosted & edge",
+    longTermTargetTitle: "NVIDIA NeMo & ONNX Runtime",
+    longTermTargetDetail:
+      "Quantized local inference and NVIDIA Inception-ready tooling evaluated offline behind the swappable Stage 02/03 boundary.",
+    gatesHeading: "Four gates required before any live switchover",
+    gates: [
+      {
+        id: "language-coverage",
+        gateNumber: "01",
+        title: "Language coverage gate",
+        requirement:
+          "Confirm Kinyarwanda and East African speech accuracy on official model cards and consented community audio.",
+        guardrail: "Never assume low-resource language support from general marketing claims.",
+      },
+      {
+        id: "license-community-trust",
+        gateNumber: "02",
+        title: "License & community trust gate",
+        requirement:
+          "Verify open and commercial license terms alongside consent-based community data governance before training or shipping.",
+        guardrail: "Block any dataset or model weight that lacks clear consent or compatible licensing.",
+      },
+      {
+        id: "mode-isolation",
+        gateNumber: "03",
+        title: "Mode isolation gate",
+        requirement:
+          "Keep live streaming, offline batch evaluation, fine-tuning prep, and local inference behind separate Stage 02/03 seams.",
+        guardrail: "Never mix experimental adapters or batch evaluation code into live room servers.",
+      },
+      {
+        id: "live-fallback-protection",
+        gateNumber: "04",
+        title: "Live fallback protection gate",
+        requirement:
+          "Keep the proven Google Gemini Live API path intact behind a feature flag during every local or edge trial.",
+        guardrail: "Refuse live cutover until the NVIDIA path beats < 1.5 s latency and room accuracy targets.",
+      },
+    ],
+    cutoverRule:
+      "Live rooms never beta-test unverified models: cloud streaming stays the protected fallback until all four gates pass in real room acoustics.",
+  },
 
   changelog: [
     {

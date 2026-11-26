@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Calendar,
   CheckCircle2,
+  Cpu,
   FlaskConical,
   HeartHandshake,
   Lock,
@@ -49,6 +50,7 @@ export function SystemCardAndRoadmap() {
   const privacyHeadingId = useId();
   const fieldHeadingId = useId();
   const roadmapHeadingId = useId();
+  const migrationHeadingId = useId();
   const changelogHeadingId = useId();
 
   const matrix = IKILANG_DATA.maturityMatrix;
@@ -69,7 +71,7 @@ export function SystemCardAndRoadmap() {
     { id: "gated", label: MATURITY_LABELS.gated, count: counts.gated },
   ];
 
-  const { shortcomingsAndHumanBoundary } = IKILANG_DATA;
+  const { shortcomingsAndHumanBoundary, nvidiaMigrationGoal } = IKILANG_DATA;
 
   return (
     <div className="section-stack system-card-stack">
@@ -276,7 +278,70 @@ export function SystemCardAndRoadmap() {
         </ol>
       </section>
 
-      {/* 6. Recent Engineering Log */}
+      {/* 6. Long-Term Goal: Cloud -> NVIDIA Migration Gate */}
+      <section className="card" aria-labelledby={migrationHeadingId}>
+        <div className="section-heading-row">
+          <div>
+            <span className="eyebrow">
+              <Cpu size={14} strokeWidth={2} aria-hidden="true" />
+              {nvidiaMigrationGoal.eyebrow}
+            </span>
+            <h2 id={migrationHeadingId} className="section-title">
+              {nvidiaMigrationGoal.heading}
+            </h2>
+            <p className="section-lead">{nvidiaMigrationGoal.summary}</p>
+          </div>
+        </div>
+
+        <div className="grid-2" style={{ marginBlockEnd: "22px" }}>
+          <div className="principle-column">
+            <span className="principle-index">{nvidiaMigrationGoal.liveBaselineLabel}</span>
+            <h3 className="principle-title">{nvidiaMigrationGoal.liveBaselineTitle}</h3>
+            <p className="principle-detail">{nvidiaMigrationGoal.liveBaselineDetail}</p>
+          </div>
+
+          <div className="principle-column">
+            <span className="principle-index">{nvidiaMigrationGoal.longTermTargetLabel}</span>
+            <h3 className="principle-title">{nvidiaMigrationGoal.longTermTargetTitle}</h3>
+            <p className="principle-detail">{nvidiaMigrationGoal.longTermTargetDetail}</p>
+          </div>
+        </div>
+
+        <p className="maturity-field-label" style={{ marginBlockEnd: "8px" }}>
+          {nvidiaMigrationGoal.gatesHeading}
+        </p>
+
+        <div className="maturity-list">
+          {nvidiaMigrationGoal.gates.map((gate) => (
+            <article key={gate.id} className="maturity-row">
+              <div className="maturity-row-top">
+                <h3 className="maturity-capability">
+                  <span className="principle-index">{gate.gateNumber} · </span>
+                  {gate.title}
+                </h3>
+                <span className="badge badge-gated">
+                  <Lock size={14} strokeWidth={2} aria-hidden="true" />
+                  <span>Required before cutover</span>
+                </span>
+              </div>
+              <div className="grid-2">
+                <div>
+                  <span className="maturity-field-label">Pass criterion</span>
+                  <p className="maturity-field-text">{gate.requirement}</p>
+                </div>
+                <div>
+                  <span className="maturity-field-label">Protection rule</span>
+                  <p className="maturity-field-text">{gate.guardrail}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p className="closing-principle">{nvidiaMigrationGoal.cutoverRule}</p>
+      </section>
+
+      {/* 7. Recent Engineering Log */}
       <section className="card" aria-labelledby={changelogHeadingId}>
         <div className="section-heading-row">
           <div>
