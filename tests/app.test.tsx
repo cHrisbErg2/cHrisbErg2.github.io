@@ -39,9 +39,22 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     expect(screen.getByText(/Flagship case study/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IkiLang / KinyaVoice" })).toBeInTheDocument();
 
-    // Hero isometric TranslationBenchFigure plate, printable A4 PDF link & asset, and Explode/Assemble toggles
-    expect(screen.getByText("Fig 1")).toBeInTheDocument();
-    expect(screen.getByText("Streaming software pipeline")).toBeInTheDocument();
+    // Hero contains Christian's personal biography and must not display Fig 1 or IkiLang benchmark metrics
+    const heroSection = document.querySelector(".overview-hero") as HTMLElement;
+    expect(heroSection).not.toBeNull();
+    expect(within(heroSection).queryByText("Fig 1")).not.toBeInTheDocument();
+    expect(
+      heroSection.querySelector('[aria-label="Measured IkiLang pipeline benchmarks"]'),
+    ).toBeNull();
+
+    // Flagship #projects section holds the IkiLang card paired with Fig 1 and the 4-metric proof strip
+    const projectsSection = document.getElementById("projects") as HTMLElement;
+    expect(projectsSection).not.toBeNull();
+    expect(within(projectsSection).getByText("Fig 1")).toBeInTheDocument();
+    expect(within(projectsSection).getByText("Streaming software pipeline")).toBeInTheDocument();
+    expect(
+      projectsSection.querySelector('[aria-label="Measured IkiLang pipeline benchmarks"]'),
+    ).not.toBeNull();
 
     const pdfLink = screen.getByRole("link", {
       name: /Open printable 1-page A4 technical drawing PDF/i,

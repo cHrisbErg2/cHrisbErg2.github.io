@@ -5,6 +5,7 @@
  */
 
 #main-content,
+#projects,
 #ikilang-story,
 #ikilang-labs,
 #ikilang-system-card {
@@ -33,23 +34,20 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Portfolio Overview Split Hero + Isometric Translation Bench ---------- */
+/* ---------- Personal Biography Hero ---------- */
 .overview-hero {
   gap: 20px;
 }
 
-.overview-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
-  gap: clamp(24px, 4vw, 40px);
-  align-items: center;
-}
-
-.hero-copy-col {
+.overview-bio-shell {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  min-inline-size: 0;
+  gap: 16px;
+  max-inline-size: 74ch;
+}
+
+.overview-hero .hero-title {
+  max-inline-size: 22ch;
 }
 
 .overview-identity-row {
@@ -63,11 +61,11 @@
   font-size: clamp(1.0625rem, 1.65vw, 1.25rem);
   font-weight: 700;
   color: var(--ink);
-  max-inline-size: 48ch;
+  max-inline-size: 64ch;
   line-height: 1.42;
 }
 
-/* Compact 4-Metric Proof Strip inside Hero */
+/* Compact 4-Metric Proof Strip */
 .hero-proof-strip {
   margin: 4px 0 2px;
   padding: 12px 14px;
@@ -77,6 +75,24 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px 14px;
+}
+
+.flagship-showcase-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  gap: clamp(20px, 3vw, 32px);
+  align-items: start;
+}
+
+.flagship-visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-inline-size: 0;
+}
+
+.flagship-proof-strip {
+  margin: 0;
 }
 
 .hero-proof-item {
@@ -192,8 +208,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 22px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
 }
 
 .flagship-highlights li {
@@ -1957,7 +1973,7 @@
 
 /* ---------- Responsive Breakpoints (320px Mobile WebViews -> Desktop) ---------- */
 @media (max-width: 960px) {
-  .overview-hero-grid {
+  .flagship-showcase-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 

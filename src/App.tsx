@@ -5,6 +5,7 @@ import {
   ExternalLink,
   FlaskConical,
   Github,
+  Mail,
   MapPin,
 } from "lucide-react";
 import { TranslationBenchFigure } from "./components/anatomy/bench/TranslationBenchFigure";
@@ -90,143 +91,151 @@ export function App() {
           <IkiLangCaseStudy onBackToOverview={() => navigate("home")} />
         ) : (
           <div className="section-stack">
-            {/* Split 2-Column Graphical Hero */}
+            {/* Personal Biography Hero */}
             <section className="hero-panel overview-hero" aria-labelledby="overview-hero-heading">
-              <div className="overview-hero-grid">
-                <div className="hero-copy-col">
-                  <div className="overview-identity-row hero-stagger-1">
-                    <span className="eyebrow">{PROFILE.affiliation}</span>
-                    <span className="badge">
-                      <MapPin size={13} strokeWidth={2} aria-hidden="true" />
-                      <span>{PROFILE.locationLabel}</span>
-                    </span>
-                  </div>
-
-                  <h1 id="overview-hero-heading" className="hero-title hero-stagger-1">
-                    {PROFILE.name}
-                  </h1>
-                  <p className="overview-role-line hero-stagger-2">{PROFILE.roleLine}</p>
-                  <p className="hero-lead hero-stagger-2">{PROFILE.builderSummary}</p>
-
-                  {/* Compact Proof Metrics */}
-                  <dl className="hero-proof-strip hero-stagger-3" aria-label="Measured pipeline benchmarks">
-                    {HERO_PROOF_METRICS.map((metric) => (
-                      <div key={metric.label} className="hero-proof-item">
-                        <dt className="hero-proof-label">{metric.label}</dt>
-                        <dd className="hero-proof-value">{metric.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  <ul className="pill-list hero-stagger-3" aria-label="Core engineering focus areas">
-                    {PROFILE.focusAreas.map((area) => (
-                      <li key={area} className="tech-pill">
-                        {area}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="hero-actions hero-stagger-4">
-                    <button
-                      type="button"
-                      className="button button-primary has-trailing-icon"
-                      onClick={() => navigate("ikilang")}
-                    >
-                      <span>Explore IkiLang case study</span>
-                      <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
-                    </button>
-                    <a
-                      className="button button-secondary has-leading-icon"
-                      href={PROFILE.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github size={17} strokeWidth={2} aria-hidden="true" />
-                      <span>View GitHub profile</span>
-                    </a>
-                  </div>
+              <div className="overview-bio-shell">
+                <div className="overview-identity-row hero-stagger-1">
+                  <span className="eyebrow">{PROFILE.affiliation}</span>
+                  <span className="badge">
+                    <MapPin size={13} strokeWidth={2} aria-hidden="true" />
+                    <span>{PROFILE.locationLabel}</span>
+                  </span>
                 </div>
 
-                <div className="hero-rig-col hero-stagger-4">
-                  <TranslationBenchFigure variant="hero" onOpenCaseStudy={() => navigate("ikilang")} />
+                <h1 id="overview-hero-heading" className="hero-title hero-stagger-1">
+                  {PROFILE.name}
+                </h1>
+                <p className="overview-role-line hero-stagger-2">{PROFILE.roleLine}</p>
+                <p className="hero-lead hero-stagger-2">{PROFILE.builderSummary}</p>
+
+                <ul className="pill-list hero-stagger-3" aria-label="Core engineering focus areas">
+                  {PROFILE.focusAreas.map((area) => (
+                    <li key={area} className="tech-pill">
+                      {area}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="hero-actions hero-stagger-4">
+                  <a
+                    className="button button-primary has-trailing-icon"
+                    href="#projects"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  >
+                    <span>Explore projects</span>
+                    <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
+                  </a>
+                  <a
+                    className="button button-secondary has-leading-icon"
+                    href={PROFILE.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github size={17} strokeWidth={2} aria-hidden="true" />
+                    <span>View GitHub profile</span>
+                  </a>
+                  <a className="button button-secondary has-leading-icon" href={`mailto:${PROFILE.email}`}>
+                    <Mail size={17} strokeWidth={2} aria-hidden="true" />
+                    <span>Get in touch</span>
+                  </a>
                 </div>
               </div>
             </section>
 
-            {/* Flagship Interactive Project Card */}
+            {/* Flagship Interactive Project Card + Fig 1 & Benchmarks */}
             {flagshipProject ? (
-              <section aria-labelledby="flagship-section-heading">
+              <section id="projects" aria-labelledby="flagship-section-heading">
                 <div className="overview-section-header">
-                  <span className="eyebrow">Flagship case study</span>
+                  <span className="eyebrow">Selected portfolios · Flagship case study</span>
                   <h2 id="flagship-section-heading" className="section-title">
                     Live low-resource speech translation
                   </h2>
                 </div>
 
-                <article className="card interactive-card flagship-card">
-                  <div className="flagship-top">
-                    <div>
-                      <span className="eyebrow">{flagshipProject.badge}</span>
-                      <h3 className="flagship-heading">{flagshipProject.name}</h3>
-                      <p className="flagship-subtitle">{flagshipProject.subtitle}</p>
+                <div className="flagship-showcase-grid">
+                  <article className="card interactive-card flagship-card">
+                    <div className="flagship-top">
+                      <div>
+                        <span className="eyebrow">{flagshipProject.badge}</span>
+                        <h3 className="flagship-heading">{flagshipProject.name}</h3>
+                        <p className="flagship-subtitle">{flagshipProject.subtitle}</p>
+                      </div>
+                      <span className="badge badge-validating">
+                        <FlaskConical size={14} strokeWidth={2} aria-hidden="true" />
+                        <span>{flagshipProject.statusLabel}</span>
+                      </span>
                     </div>
-                    <span className="badge badge-validating">
-                      <FlaskConical size={14} strokeWidth={2} aria-hidden="true" />
-                      <span>{flagshipProject.statusLabel}</span>
-                    </span>
-                  </div>
 
-                  <p className="flagship-summary">{flagshipProject.summary}</p>
+                    <p className="flagship-summary">{flagshipProject.summary}</p>
 
-                  <ul className="flagship-highlights">
-                    {flagshipProject.highlights.map((highlight) => (
-                      <li key={highlight}>
-                        <CheckCircle2 size={16} strokeWidth={2} aria-hidden="true" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="flagship-highlights">
+                      {flagshipProject.highlights.map((highlight) => (
+                        <li key={highlight}>
+                          <CheckCircle2 size={16} strokeWidth={2} aria-hidden="true" />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                  <div className="flagship-inside-strip">
-                    <strong>Interactive walkthroughs inside:</strong>
-                    <span>65 s latency chart</span>
-                    <span aria-hidden="true">·</span>
-                    <span>Phone QR &amp; projector preview</span>
-                    <span aria-hidden="true">·</span>
-                    <span>5-stage schematic</span>
-                    <span aria-hidden="true">·</span>
-                    <span>What works vs. gated</span>
-                  </div>
+                    <div className="flagship-inside-strip">
+                      <strong>Interactive walkthroughs inside:</strong>
+                      <span>65 s latency chart</span>
+                      <span aria-hidden="true">·</span>
+                      <span>Phone QR &amp; projector preview</span>
+                      <span aria-hidden="true">·</span>
+                      <span>5-stage schematic</span>
+                      <span aria-hidden="true">·</span>
+                      <span>What works vs. gated</span>
+                    </div>
 
-                  <ul className="pill-list" aria-label="IkiLang public stack highlights">
-                    {flagshipProject.tags.map((tag) => (
-                      <li key={tag} className="tech-pill tech-pill-strong">
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="pill-list" aria-label="IkiLang public stack highlights">
+                      {flagshipProject.tags.map((tag) => (
+                        <li key={tag} className="tech-pill tech-pill-strong">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <div className="flagship-footer">
-                    <button
-                      type="button"
-                      className="button button-primary has-trailing-icon"
-                      onClick={() => navigate("ikilang")}
+                    <div className="flagship-footer">
+                      <button
+                        type="button"
+                        className="button button-primary has-trailing-icon"
+                        onClick={() => navigate("ikilang")}
+                      >
+                        <span>{flagshipProject.ctaLabel}</span>
+                        <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </article>
+
+                  <div className="flagship-visual-col">
+                    <TranslationBenchFigure variant="hero" onOpenCaseStudy={() => navigate("ikilang")} />
+                    <dl
+                      className="hero-proof-strip flagship-proof-strip"
+                      aria-label="Measured IkiLang pipeline benchmarks"
                     >
-                      <span>{flagshipProject.ctaLabel}</span>
-                      <ArrowRight size={17} strokeWidth={2} aria-hidden="true" />
-                    </button>
+                      {HERO_PROOF_METRICS.map((metric) => (
+                        <div key={metric.label} className="hero-proof-item">
+                          <dt className="hero-proof-label">{metric.label}</dt>
+                          <dd className="hero-proof-value">{metric.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
                   </div>
-                </article>
+                </div>
               </section>
             ) : null}
 
-            {/* Modular More Public Work Section */}
+            {/* Modular More Projects Section */}
             {externalProjects.length > 0 ? (
               <section aria-labelledby="more-work-heading">
                 <div className="overview-section-header">
-                  <span className="eyebrow">More public work</span>
+                  <span className="eyebrow">More projects</span>
                   <h2 id="more-work-heading" className="section-title">
-                    Open repositories
+                    Side projects &amp; explorations
                   </h2>
                 </div>
 
