@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -8,6 +11,9 @@ import { OperatorAudiencePreview } from "../src/projects/ikilang/components/Oper
 import { ArchitectureExplorer } from "../src/projects/ikilang/components/ArchitectureExplorer";
 import { SystemCardAndRoadmap } from "../src/projects/ikilang/components/SystemCardAndRoadmap";
 
+const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = path.resolve(TEST_DIR, "..");
+
 describe("Portfolio App, Routing, Theme & Accessibility", () => {
   beforeEach(() => {
     window.localStorage.clear();
@@ -17,7 +23,7 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 
-  it("renders graphical overview with interactive HeroSignalRig, flagship IkiLang card, AgrI-For-Prairie repo, and navigates to the case study", async () => {
+  it("renders graphical overview with interactive TranslationBenchFigure, flagship IkiLang card, AgrI-For-Prairie repo, and navigates to the case study", async () => {
     const user = userEvent.setup();
     render(<App />);
 
@@ -25,14 +31,37 @@ describe("Portfolio App, Routing, Theme & Accessibility", () => {
     expect(screen.getByText(/Flagship case study/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IkiLang / KinyaVoice" })).toBeInTheDocument();
 
-    // Hero signal rig Play/Pause & room preview selector work cleanly
-    const rigToggle = screen.getByRole("button", { name: /Pause demo|Play demo/i });
-    const wasPressed = rigToggle.getAttribute("aria-pressed") === "true";
-    await user.click(rigToggle);
-    expect(rigToggle).toHaveAttribute("aria-pressed", wasPressed ? "false" : "true");
+    // Hero isometric TranslationBenchFigure plate, printable A4 PDF link & asset, and Explode/Assemble toggles
+    expect(screen.getByText("Fig 1")).toBeInTheDocument();
+    expect(screen.getByText("Live translation bench")).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /Show Clinic reception example/i }));
-    expect(screen.getByText(/Consent/i)).toBeInTheDocument();
+    const pdfLink = screen.getByRole("link", {
+      name: /Open printable 1-page A4 technical drawing PDF/i,
+    });
+    expect(pdfLink).toHaveAttribute("href", "/ikilang-bench-drawing-a4.pdf");
+    expect(fs.existsSync(path.join(REPO_ROOT, "public", "ikilang-bench-drawing-a4.pdf"))).toBe(true);
+
+    const explodeBtn = screen.getByRole("button", { name: /Explode seams/i });
+    expect(explodeBtn).toHaveAttribute("aria-pressed", "false");
+    await user.click(explodeBtn);
+    const assembleBtn = screen.getByRole("button", { name: /Assemble/i });
+    expect(assembleBtn).toHaveAttribute("aria-pressed", "true");
+
+    // Space key on the interactive bench group toggles Assemble -> Explode seams
+    const benchGroup = screen.getByRole("group", {
+      name: /Interactive isometric translation bench/i,
+    });
+    benchGroup.focus();
+    await user.keyboard(" ");
+    expect(screen.getByRole("button", { name: /Explode seams/i })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    await user.keyboard(" ");
+    expect(screen.getByRole("button", { name: /Assemble/i })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
 
     const agriLink = screen.getByRole("link", { name: /View repository on GitHub/i });
     expect(agriLink).toHaveAttribute("href", "https://github.com/cHrisbErg2/AgrI-For-Prairie");
@@ -244,36 +273,59 @@ describe("OperatorAudiencePreview", () => {
 });
 
 describe("ArchitectureExplorer", () => {
-  it("navigates 5 stages via click and keyboard and surfaces black-box disclosure on private layers", async () => {
+  it("syncs 5 stages two-way between tablist and 3D bench groups and surfaces black-box disclosure on Stages 2 & 3", async () => {
     const user = userEvent.setup();
-    render(<ArchitectureExplorer />);
+    const { container } = render(<ArchitectureExplorer />);
+
+    expect(screen.getByText("Fig 2")).toBeInTheDocument();
+    expect(screen.getByText("Live translation bench")).toBeInTheDocument();
 
     const tablist = screen.getByRole("tablist", { name: /IkiLang 5-layer architecture/i });
     const tabs = within(tablist).getAllByRole("tab");
     expect(tabs).toHaveLength(5);
 
-    // Stage 1 starts selected
-    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audio ingest/i);
+    const benchStages = Array.from(container.querySelectorAll<SVGGElement>("[data-stage]"));
+    expect(benchStages).toHaveLength(5);
 
-    // Keyboard ArrowRight moves to Stage 2 (Black-Boxed)
+    // Stage 1 starts selected in both tablist and 3D bench
+    expect(tabs[0]).toHaveAttribute("aria-selected", "true");
+    expect(benchStages[0]).toHaveAttribute("data-on");
+    expect(benchStages[1]).not.toHaveAttribute("data-on");
+    const panelLayer1 = screen.getByRole("tabpanel");
+    expect(panelLayer1).toHaveTextContent(/Audio ingest/i);
+    expect(panelLayer1).toHaveTextContent(/Public interface boundary/i);
+
+    // Keyboard ArrowRight moves to Stage 2 (Black-Boxed) and lights [data-stage="1"]
     tabs[0].focus();
     await user.keyboard("{ArrowRight}");
     expect(tabs[1]).toHaveAttribute("aria-selected", "true");
+    expect(benchStages[1]).toHaveAttribute("data-on");
+    expect(benchStages[0]).not.toHaveAttribute("data-on");
     const panelLayer2 = screen.getByRole("tabpanel");
     expect(panelLayer2).toHaveTextContent(/Streaming translation/i);
     expect(panelLayer2).toHaveTextContent(/Black-boxed core internals/i);
     expect(panelLayer2).toHaveTextContent(IKILANG_DATA.blackBoxNotice);
 
-    // Clicking Stage 5 switches to Audience UI
+    // Clicking [data-stage="2"] in the 3D bench syncs back to Stage 3 tab & panel (Black-Boxed)
+    fireEvent.click(benchStages[2]);
+    expect(tabs[2]).toHaveAttribute("aria-selected", "true");
+    expect(benchStages[2]).toHaveAttribute("data-on");
+    const panelLayer3 = screen.getByRole("tabpanel");
+    expect(panelLayer3).toHaveTextContent(/Quality & context/i);
+    expect(panelLayer3).toHaveTextContent(/Black-boxed core internals/i);
+    expect(panelLayer3).toHaveTextContent(IKILANG_DATA.blackBoxNotice);
+
+    // Clicking Stage 5 tab switches to Audience UI and lights [data-stage="4"]
     await user.click(tabs[4]);
     expect(tabs[4]).toHaveAttribute("aria-selected", "true");
+    expect(benchStages[4]).toHaveAttribute("data-on");
     expect(screen.getByRole("tabpanel")).toHaveTextContent(/Audience UI/i);
+    expect(screen.getByRole("tabpanel")).toHaveTextContent(/Public interface boundary/i);
   });
 });
 
 describe("SystemCardAndRoadmap", () => {
-  it("filters maturity matrix cleanly and renders limits, cryptographic honesty, setup, rollout, and changelog", async () => {
+  it("filters maturity matrix cleanly and renders limits, cryptographic honesty, setup, rollout, NVIDIA migration gate, and changelog", async () => {
     const user = userEvent.setup();
     render(<SystemCardAndRoadmap />);
 
@@ -309,7 +361,7 @@ describe("SystemCardAndRoadmap", () => {
       screen.getByRole("heading", { name: /Live sanctuary RW -> EN trials/i }),
     ).toBeInTheDocument();
 
-    // Honest boundaries, privacy, setup, rollout & changelog headings present
+    // Honest boundaries, privacy, setup, rollout, NVIDIA Migration Gate & changelog headings present
     expect(
       screen.getByRole("heading", {
         name: /Limits & when humans remain essential/i,
@@ -322,6 +374,20 @@ describe("SystemCardAndRoadmap", () => {
     expect(
       screen.getByRole("heading", { name: /4-phase rollout/i }),
     ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("heading", { name: /Long-Term Goal: Cloud → NVIDIA Migration Gate/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Language coverage gate/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /License & community trust gate/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Mode isolation gate/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Live fallback protection gate/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(IKILANG_DATA.nvidiaMigrationGoal.cutoverRule)).toBeInTheDocument();
+
     expect(
       screen.getByRole("heading", { name: /Recent engineering log/i }),
     ).toBeInTheDocument();
